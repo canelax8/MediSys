@@ -1,0 +1,145 @@
+﻿<Window x:Class="Proyecto_MediSys.DashboardWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+
+        xmlns:controls="clr-namespace:Proyecto_MediSys.Controls"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+
+        mc:Ignorable="d"
+        Title="MediSys Dashboard"
+        Height="800"
+        Width="1400"
+        WindowStartupLocation="CenterScreen"
+        Background="#F5F7FA">
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="230"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Barra Superior -->
+
+        <Border Grid.Row="0"
+                Grid.ColumnSpan="2"
+                Background="#2563EB">
+
+            <Grid>
+
+                <!-- COLUMNAS DE LA BARRA SUPERIOR -->
+
+                <Grid.ColumnDefinitions>
+
+                    <!-- Logo -->
+                    <ColumnDefinition Width="320"/>
+
+                    <!-- Espacio libre -->
+                    <ColumnDefinition Width="*"/>
+
+                    <!-- Fecha -->
+                    <ColumnDefinition Width="140"/>
+
+                    <!-- Hora -->
+                    <ColumnDefinition Width="100"/>
+
+                    <!-- Usuario -->
+                    <ColumnDefinition Width="180"/>
+
+                    <!-- Tema -->
+                    <ColumnDefinition Width="60"/>
+
+                </Grid.ColumnDefinitions>
+
+                <!-- LOGO DEL SISTEMA -->
+
+                <TextBlock
+                    Grid.Column="0"
+                    Text="🏥 MediSys"
+                    Foreground="White"
+                    FontSize="24"
+                    FontWeight="Bold"
+                    VerticalAlignment="Center"
+                    Margin="20,0"/>
+
+                <!-- FECHA -->
+
+                <TextBlock
+                    Grid.Column="2"
+                    x:Name="txtFecha"
+                    Text="17/06/2026"
+                    Foreground="White"
+                    FontSize="14"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"/>
+
+                <!-- HORA -->
+
+                <TextBlock
+                    Grid.Column="3"
+                    x:Name="txtHora"
+                    Text="10:35"
+                    Foreground="White"
+                    FontSize="14"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"/>
+
+                <!-- USUARIO -->
+
+                <TextBlock
+                    Grid.Column="4"
+                    x:Name="txtUsuario"
+                    Text="Administrador"
+                    Foreground="White"
+                    FontSize="15"
+                    FontWeight="SemiBold"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"/>      
+
+                <!-- BOTÓN MODO OSCURO -->
+
+                <Button
+                    Grid.Column="5"
+                    x:Name="btnTema"
+                    Width="40"
+                    Height="40"
+                    Content="🌙"
+                    Margin="5"
+                    FontSize="16"/>
+
+                </Grid>
+
+        </Border>
+
+        <!-- Aquí se carga el Sidebar -->
+
+        <controls:SidebarMenu
+           x:Name="Sidebar"
+           Grid.Row="1"
+           Grid.Column="0"/>
+
+        <!-- Aquí se cargan las páginas -->
+
+        <materialDesign:DialogHost
+            x:Name="DialogHostPrincipal"
+            Identifier="DialogHostPrincipal"
+            Grid.Row="1"
+            Grid.Column="1">
+
+            <Frame
+            x:Name="MainFrame"
+            Margin="20"
+            NavigationUIVisibility="Hidden"/>
+
+        </materialDesign:DialogHost>
+
+    </Grid>
+
+</Window>

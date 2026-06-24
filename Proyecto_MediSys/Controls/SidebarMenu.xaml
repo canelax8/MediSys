@@ -1,0 +1,191 @@
+﻿<UserControl x:Class="Proyecto_MediSys.Controls.SidebarMenu"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Grid>
+
+        <Border Background="#1E293B">
+
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+
+                <StackPanel Margin="10">
+
+                    <!-- ========================================= -->
+                    <!-- TITULO -->
+                    <!-- ========================================= -->
+
+                    <TextBlock
+                        Text="MENÚ"
+                        FontSize="22"
+                        FontWeight="Bold"
+                        Foreground="White"
+                        Margin="10"/>
+
+                    <!-- ========================================= -->
+                    <!-- DASHBOARD -->
+                    <!-- ========================================= -->
+
+                    <Button
+                        x:Name="btnDashboard"
+                        Content="🏠 Dashboard"
+                        Height="45"
+                        Margin="5"
+                        Click="btnDashboard_Click"/>
+
+                    <!-- ========================================= -->
+                    <!-- MANTENIMIENTOS -->
+                    <!-- ========================================= -->
+
+                    <Expander
+                        Header="📁 MANTENIMIENTOS"
+                        Margin="5"
+                        Foreground="White"
+                        FontWeight="Bold">
+
+                        <StackPanel Margin="15,5">
+
+                            <Button
+                                x:Name="btnUsuarios"
+                                Content="👥 Usuarios"
+                                Margin="0,3"
+                                Click="btnUsuarios_Click"/>
+
+                            <Button
+                                x:Name="btnPacientes"
+                                Content="👤 Pacientes"
+                                Margin="0,3"
+                                Click="btnPacientes_Click"/>
+
+                            <Button
+                                x:Name="btnMedicos"
+                                Content="👨‍⚕️ Médicos"
+                                Margin="0,3"
+                                Click="btnMedicos_Click"/>
+
+                            <Button
+                                x:Name="btnEspecialidades"
+                                Content="🏥 Especialidades"
+                                Margin="0,3"
+                                Click="btnEspecialidades_Click"/>
+
+                            <Button
+                                x:Name="btnMedicamentos"
+                                Content="💊 Medicamentos"
+                                Margin="0,3"
+                                Click="btnMedicamentos_Click"/>
+
+                        </StackPanel>
+
+                    </Expander>
+
+                    <!-- ========================================= -->
+                    <!-- PROCESOS -->
+                    <!-- ========================================= -->
+
+                    <Expander
+                        Header="⚙ PROCESOS"
+                        Margin="5"
+                        Foreground="White"
+                        FontWeight="Bold">
+
+                        <StackPanel Margin="15,5">
+
+                            <Button
+                                x:Name="btnEmergencias"
+                                Content="🚑 Emergencias"
+                                Margin="0,3"
+                                Click="btnEmergencias_Click"/>
+
+                            <Button
+                                x:Name="btnCitas"
+                                Content="📅 Citas"
+                                Margin="0,3"
+                                Click="btnCitas_Click"/>
+
+                            <Button
+                                x:Name="btnInternamientos"
+                                Content="🛏 Internamientos"
+                                Margin="0,3"
+                                Click="btnInternamientos_Click"/>
+
+                            <Button
+                                x:Name="btnFacturacion"
+                                Content="💰 Facturación"
+                                Margin="0,3"
+                                Click="btnFacturacion_Click"/>
+
+                            <Button
+                                x:Name="btnLaboratorio"
+                                Content="🧪 Laboratorio"
+                                Margin="0,3"
+                                Click="btnLaboratorio_Click"/>
+
+                        </StackPanel>
+
+                    </Expander>
+
+                    <!-- ========================================= -->
+                    <!-- CONSULTAS -->
+                    <!-- ========================================= -->
+
+                    <Expander
+                        Header="🔍 CONSULTAS"
+                        Margin="5"
+                        Foreground="White"
+                        FontWeight="Bold">
+
+                        <StackPanel Margin="15,5">
+
+                            <Button
+                                x:Name="btnReportes"
+                                Content="📄 Reportes"
+                                Margin="0,3"
+                                Click="btnReportes_Click"/>
+
+                            <Button
+                                x:Name="btnBuscarPaciente"
+                                Content="👤 Buscar Paciente"
+                                Margin="0,3"
+                                Click="btnBuscarPaciente_Click"/>
+
+                            <Button
+                                x:Name="btnEstadisticas"
+                                Content="📈 Estadísticas"
+                                Margin="0,3"
+                                Click="btnEstadisticas_Click"/>
+
+                        </StackPanel>
+
+                    </Expander>
+
+                    <!-- ========================================= -->
+                    <!-- CONFIGURACION -->
+                    <!-- ========================================= -->
+
+                    <Button
+                        x:Name="btnConfiguracion"
+                        Content="⚙ Configuración"
+                        Height="45"
+                        Margin="5"
+                        Click="btnConfiguracion_Click"/>
+
+                    <!-- ========================================= -->
+                    <!-- CERRAR SESION -->
+                    <!-- ========================================= -->
+
+                    <Button
+                        x:Name="btnCerrarSesion"
+                        Content="🚪 Cerrar sesión"
+                        Height="45"
+                        Margin="5"
+                        Click="btnCerrarSesion_Click"/>
+
+                </StackPanel>
+
+            </ScrollViewer>
+
+        </Border>
+
+    </Grid>
+
+</UserControl>

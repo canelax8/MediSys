@@ -1,0 +1,591 @@
+﻿<UserControl x:Class="Proyecto_MediSys.Controls.PacienteDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d"
+             d:DesignWidth="1100"
+             d:DesignHeight="850">
+
+
+    <Grid Background="#66000000">
+
+        <Border 
+            Width="1000"
+            MinWidth="900"
+            MaxWidth="1100"
+            MaxHeight="850"
+           
+            Padding="30"
+            Background="White"
+            CornerRadius="15"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center">
+
+            <ScrollViewer
+                VerticalScrollBarVisibility="Auto"
+                HorizontalScrollBarVisibility="Disabled"
+                CanContentScroll="True"
+                PanningMode="VerticalOnly">
+
+                <Grid>
+
+                <Grid.RowDefinitions>
+
+                    <!-- Encabezado -->
+                    <RowDefinition Height="Auto"/>
+
+                    <!-- Separador -->
+                    <RowDefinition Height="Auto"/>
+
+                    <!-- Contenido -->
+                    <RowDefinition Height="*"/>
+
+                    <!-- Botones -->
+                    <RowDefinition Height="Auto"/>
+
+                </Grid.RowDefinitions>
+
+                <!-- TÍTULO -->
+
+                <StackPanel Grid.Row="0">
+
+                    <TextBlock
+                        Text="Nuevo Paciente"
+                        FontSize="28"
+                        FontWeight="Bold"
+                        Foreground="#1E293B"/>
+
+                    <TextBlock
+                        Text="Complete la información del paciente."
+                        Margin="0,5,0,0"
+                        FontSize="15"
+                        Foreground="Gray"/>
+
+                </StackPanel>
+
+                <Separator Grid.Row="1"/>
+
+                <!-- CONTENIDO -->
+
+                <Grid Grid.Row="2">
+
+                    <Grid.ColumnDefinitions>
+
+                        <ColumnDefinition Width="180"/>
+                        <ColumnDefinition Width="30"/>
+                        <ColumnDefinition Width="*"/>
+
+                    </Grid.ColumnDefinitions>
+
+
+                    <!-- PANEL DOCUMENTOS -->
+
+                    <Border Grid.Column="0"
+                            Width="170"
+                            Padding="15"
+                            CornerRadius="12"
+                            BorderBrush="#D1D5DB"
+                            BorderThickness="1"
+                            Background="#F9FAFB"
+                            VerticalAlignment="Top">
+
+                        <StackPanel>
+
+                            <TextBlock
+                                Text="📁 Documentos"
+                                FontSize="18"
+                                FontWeight="Bold"
+                                HorizontalAlignment="Center"
+                                Margin="0,0,0,20"/>
+
+                            <!-- Documento de identidad -->
+
+                            <Border
+                                Background="White"
+                                CornerRadius="8"
+                                BorderBrush="#E5E7EB"
+                                BorderThickness="1"
+                                Padding="10"
+                                Margin="0,0,0,12">
+
+                                <StackPanel>
+
+                                    <TextBlock
+                                        Text="📄 Identidad"
+                                        FontWeight="SemiBold"/>
+
+                                    <TextBlock
+                                        x:Name="txtEstadoIdentidad"
+                                        Text="Sin documento"
+                                        Foreground="Gray"
+                                        FontSize="12"/>
+
+                                </StackPanel>
+
+                            </Border>
+
+                            <!-- Seguro -->
+
+                            <Border
+                                Background="White"
+                                CornerRadius="8"
+                                BorderBrush="#E5E7EB"
+                                BorderThickness="1"
+                                Padding="10"
+                                Margin="0,0,0,12">
+
+                                <StackPanel>
+
+                                    <TextBlock
+                                        Text="💳 Seguro"/>
+
+                                    <TextBlock
+                                        x:Name="txtEstadoSeguro"
+                                        Text="Sin documento"
+                                        Foreground="Gray"
+                                        FontSize="12"/>     
+
+                                </StackPanel>
+
+                            </Border>
+
+                            <!-- Otros -->
+
+                            <Border
+                                Background="White"
+                                CornerRadius="8"
+                                BorderBrush="#E5E7EB"
+                                BorderThickness="1"
+                                Padding="10">
+
+                                <StackPanel>
+
+                                    <TextBlock
+                                Text="📎 Otros"/>
+
+                                    <TextBlock
+                                x:Name="txtOtros"
+                                Text="0 archivos"
+                                Foreground="Gray"
+                                FontSize="12"/>
+
+                                </StackPanel>
+
+                            </Border>
+
+                            <Button
+                                x:Name="btnDocumentos"
+                                Margin="0,20,0,0"
+                                Height="40"
+                                Content="Administrar documentos"
+                                Background="#2563EB"
+                                Foreground="White"
+                                BorderBrush="#2563EB"
+                                Click="btnDocumentos_Click"/> 
+
+                        </StackPanel>
+
+                    </Border>
+
+
+
+                    <!-- FORMULARIO -->
+
+                    <Grid Grid.Column="2">
+
+                        <Grid.ColumnDefinitions>
+
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="20"/>
+                            <ColumnDefinition/>
+
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+
+                            <!-- Nombre / Apellido -->
+                            <RowDefinition Height="Auto"/>
+
+                            <!-- Espacio -->
+                            <RowDefinition Height="20"/>
+
+                            <!-- Identificación -->
+                            <RowDefinition Height="Auto"/>
+
+                            <!-- Espacio -->
+                            <RowDefinition Height="25"/>
+
+                            <!-- Fecha / Sexo -->
+                            <RowDefinition Height="Auto"/>
+
+                            <!-- Espacio -->
+                            <RowDefinition Height="20"/>
+
+                            <!-- Teléfono / Seguro -->
+                            <RowDefinition Height="Auto"/>
+
+                            <!-- Espacio -->
+                            <RowDefinition Height="20"/>
+
+                            <!-- Dirección -->
+                            <RowDefinition Height="Auto"/>
+
+                        </Grid.RowDefinitions>
+
+                        <!-- NOMBRE -->
+
+                        <StackPanel Grid.Row="0"
+                                    Grid.Column="0">
+
+                            <TextBlock
+                                Text="Nombre"
+                                FontWeight="SemiBold"
+                                Margin="0,0,0,5"/>
+
+                            <TextBox
+                                x:Name="txtNombre"
+                                Height="40"
+                                Padding="10"
+                                MaxLength="15"
+                                PreviewTextInput="SoloLetras_PreviewTextInput"/>
+
+                        </StackPanel>
+
+                        <!-- APELLIDO -->
+
+                        <StackPanel Grid.Row="0"
+                                    Grid.Column="2">
+
+                            <TextBlock
+                                Text="Apellido"
+                                FontWeight="SemiBold"
+                                Margin="0,0,0,5"/>
+
+                            <TextBox
+                                x:Name="txtApellido"
+                                Height="40"
+                                Padding="10"
+                                MaxLength="15"
+                                PreviewTextInput="SoloLetras_PreviewTextInput"/>
+
+                        </StackPanel>
+
+                        <!-- ===================================== -->
+                        <!-- IDENTIFICACIÓN -->
+                        <!-- ===================================== -->
+
+                        <GroupBox Grid.Row="2"
+                                  Grid.ColumnSpan="3"
+                                  Margin="0,0,0,10"
+                                  Padding="15">
+
+                            <Grid>
+
+                                <Grid.ColumnDefinitions>
+
+                                    <ColumnDefinition/>
+
+                                    <ColumnDefinition Width="20"/>
+
+                                    <ColumnDefinition/>
+
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+
+                                    <RowDefinition Height="Auto"/>
+                                    <!-- 0 -->
+                                    <RowDefinition Height="15"/>
+                                    <!-- 1 -->
+
+                                    <RowDefinition Height="Auto"/>
+                                    <!-- 2 -->
+                                    <RowDefinition Height="15"/>
+                                    <!-- 3 -->
+
+                                    <RowDefinition Height="Auto"/>
+                                    <!-- 4 -->
+                                    <RowDefinition Height="15"/>
+                                    <!-- 5 -->
+
+                                    <RowDefinition Height="Auto"/>
+                                    <!-- 6 -->
+
+                                    <RowDefinition Height="15"/>
+                                    <!-- 7 -->
+
+                                    <RowDefinition Height="Auto"/>
+                                    <!-- 8 -->
+
+                                </Grid.RowDefinitions>
+
+                                <!-- Tipo Paciente -->
+
+                                <StackPanel Grid.Row="0"
+                                    Grid.Column="0">
+
+                                    <TextBlock
+                                    Text="Tipo de Paciente"
+                                    FontWeight="SemiBold"
+                                    Margin="0,0,0,5"/>
+
+                                    <ComboBox
+                                    x:Name="cmbTipoPaciente"
+                                    Height="40"
+                                    DisplayMemberPath="Nombre"
+                                    SelectedValuePath="IdTipoPaciente"/>            
+
+                                    </StackPanel>
+
+                                <!-- Tipo Documento -->
+
+                                <StackPanel Grid.Row="0"
+                                        Grid.Column="2">
+
+                                    <TextBlock
+                                        Text="Tipo de Documento"
+                                        FontWeight="SemiBold"
+                                        Margin="0,0,0,5"/>
+
+                                    <ComboBox
+                                        x:Name="cmbTipoDocumento"
+                                        Height="40"
+                                        SelectionChanged="cmbTipoDocumento_SelectionChanged">
+
+                                        <ComboBoxItem Content="Seleccione..."/>
+
+                                        <ComboBoxItem Content="Cédula"/>
+
+                                        <ComboBoxItem Content="Pasaporte"/>
+
+                                    </ComboBox>
+
+                                </StackPanel>
+
+                                <!-- Número Documento -->
+
+                                <StackPanel Grid.Row="2"
+                                    Grid.ColumnSpan="3">
+
+                                    <TextBlock
+                                    Text="Número del Documento"
+                                    FontWeight="SemiBold"
+                                    Margin="0,0,0,5"/>
+
+                                    <TextBox
+                                    x:Name="txtDocumento"
+                                    Height="40"
+                                    Padding="10"
+                                    PreviewTextInput="txtDocumento_PreviewTextInput"/>
+
+                                </StackPanel>
+
+                                <Grid Grid.Row="6"
+                                      Grid.ColumnSpan="3"
+                                      Margin="0,10,0,0">
+
+                                    <Grid.ColumnDefinitions>
+
+                                        <ColumnDefinition Width="*" />
+
+                                        <ColumnDefinition Width="260"/>
+
+                                    </Grid.ColumnDefinitions>
+
+                                    <!-- CheckBox -->
+
+                                    <CheckBox
+                                        x:Name="chkIndocumentado"
+                                        Grid.Column="0"
+                                        VerticalAlignment="Center"
+                                        Content="Paciente indocumentado"
+                                        Checked="chkIndocumentado_Checked"
+                                        Unchecked="chkIndocumentado_Unchecked"/>
+
+                                    <!-- Tarjeta -->
+
+                                    <Border
+                                        x:Name="panelTemporal"
+                                        Grid.Column="1"
+                                        Visibility="Collapsed"
+                                        Background="#FFF8E1"
+                                        BorderBrush="#FFC107"
+                                        BorderThickness="1"
+                                        CornerRadius="8"
+                                        Padding="10"
+                                        Margin="10,0,0,0">
+
+                                        <StackPanel>
+
+                                            <TextBlock
+                                                Text="🆔 Código Temporal"
+                                                FontWeight="Bold"
+                                                FontSize="12"/>
+
+                                            <TextBlock
+                                                x:Name="txtCodigoTemporal"
+                                                FontSize="16"
+                                                FontWeight="Bold"
+                                                Foreground="#E65100"/>
+
+                                        </StackPanel>
+
+                                    </Border>
+
+                                </Grid>
+                            </Grid>
+
+                        </GroupBox>
+
+
+
+                        <!-- SEXO -->
+
+                        <StackPanel Grid.Row="4"
+                                    Grid.Column="2">
+
+                            <TextBlock
+                                Text="Sexo"
+                                FontWeight="SemiBold"
+                                Margin="0,0,0,5"/>
+
+                                <ComboBox
+                                x:Name="cmbSexo"
+                                Height="40">
+
+
+                                    <ComboBoxItem Content="Seleccione..."/>
+                                <ComboBoxItem Content="Masculino"/>
+                                <ComboBoxItem Content="Femenino"/>
+
+                            </ComboBox>
+
+                        </StackPanel>
+
+                        <!-- FECHA -->
+
+                        <StackPanel Grid.Row="4"
+                                    Grid.Column="0">
+
+                            <TextBlock
+                                Text="Fecha de nacimiento"
+                                FontWeight="SemiBold"
+                                />
+
+                            <DatePicker
+                                x:Name="dpNacimiento"
+                                Height="40"/>
+
+                        </StackPanel>
+
+                        <!-- TELÉFONO -->
+
+                        <StackPanel Grid.Row="6"
+                                    Grid.Column="2">
+
+                            <TextBlock
+                                Text="Teléfono"
+                                FontWeight="SemiBold"
+                                Margin="0,0,0,5" Height="14"/>
+
+                            <TextBox
+                                x:Name="txtTelefono"
+                                Height="40"
+                                Padding="10"
+                                MaxLength="10"
+                                PreviewTextInput="SoloNumeros_PreviewTextInput"/>
+
+                        </StackPanel>
+
+                        <!-- DIRECCIÓN -->
+
+                            <StackPanel Grid.Row="8"
+                                        Grid.ColumnSpan="3">
+
+                                <TextBlock
+                                    Text="Dirección"
+                                    FontWeight="SemiBold"
+                                    Margin="0,0,0,5"/>
+
+                                <TextBox
+                                    x:Name="txtDireccion"
+                                    MaxLength="200"
+                                    AcceptsReturn="True"
+                                    TextWrapping="Wrap"
+                                    VerticalScrollBarVisibility="Auto"
+                                    md:HintAssist.Hint="Ej.: Calle Duarte #25, Santo Domingo Este"/>
+
+                            </StackPanel>
+
+                            <!-- SEGURO -->
+
+                        <StackPanel Grid.Row="6"
+                                    Grid.ColumnSpan="2">
+
+                            <TextBlock
+                                Text="Seguro Médico"
+                                FontWeight="SemiBold"
+                                Margin="0,0,0,5" Height="15"/>
+
+                            <ComboBox
+                                x:Name="cmbSeguro"
+                                Height="40"
+                                DisplayMemberPath="Nombre"
+                                SelectedValuePath="IdSeguro"/>
+
+                            </StackPanel>
+
+                    </Grid>
+
+                </Grid>
+
+                <!-- BOTONES -->
+
+                <Border Grid.Row="3"
+                            BorderBrush="#E5E7EB"
+                            BorderThickness="0,1,0,0"
+                            Padding="0,20,0,0">
+                    <StackPanel
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Right">
+
+                        <Button
+                            x:Name="btnGuardar"
+                            Width="150"
+                            Height="42"
+                            Margin="0,0,10,0"
+                            Content="💾 Guardar"
+                            Background="#2563EB"
+                            Foreground="White"
+                            BorderBrush="#2563EB"
+                            Cursor="Hand"
+                            FontWeight="SemiBold"
+                            Click="btnGuardar_Click"/>
+
+                        <Button
+                            x:Name="btnCancelar"
+                            Width="150"
+                            Height="42"
+                            Content="✖ Cancelar"
+                            Background="#E5E7EB"
+                            Foreground="#374151"
+                            BorderBrush="#D1D5DB"
+                            Cursor="Hand"
+                            FontWeight="SemiBold"
+                            Click="btnCancelar_Click"/>
+
+                    </StackPanel>
+
+                </Border>
+
+            </Grid>
+                
+           </ScrollViewer>
+
+        </Border>
+
+    </Grid>
+
+</UserControl>
