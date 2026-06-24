@@ -1,0 +1,60 @@
+## Build results
+bin/
+obj/
+out/
+
+## User-specific files
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+
+## Mono Auto Generated Files
+mono_crash.*
+
+## OS generated files
+.DS_Store
+Thumbs.db
+
+## Rider
+.idea/
+*.sln.iml
+
+## Visual Studio Code
+.vscode/
+*.code-workspace
+
+## ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+## NuGet
+*.nupkg
+*.snupkg
+packages/
+*.nuspec
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+## DotCover
+.idea/.dotCover
+
+## Backup & log files
+*.log
+*.bak
+*.tmp
+
+## Others
+_ReSharper*/
+*.vs/
+*.dbmdl
+*.psess
+*.vsp
+*.vspx
+*.pidb
+*.svclog
+*.scc
+*.cache
+
+# Microsoft Visual Studio Build Numbers
+.vs/
