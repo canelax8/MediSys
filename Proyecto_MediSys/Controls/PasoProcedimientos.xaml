@@ -1,0 +1,1175 @@
+﻿<UserControl x:Class="Proyecto_MediSys.Controls.PasoProcedimientos"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="#F6F8FA">
+
+    <UserControl.Resources>
+
+        <!-- ================================================
+                     TÍTULO DE SECCIÓN
+        ================================================= -->
+
+        <Style x:Key="SectionTitleStyle"
+               TargetType="TextBlock">
+
+            <Setter Property="FontSize"
+                    Value="17"/>
+
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+
+            <Setter Property="Foreground"
+                    Value="#1E293B"/>
+
+        </Style>
+
+
+        <!-- ================================================
+                        DESCRIPCIÓN
+        ================================================= -->
+
+        <Style x:Key="SectionDescriptionStyle"
+               TargetType="TextBlock">
+
+            <Setter Property="FontSize"
+                    Value="12"/>
+
+            <Setter Property="Foreground"
+                    Value="#64748B"/>
+
+            <Setter Property="Margin"
+                    Value="0,4,0,14"/>
+
+        </Style>
+
+
+        <!-- ================================================
+                           TEXTBOX
+        ================================================= -->
+
+        <Style x:Key="ClinicalTextBoxStyle"
+               TargetType="TextBox">
+
+            <Setter Property="Background"
+                    Value="#F8FAFC"/>
+
+            <Setter Property="BorderBrush"
+                    Value="#CBD5E1"/>
+
+            <Setter Property="BorderThickness"
+                    Value="1"/>
+
+            <Setter Property="Padding"
+                    Value="12,8"/>
+
+            <Setter Property="FontSize"
+                    Value="13"/>
+
+            <Setter Property="Foreground"
+                    Value="#1E293B"/>
+
+        </Style>
+
+
+        <!-- ================================================
+                      BOTÓN CATÁLOGO
+        ================================================= -->
+
+        <Style x:Key="CatalogButtonStyle"
+               TargetType="Button">
+
+            <Setter Property="Height"
+                    Value="36"/>
+
+            <Setter Property="Padding"
+                    Value="14,0"/>
+
+            <Setter Property="Background"
+                    Value="#EAF1FB"/>
+
+            <Setter Property="Foreground"
+                    Value="#2457A6"/>
+
+            <Setter Property="BorderThickness"
+                    Value="0"/>
+
+            <Setter Property="FontSize"
+                    Value="11"/>
+
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+
+            <Setter Property="Cursor"
+                    Value="Hand"/>
+
+        </Style>
+
+
+        <!-- ================================================
+                        ETIQUETA CATÁLOGO
+        ================================================= -->
+
+        <Style x:Key="CatalogBadgeStyle"
+               TargetType="TextBlock">
+
+            <Setter Property="FontSize"
+                    Value="10"/>
+
+            <Setter Property="Foreground"
+                    Value="#64748B"/>
+
+            <Setter Property="VerticalAlignment"
+                    Value="Center"/>
+
+        </Style>
+
+    </UserControl.Resources>
+
+
+    <Grid Margin="4">
+
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="Auto"/>
+
+            <RowDefinition Height="*"/>
+
+        </Grid.RowDefinitions>
+
+
+        <!-- ================================================
+                        ENCABEZADO
+        ================================================= -->
+
+        <Grid Grid.Row="0"
+              Margin="0,0,0,18">
+
+            <Grid.ColumnDefinitions>
+
+                <ColumnDefinition/>
+
+                <ColumnDefinition Width="Auto"/>
+
+            </Grid.ColumnDefinitions>
+
+
+            <StackPanel>
+
+                <TextBlock
+                    Text="Tratamiento y procedimientos"
+                    FontSize="26"
+                    FontWeight="Bold"
+                    Foreground="#172033"/>
+
+                <TextBlock
+                    Margin="0,5,0,0"
+                    FontSize="13"
+                    Foreground="#64748B"
+                    Text="Registro de medicamentos, insumos, procedimientos y estudios indicados."/>
+
+            </StackPanel>
+
+
+            <Border Grid.Column="1"
+                    Height="34"
+                    Padding="14,0"
+                    Background="#EAF1FB"
+                    CornerRadius="17"
+                    VerticalAlignment="Center">
+
+                <TextBlock
+                    Text="Paso 5 de 7"
+                    FontSize="11"
+                    FontWeight="SemiBold"
+                    Foreground="#2457A6"
+                    VerticalAlignment="Center"/>
+
+            </Border>
+
+        </Grid>
+
+
+        <!-- ================================================
+                           CONTENIDO
+        ================================================= -->
+
+        <ScrollViewer Grid.Row="1"
+                      VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Disabled">
+
+            <StackPanel Margin="0,0,8,10">
+
+
+                <!-- ============================================
+                         MEDICAMENTOS ADMINISTRADOS
+                ============================================= -->
+
+                <!-- ============================================================
+                     ALERTA DE ALERGIAS
+============================================================= -->
+
+                <Border
+    x:Name="panelAlertaAlergias"
+    Visibility="Collapsed"
+    Background="#FFF7ED"
+    BorderBrush="#F0B86E"
+    BorderThickness="1"
+    CornerRadius="10"
+    Padding="14"
+    Margin="0,0,0,14">
+
+                    <Grid>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border
+            Width="32"
+            Height="32"
+            CornerRadius="16"
+            Background="#D97706"
+            VerticalAlignment="Center">
+
+                            <TextBlock
+                Text="!"
+                Foreground="White"
+                FontWeight="Bold"
+                FontSize="16"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"/>
+
+                        </Border>
+
+                        <StackPanel
+            Grid.Column="1"
+            Margin="12,0,0,0">
+
+                            <TextBlock
+                Text="Paciente con alergias registradas"
+                FontSize="13"
+                FontWeight="SemiBold"
+                Foreground="#92400E"/>
+
+                            <TextBlock
+                x:Name="txtResumenAlergias"
+                Margin="0,3,0,0"
+                Text="Alergias pendientes de cargar"
+                FontSize="11"
+                Foreground="#A16207"
+                TextWrapping="Wrap"/>
+
+                        </StackPanel>
+
+                        <Button
+            x:Name="btnVerAlergias"
+            Grid.Column="2"
+            Height="32"
+            Padding="12,0"
+            Background="#FDE7C7"
+            Foreground="#92400E"
+            BorderThickness="0"
+            FontSize="11"
+            FontWeight="SemiBold"
+            Cursor="Hand"
+            Content="Ver alergias"/>
+
+                    </Grid>
+
+                </Border>
+
+
+                <!-- ============================================================
+                    RESUMEN TARIFARIO
+============================================================= -->
+
+                <Border
+    Background="White"
+    BorderBrush="#E2E8F0"
+    BorderThickness="1"
+    CornerRadius="10"
+    Padding="14"
+    Margin="0,0,0,14">
+
+                    <Grid>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel>
+
+                            <TextBlock
+                Text="Plan tarifario aplicado"
+                FontSize="11"
+                Foreground="#64748B"/>
+
+                            <TextBlock
+                x:Name="txtPlanTarifario"
+                Text="Pendiente"
+                Margin="0,3,0,0"
+                FontSize="14"
+                FontWeight="SemiBold"
+                Foreground="#1E293B"/>
+
+                        </StackPanel>
+
+                        <StackPanel
+            Grid.Column="1"
+            HorizontalAlignment="Right">
+
+                            <TextBlock
+                Text="Subtotal provisional"
+                FontSize="11"
+                Foreground="#64748B"
+                HorizontalAlignment="Right"/>
+
+                            <TextBlock
+                x:Name="txtSubtotalGeneral"
+                Text="RD$ 0.00"
+                Margin="0,3,0,0"
+                FontSize="18"
+                FontWeight="Bold"
+                Foreground="#2457A6"
+                HorizontalAlignment="Right"/>
+
+                        </StackPanel>
+
+                    </Grid>
+
+                </Border>
+
+
+                <!-- ============================================================
+                    MEDICAMENTOS
+============================================================= -->
+
+                <Border
+    Background="White"
+    BorderBrush="#E2E8F0"
+    BorderThickness="1"
+    CornerRadius="10"
+    Padding="18"
+    Margin="0,0,0,14">
+
+                    <StackPanel>
+
+                        <Grid>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel>
+
+                                <TextBlock
+                    Style="{StaticResource SectionTitleStyle}"
+                    Text="Medicamentos administrados"/>
+
+                                <TextBlock
+                    Style="{StaticResource SectionDescriptionStyle}"
+                    Text="Seleccione medicamentos del catálogo e indique dosis, vía, frecuencia y cantidad."/>
+
+                            </StackPanel>
+
+                            <Border
+                Grid.Column="1"
+                Background="#F1F5F9"
+                CornerRadius="13"
+                Padding="10,4"
+                VerticalAlignment="Top">
+
+                                <TextBlock
+                    Style="{StaticResource CatalogBadgeStyle}"
+                    Text="Catálogo de medicamentos"/>
+
+                            </Border>
+
+                        </Grid>
+
+
+                        <!-- BUSCADOR -->
+
+                        <Grid Margin="0,0,0,8">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="120"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBox
+                x:Name="txtBuscarMedicamento"
+                Height="36"
+                Padding="10,5"
+                Background="#F8FAFC"
+                BorderBrush="#CBD5E1"
+                BorderThickness="1"
+                VerticalContentAlignment="Center"/>
+
+                            <Button
+                x:Name="btnAgregarMedicamento"
+                Grid.Column="1"
+                Margin="8,0,0,0"
+                Height="36"
+                Style="{StaticResource CatalogButtonStyle}"
+                Content="+ Agregar"/>
+
+                        </Grid>
+
+
+                        <!-- RESULTADOS -->
+
+                        <ListBox
+            x:Name="lstMedicamentos"
+            Height="85"
+            Background="#FAFBFC"
+            BorderBrush="#E2E8F0"
+            BorderThickness="1"
+            DisplayMemberPath="Mostrar"/>
+
+
+                        <!-- DATOS DEL MEDICAMENTO -->
+
+                        <Grid Margin="0,12,0,10">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="100"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Margin="0,0,8,0">
+                                <TextBlock Text="Dosis"
+                           FontSize="10"
+                           Foreground="#64748B"/>
+                                <TextBox x:Name="txtDosisMedicamento"
+                         Height="34"
+                         Style="{StaticResource ClinicalTextBoxStyle}"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1"
+                        Margin="0,0,8,0">
+                                <TextBlock Text="Vía"
+                           FontSize="10"
+                           Foreground="#64748B"/>
+                                <ComboBox x:Name="cmbViaMedicamento"
+                          Height="34">
+                                    <ComboBoxItem Content="Oral"/>
+                                    <ComboBoxItem Content="Intravenosa"/>
+                                    <ComboBoxItem Content="Intramuscular"/>
+                                    <ComboBoxItem Content="Subcutánea"/>
+                                    <ComboBoxItem Content="Tópica"/>
+                                    <ComboBoxItem Content="Inhalada"/>
+                                    <ComboBoxItem Content="Otra"/>
+                                </ComboBox>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="2"
+                        Margin="0,0,8,0">
+                                <TextBlock Text="Frecuencia"
+                           FontSize="10"
+                           Foreground="#64748B"/>
+                                <TextBox x:Name="txtFrecuenciaMedicamento"
+                         Height="34"
+                         Style="{StaticResource ClinicalTextBoxStyle}"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="3"
+                        Margin="0,0,8,0">
+                                <TextBlock Text="Indicaciones"
+                           FontSize="10"
+                           Foreground="#64748B"/>
+                                <TextBox x:Name="txtIndicacionesMedicamento"
+                         Height="34"
+                         Style="{StaticResource ClinicalTextBoxStyle}"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="4">
+                                <TextBlock Text="Cantidad"
+                           FontSize="10"
+                           Foreground="#64748B"/>
+                                <TextBox x:Name="txtCantidadMedicamento"
+                         Height="34"
+                         Text="1"
+                         HorizontalContentAlignment="Center"
+                         VerticalContentAlignment="Center"/>
+                            </StackPanel>
+
+                        </Grid>
+
+
+                        <!-- SELECCIONADOS -->
+
+                        <TextBlock
+            Text="Medicamentos seleccionados"
+            FontSize="11"
+            FontWeight="SemiBold"
+            Foreground="#475569"
+            Margin="0,0,0,6"/>
+
+                        <DataGrid
+            x:Name="dgMedicamentos"
+            Height="145"
+            AutoGenerateColumns="False"
+            CanUserAddRows="False"
+            IsReadOnly="True"
+            HeadersVisibility="Column"
+            GridLinesVisibility="Horizontal"
+            BorderBrush="#E2E8F0"
+            BorderThickness="1"
+            FontSize="11">
+
+                            <DataGrid.Columns>
+
+                                <DataGridTextColumn
+                    Header="Medicamento"
+                    Binding="{Binding Nombre}"
+                    Width="*"/>
+
+                                <DataGridTextColumn
+                    Header="Cant."
+                    Binding="{Binding Cantidad}"
+                    Width="55"/>
+
+                                <DataGridTextColumn
+                    Header="Dosis"
+                    Binding="{Binding Dosis}"
+                    Width="90"/>
+
+                                <DataGridTextColumn
+                    Header="Vía"
+                    Binding="{Binding ViaAdministracion}"
+                    Width="100"/>
+
+                                <DataGridTextColumn
+                    Header="Precio"
+                    Binding="{Binding PrecioTexto}"
+                    Width="90"/>
+
+                                <DataGridTextColumn
+                    Header="Total"
+                    Binding="{Binding TotalTexto}"
+                    Width="90"/>
+
+                                <DataGridTemplateColumn
+                    Header=""
+                    Width="65">
+
+                                    <DataGridTemplateColumn.CellTemplate>
+
+                                        <DataTemplate>
+
+                                            <Button
+                                Width="50"
+                                Height="25"
+                                Background="#FCEEEE"
+                                Foreground="#A94442"
+                                BorderThickness="0"
+                                Content="Quitar"
+                                Tag="{Binding}"/>
+
+                                        </DataTemplate>
+
+                                    </DataGridTemplateColumn.CellTemplate>
+
+                                </DataGridTemplateColumn>
+
+                            </DataGrid.Columns>
+
+                        </DataGrid>
+
+                    </StackPanel>
+
+                </Border>
+
+
+                <!-- ============================================================
+                  MATERIAL GASTABLE
+============================================================= -->
+
+                <Border
+    Background="White"
+    BorderBrush="#E2E8F0"
+    BorderThickness="1"
+    CornerRadius="10"
+    Padding="18"
+    Margin="0,0,0,14">
+
+                    <StackPanel>
+
+                        <Grid>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel>
+
+                                <TextBlock
+                    Style="{StaticResource SectionTitleStyle}"
+                    Text="Material gastable"/>
+
+                                <TextBlock
+                    Style="{StaticResource SectionDescriptionStyle}"
+                    Text="Insumos y materiales utilizados durante la atención del paciente."/>
+
+                            </StackPanel>
+
+                            <Border
+                                Grid.Column="1"
+                                Background="#F1F5F9"
+                                CornerRadius="13"
+                                Padding="10,4"
+                                VerticalAlignment="Top">    
+
+                                <TextBlock
+                    Style="{StaticResource CatalogBadgeStyle}"
+                    Text="Catálogo de materiales"/>
+
+                            </Border>
+
+                        </Grid>
+
+
+                        <Grid Margin="0,0,0,8">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="90"/>
+                                <ColumnDefinition Width="120"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBox
+                x:Name="txtBuscarMaterial"
+                Height="36"
+                Padding="10,5"
+                Background="#F8FAFC"
+                BorderBrush="#CBD5E1"
+                BorderThickness="1"/>
+
+                            <TextBox
+                x:Name="txtCantidadMaterial"
+                Grid.Column="1"
+                Margin="8,0,0,0"
+                Height="36"
+                Text="1"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"/>
+
+                            <Button
+                x:Name="btnAgregarMaterial"
+                Grid.Column="2"
+                Margin="8,0,0,0"
+                Height="36"
+                Style="{StaticResource CatalogButtonStyle}"
+                Content="+ Agregar"/>
+
+                        </Grid>
+
+
+                        <ListBox
+            x:Name="lstMateriales"
+            Height="75"
+            Background="#FAFBFC"
+            BorderBrush="#E2E8F0"
+            BorderThickness="1"
+            DisplayMemberPath="Mostrar"/>
+
+
+                        <DataGrid
+            x:Name="dgMateriales"
+            Margin="0,10,0,0"
+            Height="120"
+            AutoGenerateColumns="False"
+            CanUserAddRows="False"
+            IsReadOnly="True"
+            HeadersVisibility="Column"
+            GridLinesVisibility="Horizontal"
+            BorderBrush="#E2E8F0"
+            BorderThickness="1"
+            FontSize="11">
+
+                            <DataGrid.Columns>
+
+                                <DataGridTextColumn
+                    Header="Material"
+                    Binding="{Binding Nombre}"
+                    Width="*"/>
+
+                                <DataGridTextColumn
+                    Header="Cant."
+                    Binding="{Binding Cantidad}"
+                    Width="60"/>
+
+                                <DataGridTextColumn
+                    Header="Precio"
+                    Binding="{Binding PrecioTexto}"
+                    Width="90"/>
+
+                                <DataGridTextColumn
+                    Header="Total"
+                    Binding="{Binding TotalTexto}"
+                    Width="90"/>
+
+                                <DataGridTemplateColumn
+                    Header=""
+                    Width="65">
+
+                                    <DataGridTemplateColumn.CellTemplate>
+
+                                        <DataTemplate>
+
+                                            <Button
+                                Width="50"
+                                Height="25"
+                                Background="#FCEEEE"
+                                Foreground="#A94442"
+                                BorderThickness="0"
+                                Content="Quitar"
+                                Tag="{Binding}"/>
+
+                                        </DataTemplate>
+
+                                    </DataGridTemplateColumn.CellTemplate>
+
+                                </DataGridTemplateColumn>
+
+                            </DataGrid.Columns>
+
+                        </DataGrid>
+
+                    </StackPanel>
+
+                </Border>
+
+
+                <!-- ============================================================
+                     PROCEDIMIENTOS
+============================================================= -->
+
+                <Border
+    Background="White"
+    BorderBrush="#E2E8F0"
+    BorderThickness="1"
+    CornerRadius="10"
+    Padding="18"
+    Margin="0,0,0,14">
+
+                    <StackPanel>
+
+                        <Grid>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel>
+
+                                <TextBlock
+                    Style="{StaticResource SectionTitleStyle}"
+                    Text="Procedimientos realizados"/>
+
+                                <TextBlock
+                    Style="{StaticResource SectionDescriptionStyle}"
+                    Text="Procedimientos médicos o de enfermería realizados durante la atención."/>
+
+                            </StackPanel>
+
+                            <Border
+                                 Grid.Column="1"
+                                 Background="#F1F5F9"
+                                 CornerRadius="13"
+                                 Padding="10,4"
+                                 VerticalAlignment="Top">        
+
+                                <TextBlock
+                    Style="{StaticResource CatalogBadgeStyle}"
+                    Text="Catálogo de procedimientos"/>
+
+                            </Border>
+
+                        </Grid>
+
+
+                        <Grid Margin="0,0,0,8">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="90"/>
+                                <ColumnDefinition Width="120"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBox
+                x:Name="txtBuscarProcedimiento"
+                Height="36"
+                Padding="10,5"
+                Background="#F8FAFC"
+                BorderBrush="#CBD5E1"
+                BorderThickness="1"/>
+
+                            <TextBox
+                x:Name="txtCantidadProcedimiento"
+                Grid.Column="1"
+                Margin="8,0,0,0"
+                Height="36"
+                Text="1"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"/>
+
+                            <Button
+                x:Name="btnAgregarProcedimiento"
+                Grid.Column="2"
+                Margin="8,0,0,0"
+                Height="36"
+                Style="{StaticResource CatalogButtonStyle}"
+                Content="+ Agregar"/>
+
+                        </Grid>
+
+
+                        <ListBox
+            x:Name="lstProcedimientos"
+            Height="75"
+            Background="#FAFBFC"
+            BorderBrush="#E2E8F0"
+            BorderThickness="1"
+            DisplayMemberPath="Mostrar"/>
+
+
+                        <DataGrid
+            x:Name="dgProcedimientos"
+            Margin="0,10,0,0"
+            Height="120"
+            AutoGenerateColumns="False"
+            CanUserAddRows="False"
+            IsReadOnly="True"
+            HeadersVisibility="Column"
+            GridLinesVisibility="Horizontal"
+            BorderBrush="#E2E8F0"
+            BorderThickness="1"
+            FontSize="11">
+
+                            <DataGrid.Columns>
+
+                                <DataGridTextColumn
+                    Header="Procedimiento"
+                    Binding="{Binding Nombre}"
+                    Width="*"/>
+
+                                <DataGridTextColumn
+                    Header="Cant."
+                    Binding="{Binding Cantidad}"
+                    Width="60"/>
+
+                                <DataGridTextColumn
+                    Header="Precio"
+                    Binding="{Binding PrecioTexto}"
+                    Width="90"/>
+
+                                <DataGridTextColumn
+                    Header="Total"
+                    Binding="{Binding TotalTexto}"
+                    Width="90"/>
+
+                                <DataGridTemplateColumn
+                    Header=""
+                    Width="65">
+
+                                    <DataGridTemplateColumn.CellTemplate>
+
+                                        <DataTemplate>
+
+                                            <Button
+                                Width="50"
+                                Height="25"
+                                Background="#FCEEEE"
+                                Foreground="#A94442"
+                                BorderThickness="0"
+                                Content="Quitar"
+                                Tag="{Binding}"/>
+
+                                        </DataTemplate>
+
+                                    </DataGridTemplateColumn.CellTemplate>
+
+                                </DataGridTemplateColumn>
+
+                            </DataGrid.Columns>
+
+                        </DataGrid>
+
+                    </StackPanel>
+
+                </Border>
+
+
+                <!-- ============================================================
+                LABORATORIOS + IMÁGENES
+============================================================= -->
+
+                <Grid Margin="0,0,0,14">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+
+                    <!-- LABORATORIOS -->
+
+                    <Border
+        Grid.Column="0"
+        Margin="0,0,7,0"
+        Background="White"
+        BorderBrush="#E2E8F0"
+        BorderThickness="1"
+        CornerRadius="10"
+        Padding="18">
+
+                        <StackPanel>
+
+                            <TextBlock
+                Style="{StaticResource SectionTitleStyle}"
+                Text="Laboratorios"/>
+
+                            <TextBlock
+                Style="{StaticResource SectionDescriptionStyle}"
+                Text="Pruebas de laboratorio solicitadas durante la emergencia."/>
+
+                            <TextBox
+                x:Name="txtBuscarLaboratorio"
+                Height="36"
+                Padding="10,5"
+                Background="#F8FAFC"
+                BorderBrush="#CBD5E1"
+                BorderThickness="1"/>
+
+                            <ListBox
+                x:Name="lstLaboratorios"
+                Margin="0,8,0,0"
+                Height="75"
+                DisplayMemberPath="Mostrar"/>
+
+                            <Button
+                x:Name="btnAgregarLaboratorio"
+                Margin="0,8,0,0"
+                Height="34"
+                Width="120"
+                HorizontalAlignment="Left"
+                Style="{StaticResource CatalogButtonStyle}"
+                Content="+ Agregar"/>
+
+                            <DataGrid
+                x:Name="dgLaboratorios"
+                Margin="0,10,0,0"
+                Height="125"
+                AutoGenerateColumns="False"
+                CanUserAddRows="False"
+                IsReadOnly="True"
+                HeadersVisibility="Column"
+                FontSize="11">
+
+                                <DataGrid.Columns>
+
+                                    <DataGridTextColumn
+                        Header="Laboratorio"
+                        Binding="{Binding Nombre}"
+                        Width="*"/>
+
+                                    <DataGridTextColumn
+                        Header="Precio"
+                        Binding="{Binding PrecioTexto}"
+                        Width="90"/>
+
+                                    <DataGridTemplateColumn
+                        Header=""
+                        Width="60">
+
+                                        <DataGridTemplateColumn.CellTemplate>
+
+                                            <DataTemplate>
+
+                                                <Button
+                                    Width="45"
+                                    Height="24"
+                                    Background="#FCEEEE"
+                                    Foreground="#A94442"
+                                    BorderThickness="0"
+                                    Content="Quitar"
+                                    Tag="{Binding}"/>
+
+                                            </DataTemplate>
+
+                                        </DataGridTemplateColumn.CellTemplate>
+
+                                    </DataGridTemplateColumn>
+
+                                </DataGrid.Columns>
+
+                            </DataGrid>
+
+                        </StackPanel>
+
+                    </Border>
+
+
+                    <!-- IMÁGENES -->
+
+                    <Border
+        Grid.Column="1"
+        Margin="7,0,0,0"
+        Background="White"
+        BorderBrush="#E2E8F0"
+        BorderThickness="1"
+        CornerRadius="10"
+        Padding="18">
+
+                        <StackPanel>
+
+                            <TextBlock
+                Style="{StaticResource SectionTitleStyle}"
+                Text="Estudios de imágenes"/>
+
+                            <TextBlock
+                Style="{StaticResource SectionDescriptionStyle}"
+                Text="Estudios de imágenes diagnósticas solicitados al paciente."/>
+
+                            <TextBox
+                x:Name="txtBuscarImagen"
+                Height="36"
+                Padding="10,5"
+                Background="#F8FAFC"
+                BorderBrush="#CBD5E1"
+                BorderThickness="1"/>
+
+                            <ListBox
+                x:Name="lstImagenes"
+                Margin="0,8,0,0"
+                Height="75"
+                DisplayMemberPath="Mostrar"/>
+
+                            <Button
+                x:Name="btnAgregarImagen"
+                Margin="0,8,0,0"
+                Height="34"
+                Width="120"
+                HorizontalAlignment="Left"
+                Style="{StaticResource CatalogButtonStyle}"
+                Content="+ Agregar"/>
+
+                            <DataGrid
+                x:Name="dgImagenes"
+                Margin="0,10,0,0"
+                Height="125"
+                AutoGenerateColumns="False"
+                CanUserAddRows="False"
+                IsReadOnly="True"
+                HeadersVisibility="Column"
+                FontSize="11">
+
+                                <DataGrid.Columns>
+
+                                    <DataGridTextColumn
+                        Header="Estudio"
+                        Binding="{Binding Nombre}"
+                        Width="*"/>
+
+                                    <DataGridTextColumn
+                        Header="Precio"
+                        Binding="{Binding PrecioTexto}"
+                        Width="90"/>
+
+                                    <DataGridTemplateColumn
+                        Header=""
+                        Width="60">
+
+                                        <DataGridTemplateColumn.CellTemplate>
+
+                                            <DataTemplate>
+
+                                                <Button
+                                    Width="45"
+                                    Height="24"
+                                    Background="#FCEEEE"
+                                    Foreground="#A94442"
+                                    BorderThickness="0"
+                                    Content="Quitar"
+                                    Tag="{Binding}"/>
+
+                                            </DataTemplate>
+
+                                        </DataGridTemplateColumn.CellTemplate>
+
+                                    </DataGridTemplateColumn>
+
+                                </DataGrid.Columns>
+
+                            </DataGrid>
+
+                        </StackPanel>
+
+                    </Border>
+
+                </Grid>
+
+
+                <!-- ============================================================
+                    NOTA FINAL
+============================================================= -->
+
+                <Border
+    Background="#F8FAFC"
+    BorderBrush="#E2E8F0"
+    BorderThickness="1"
+    CornerRadius="8"
+    Padding="14">
+
+                    <Grid>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border
+            Background="#7894B7"
+            CornerRadius="2"/>
+
+                        <StackPanel
+            Grid.Column="1"
+            Margin="12,0,0,0">
+
+                            <TextBlock
+                Text="Registro terapéutico"
+                FontSize="12"
+                FontWeight="SemiBold"
+                Foreground="#334155"/>
+
+                            <TextBlock
+                Margin="0,3,0,0"
+                FontSize="11"
+                Foreground="#64748B"
+                TextWrapping="Wrap"
+                Text="Los elementos seleccionados quedarán asociados al expediente y serán utilizados posteriormente en el proceso de facturación."/>
+
+                        </StackPanel>
+
+                    </Grid>
+
+                </Border>
+
+            </StackPanel>
+
+        </ScrollViewer>
+
+    </Grid>
+
+</UserControl>

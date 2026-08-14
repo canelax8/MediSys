@@ -1,0 +1,342 @@
+﻿<Window x:Class="Proyecto_MediSys.Controls.UsuarioDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="Usuario"
+        Width="950"
+        Height="748"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent">
+
+    <Grid>
+
+
+        <Border
+            Margin="15,15,15,0"
+            Background="White"
+            CornerRadius="15"
+            BorderBrush="#E5E7EB"
+            BorderThickness="1"
+            MouseLeftButtonDown="BarraTitulo_MouseLeftButtonDown">
+
+            <Grid>
+
+                <Grid.RowDefinitions>
+
+                    <RowDefinition Height="65"/>
+
+                    <RowDefinition/>
+
+                    <RowDefinition Height="80"/>
+
+                </Grid.RowDefinitions>
+
+                <!-- ==========================
+                     ENCABEZADO
+                =========================== -->
+
+                <Border
+                    Grid.Row="0"
+                    Background="#2563EB"
+                    CornerRadius="15,15,0,0">
+
+                    <Grid Margin="25,0">
+
+                        <Grid.ColumnDefinitions>
+
+                            <ColumnDefinition/>
+
+                            <ColumnDefinition Width="45"/>
+
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel
+                            VerticalAlignment="Center">
+
+                            <TextBlock
+                                x:Name="txtTitulo"
+                                Text="Nuevo Usuario"
+                                FontSize="26"
+                                FontWeight="Bold"
+                                Foreground="White"/>
+
+                            <TextBlock
+                                Text="Complete la información del usuario."
+                                FontSize="13"
+                                Foreground="#E0E7FF"/>
+
+                        </StackPanel>
+
+                        <Button
+                            x:Name="btnCerrar"
+                            Height="36"
+                            FontSize="16"
+                            FontWeight="Bold"
+                            Cursor="Hand"
+                            Content="✕"
+                            Background="Transparent"
+                            BorderBrush="{x:Null}"
+                            Foreground="White"
+                            Click="btnCerrar_Click" Grid.ColumnSpan="2" Margin="810,14,4,15"/>
+
+                    </Grid>
+
+                </Border>
+
+                <!-- ==========================
+                     CONTENIDO
+                =========================== -->
+
+                <Grid
+                    Grid.Row="1"
+                    Margin="30">
+
+                    <Grid.ColumnDefinitions>
+
+                        <ColumnDefinition/>
+
+                        <ColumnDefinition Width="35"/>
+
+                        <ColumnDefinition/>
+
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Columna izquierda -->
+
+                    <StackPanel
+                        x:Name="panelIzquierdo"
+                        Grid.Column="0">
+
+                        <TextBlock
+                            Text="INFORMACIÓN PERSONAL"
+                            FontSize="17"
+                            FontWeight="Bold"
+                            Foreground="#1E293B"
+                            Margin="0,0,0,25"/>
+
+                        <!-- Nombre -->
+
+                        <TextBlock
+                            Text="Nombre"
+                            FontWeight="SemiBold"
+                            Margin="0,0,0,5"/>
+
+                        <TextBox
+                            x:Name="txtNombre"
+                            Height="42"
+                            Margin="0,0,0,18"
+                            Padding="10"
+                            MaxLength="60"/>
+
+                        <!-- Apellido -->
+
+                        <TextBlock
+                            Text="Apellido"
+                            FontWeight="SemiBold"
+                            Margin="0,0,0,5"/>
+
+                        <TextBox
+                            x:Name="txtApellido"
+                            Height="42"
+                            Margin="0,0,0,18"
+                            Padding="10"
+                            MaxLength="60"/>
+
+                        <!-- Correo -->
+
+                        <TextBlock
+                            Text="Correo electrónico"
+                            FontWeight="SemiBold"
+                            Margin="0,0,0,5"/>
+
+                        <TextBox
+                            x:Name="txtCorreo"
+                            Height="42"
+                            Margin="0,0,0,18"
+                            Padding="10"
+                            MaxLength="150"/>
+
+                        <!-- Teléfono -->
+
+                        <TextBlock
+                            Text="Teléfono"
+                            FontWeight="SemiBold"
+                            Margin="0,0,0,5"/>
+
+                        <TextBox
+                            x:Name="txtTelefono"
+                            Height="42"
+                            Padding="10"
+                            MaxLength="20"/>
+
+                    </StackPanel>
+
+                    <!-- Columna derecha -->
+
+                    <StackPanel
+                        x:Name="panelDerecho"
+                        Grid.Column="2">
+
+                        <TextBlock
+                            Text="INFORMACIÓN DEL SISTEMA"
+                            FontSize="17"
+                            FontWeight="Bold"
+                            Foreground="#1E293B"
+                            Margin="0,0,0,25"/>
+
+                        <!-- Usuario -->
+
+                        <TextBlock
+                            Text="Usuario"
+                            FontWeight="SemiBold"
+                            Margin="0,0,0,5"/>
+
+                        <TextBox
+                            x:Name="txtUsuario"
+                            Height="42"
+                            Margin="0,0,0,18"
+                            Padding="10"
+                            MaxLength="40"/>
+
+                        <!-- Rol -->
+
+                        <TextBlock
+                            Text="Rol"
+                            FontWeight="SemiBold"
+                            Margin="0,0,0,5"/>
+
+                        <ComboBox
+                            x:Name="cmbRol"
+                            Height="42"
+                            Margin="0,0,0,18"
+                            DisplayMemberPath="Nombre"
+                            SelectedValuePath="IdRol"/>
+
+                        <!-- Contraseña -->
+
+                        <TextBlock
+                            Text="Contraseña"
+                            FontWeight="SemiBold"
+                            Margin="0,0,0,5"/>
+
+                        <PasswordBox
+                            x:Name="txtClave"
+                            Height="42"
+                            Margin="0,0,0,18"
+                            Padding="10"
+                            MaxLength="50"/>
+
+                        <!-- Confirmar -->
+
+                        <TextBlock
+                            Text="Confirmar contraseña"
+                            FontWeight="SemiBold"
+                            Margin="0,0,0,5"/>
+
+                        <PasswordBox
+                            x:Name="txtConfirmarClave"
+                            Height="42"
+                            Margin="0,0,0,18"
+                            Padding="10"
+                            MaxLength="50"/>
+
+                        <!-- ==========================
+                                OPCIONES
+                        ========================== -->
+
+                        <Border
+                            Margin="0,10,0,0"
+                            Padding="15"
+                            BorderBrush="#E5E7EB"
+                            BorderThickness="1"
+                            CornerRadius="10"
+                            Background="#F9FAFB">
+
+                            <StackPanel>
+
+                                <TextBlock
+                                    Text="Opciones"
+                                    FontWeight="Bold"
+                                    FontSize="15"
+                                    Margin="0,0,0,12"/>
+
+                                <CheckBox
+                                    x:Name="chkActivo"
+                                    Content="Usuario activo"
+                                    IsChecked="True"
+                                    Margin="0,0,0,10"
+                                    FontSize="14"/>
+
+                                <CheckBox
+                                    x:Name="chkDebeCambiarClave"
+                                    Content="Debe cambiar contraseña al iniciar sesión"
+                                    IsChecked="True"
+                                    FontSize="14"/>
+
+                            </StackPanel>
+
+                        </Border>
+
+                    </StackPanel>
+
+                </Grid>
+
+                <!-- ==========================
+                     BOTONES
+                =========================== -->
+
+                <Border
+                    Grid.Row="1"
+                    BorderThickness="0,1,0,0"
+                    BorderBrush="#E5E7EB" Margin="0,561,0,0" Grid.RowSpan="2">
+
+                    <StackPanel
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Margin="20">
+
+                        <Button
+                            x:Name="btnGuardar"
+                            Width="160"
+                            Height="45"
+                            Margin="0,0,12,0"
+                            Cursor="Hand"
+                            FontWeight="SemiBold"
+                            FontSize="14"
+                            Content="💾 Guardar"
+                            Background="#2563EB"
+                            Foreground="White"
+                            BorderBrush="#2563EB"
+                            Click="btnGuardar_Click"/>
+
+                        <Button
+                            x:Name="btnCancelar"
+                            Width="160"
+                            Height="45"
+                            Cursor="Hand"
+                            FontWeight="SemiBold"
+                            FontSize="14"
+                            Content="✖ Cancelar"
+                            Background="#F3F4F6"
+                            Foreground="#374151"
+                            BorderBrush="#D1D5DB"
+                            Click="btnCancelar_Click"/>
+
+                    </StackPanel>
+
+                </Border>
+
+            </Grid>
+
+        </Border>
+
+    </Grid>
+
+</Window>

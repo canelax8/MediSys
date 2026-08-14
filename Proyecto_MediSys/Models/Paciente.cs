@@ -38,6 +38,7 @@ namespace Proyecto_MediSys.Models
         public string? Correo { get; set; }
 
         public string Direccion { get; set; } = string.Empty;
+
         public int IdTipoPaciente { get; set; }
 
         public int IdSeguro { get; set; }
@@ -78,5 +79,47 @@ namespace Proyecto_MediSys.Models
         {
             get { return Activo ? "Activo" : "Inactivo"; }
         }
+
+        public string Iniciales
+        {
+            get
+            {
+                string inicial1 = string.IsNullOrWhiteSpace(Nombre)
+                    ? ""
+                    : Nombre.Substring(0, 1);
+
+                string inicial2 = string.IsNullOrWhiteSpace(Apellido)
+                    ? ""
+                    : Apellido.Substring(0, 1);
+
+                return (inicial1 + inicial2).ToUpper();
+            }
+        }
+
+        public string DocumentoMostrar
+        {
+            get
+            {
+                if (Indocumentado)
+                    return "Temporal: " + CodigoTemporal;
+
+                return NumeroDocumento;
+            }
+        }
+
+        public string Edad
+        {
+            get
+            {
+                int edad = DateTime.Today.Year - FechaNacimiento.Year;
+
+                if (FechaNacimiento > DateTime.Today.AddYears(-edad))
+                    edad--;
+
+                return edad + " años";
+            }
+        }
+
+
     }
 }

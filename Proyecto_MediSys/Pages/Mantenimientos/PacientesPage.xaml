@@ -1,7 +1,10 @@
 ﻿<Page x:Class="Proyecto_MediSys.Pages.Mantenimientos.PacientesPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       Background="#F4F6F9">
+   
+    
 
     <Grid Margin="25">
 
@@ -107,25 +110,22 @@
             <!-- BOTON NUEVO -->
 
             <Button
-    x:Name="btnNuevoPaciente"
-    Grid.Column="2"
-    Height="44"
-    Cursor="Hand"
-    FontSize="15"
-    FontWeight="SemiBold"
-    Foreground="White"
-    Content="+ Nuevo Paciente"
-    Click="btnNuevoPaciente_Click">
+                x:Name="btnNuevoPaciente"
+                Grid.Column="2"
+                Height="42"
+                Cursor="Hand"
+                FontSize="13"
+                FontWeight="SemiBold"
+                Foreground="White"
+                Content="+  Nuevo paciente"
+                Click="btnNuevoPaciente_Click">
 
                 <Button.Style>
 
                     <Style TargetType="Button">
 
                         <Setter Property="Background"
-                    Value="#2563EB"/>
-
-                        <Setter Property="BorderBrush"
-                    Value="#2563EB"/>
+                    Value="#2457A6"/>
 
                         <Setter Property="BorderThickness"
                     Value="0"/>
@@ -139,7 +139,7 @@
                          Value="True">
 
                                 <Setter Property="Background"
-                            Value="#1D4ED8"/>
+                            Value="#1E4A8C"/>
 
                             </Trigger>
 
@@ -150,7 +150,6 @@
                 </Button.Style>
 
             </Button>
-
         </Grid>
 
         <!-- ========================================= -->
@@ -168,15 +167,87 @@
                       IsReadOnly="True"
                       HeadersVisibility="Column"
                       GridLinesVisibility="Horizontal"
-                      RowHeight="55"
-                      FontSize="14"
+                      RowHeight="58"
+                      FontSize="13"
                       BorderThickness="0"
                       Background="White"
-                      AlternatingRowBackground="#F8FAFC"
-                      HorizontalGridLinesBrush="#E5E7EB"
-                      VerticalGridLinesBrush="#E5E7EB"
+                      AlternatingRowBackground="#FAFBFC"
+                      HorizontalGridLinesBrush="#E8EDF2"
+                      VerticalGridLinesBrush="Transparent"
                       SelectionMode="Single"
-                      SelectionUnit="FullRow">
+                      SelectionUnit="FullRow"
+                      SelectionChanged="dgPacientes_SelectionChanged">  
+
+                <DataGrid.ColumnHeaderStyle>
+
+                    <Style TargetType="DataGridColumnHeader">
+
+                        <Setter Property="Background"
+                Value="#F1F5F9"/>
+
+                        <Setter Property="Foreground"
+                Value="#475569"/>
+
+                        <Setter Property="FontWeight"
+                Value="SemiBold"/>
+
+                        <Setter Property="FontSize"
+                Value="12"/>
+
+                        <Setter Property="Height"
+                Value="42"/>
+
+                        <Setter Property="Padding"
+                Value="10,0"/>
+
+                        <Setter Property="BorderBrush"
+                Value="#E2E8F0"/>
+
+                        <Setter Property="BorderThickness"
+                Value="0,0,0,1"/>
+
+                        <Setter Property="VerticalContentAlignment"
+                Value="Center"/>
+
+                    </Style>
+
+                </DataGrid.ColumnHeaderStyle>
+
+
+                <DataGrid.CellStyle>
+
+                    <Style TargetType="DataGridCell">
+
+                        <Setter Property="BorderThickness"
+                Value="0"/>
+
+                        <Setter Property="Padding"
+                Value="8,0"/>
+
+                        <Setter Property="VerticalContentAlignment"
+                Value="Center"/>
+
+                        <Setter Property="Foreground"
+                Value="#334155"/>
+
+                        <Style.Triggers>
+
+                            <Trigger Property="IsSelected"
+                     Value="True">
+
+                                <Setter Property="Background"
+                        Value="#E8F0FC"/>
+
+                                <Setter Property="Foreground"
+                        Value="#1E293B"/>
+
+                            </Trigger>
+
+                        </Style.Triggers>
+
+                    </Style>
+
+                </DataGrid.CellStyle>
 
                 <DataGrid.Columns>
 
@@ -190,18 +261,17 @@
                             <DataTemplate>
 
                                 <Border Width="40"
-                        Height="40"
-                        CornerRadius="20"
-                        Background="#EEF2FF"
-                        BorderBrush="#4F46E5"
-                        BorderThickness="1"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center">
+                                        Height="40"
+                                        CornerRadius="20"
+                                        Background="#EEF2FF"
+                                        BorderBrush="#4F46E5"
+                                        BorderThickness="1"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center">     
 
-                                    <TextBlock Text="👤"
-                               FontSize="18"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding Iniciales}"
+                                           FontWeight="Bold"
+                                           FontSize="14"/>
 
                                 </Border>
 
@@ -210,29 +280,55 @@
                         </DataGridTemplateColumn.CellTemplate>
 
                     </DataGridTemplateColumn>
+                    
+                    
 
                     <!-- CODIGO -->
 
                     <DataGridTextColumn Header="Código"
-                        Binding="{Binding IdPaciente}"
-                        Width="90"/>
-
+                        Binding="{Binding CodigoPaciente}"
+                        Width="120"/>      
+                    
                     <!-- PACIENTE -->
 
-                    <DataGridTextColumn Header="Paciente"
-                        Binding="{Binding NombreCompleto}"
-                        Width="220"/>
+                    <DataGridTemplateColumn Header="Paciente" Width="380">
 
-                    <!-- DOCUMENTO -->
+                        <DataGridTemplateColumn.CellTemplate>
 
-                    <DataGridTextColumn Header="Documento"
-                        Binding="{Binding NumeroDocumento}"
-                        Width="170"/>
+                            <DataTemplate>
+
+                                <StackPanel Margin="5,2">
+
+                                    <TextBlock
+                                        Text="{Binding NombreCompleto}"
+                                        FontWeight="SemiBold"
+                                        FontSize="14"
+                                        Foreground="#1E293B"/>      
+
+                                    <TextBlock
+                                        Text="{Binding DocumentoMostrar}"
+                                        FontSize="11"
+                                        Foreground="#6B7280"
+                                        Margin="0,2,0,0"/>
+
+                                </StackPanel>
+
+                            </DataTemplate>
+
+                        </DataGridTemplateColumn.CellTemplate>
+
+                    </DataGridTemplateColumn>
+
+                    <!-- EDAD -->
+                    <DataGridTextColumn
+                        Header="Edad"
+                        Binding="{Binding Edad}"
+                        Width="70"/>
 
                     <!-- TIPO -->
 
                     <DataGridTextColumn Header="Tipo"
-                        Binding="{Binding TipoPaciente}"
+                        Binding="{Binding NombreTipoPaciente}"
                         Width="120"/>
 
                     <!-- TELEFONO -->
@@ -244,93 +340,133 @@
                     <!-- SEGURO -->
 
                     <DataGridTextColumn Header="Seguro"
-                        Binding="{Binding SeguroMedico}"
+                        Binding="{Binding NombreSeguro}"
                         Width="150"/>
-
-                    <!-- FECHA -->
-
-                    <DataGridTextColumn Header="Fecha"
-                        Binding="{Binding FechaRegistroTexto}"
-                        Width="110"/>
-
-                    <!-- HORA -->
-
-                    <DataGridTextColumn Header="Hora"
-                        Binding="{Binding HoraRegistroTexto}"
-                        Width="90"/>
 
                     <!-- ESTADO -->
 
                     <DataGridTextColumn Header="Estado"
-                        Binding="{Binding EstadoTexto}"
-                        Width="90"/>
+                        Binding="{Binding NombreEstadoPaciente}"
+                            Width="90"/>
 
                     <!-- ACCIONES -->
 
                     <DataGridTemplateColumn Header="Acciones"
-                            Width="170">
+                        Width="250">
 
                         <DataGridTemplateColumn.CellTemplate>
 
                             <DataTemplate>
 
-                                <StackPanel Orientation="Horizontal"
-                                            HorizontalAlignment="Center">
+                                <StackPanel
+                Orientation="Horizontal"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Margin="5,0">
 
                                     <!-- VER -->
 
                                     <Button
-                                            Content="👁"
-                                            Width="34"
-                                            Height="34"
-                                            Margin="2"
-                                            Cursor="Hand"
-                                            Background="#059669"
-                                            Foreground="White"
-                                            BorderBrush="#059669"
-                                            Click="btnVer_Click"
-                                            Tag="{Binding}" />
+                    Width="58"
+                    Height="32"
+                    Margin="3,0"
+                    Background="#EEF2F6"
+                    Foreground="#475569"
+                    BorderThickness="0"
+                    Click="btnVer_Click"
+                    Tag="{Binding}"
+                    ToolTip="Ver paciente"
+                    Cursor="Hand">
+
+                                        <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center">
+
+                                            <materialDesign:PackIcon
+                            Kind="Eye"
+                            Width="15"
+                            Height="15"
+                            Margin="0,0,5,0"
+                            Foreground="#475569"/>
+
+                                            <TextBlock
+                            Text="Ver"
+                            FontSize="11"
+                            FontWeight="SemiBold"
+                            VerticalAlignment="Center"/>
+
+                                        </StackPanel>
+
+                                    </Button>
+
 
                                     <!-- EDITAR -->
 
                                     <Button
-                                            Content="✏"
-                                            Width="34"
-                                            Height="34"
-                                            Margin="2"
-                                            Cursor="Hand"
-                                            Background="#2563EB"
-                                            Foreground="White"
-                                            BorderBrush="#2563EB"
-                                            Click="btnEditar_Click"
-                                            Tag="{Binding}"/>
+                    Width="70"
+                    Height="32"
+                    Margin="3,0"
+                    Background="#E8F1FC"
+                    Foreground="#2457A6"
+                    BorderThickness="0"
+                    Click="btnEditar_Click"
+                    Tag="{Binding}"
+                    ToolTip="Editar paciente"
+                    Cursor="Hand">
 
-                                    <!-- DOCUMENTOS -->
+                                        <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center">
 
-                                    <Button
-                                            Content="📄"
-                                            Width="34"
-                                            Height="34"
-                                            Margin="2"
-                                            Cursor="Hand"
-                                            Background="#7C3AED"
-                                            Foreground="White"
-                                            BorderBrush="#7C3AED"
-                                            Click="btnDocumentos_Click"/>
+                                            <materialDesign:PackIcon
+                            Kind="Pencil"
+                            Width="15"
+                            Height="15"
+                            Margin="0,0,5,0"
+                            Foreground="#2457A6"/>
+
+                                            <TextBlock
+                            Text="Editar"
+                            FontSize="11"
+                            FontWeight="SemiBold"
+                            VerticalAlignment="Center"/>
+
+                                        </StackPanel>
+
+                                    </Button>
+
 
                                     <!-- ELIMINAR -->
 
                                     <Button
-                                            Content="🗑"
-                                            Width="34"
-                                            Height="34"
-                                            Margin="2"
-                                            Cursor="Hand"
-                                            Background="#DC2626"
-                                            Foreground="White"
-                                            BorderBrush="#DC2626"
-                                            Click="btnEliminar_Click"
-                                            Tag="{Binding}"/>
+                                        Width="78"
+                                        Height="32"
+                                        Margin="3,0"
+                                        Background="#FCEEEE"
+                                        Foreground="#A94442"
+                                        BorderThickness="0"
+                                        Click="btnEliminar_Click"
+                                        Tag="{Binding}"
+                                        ToolTip="Eliminar paciente"
+                                        Cursor="Hand">
+
+                                        <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center">
+
+                                            <materialDesign:PackIcon
+                            Kind="Delete"
+                            Width="15"
+                            Height="15"
+                            Margin="0,0,5,0"
+                            Foreground="#A94442"/>
+
+                                            <TextBlock
+                            Text="Eliminar"
+                            FontSize="11"
+                            FontWeight="SemiBold"
+                            VerticalAlignment="Center"/>
+
+                                        </StackPanel>
+
+                                    </Button>
 
                                 </StackPanel>
 
@@ -339,7 +475,7 @@
                         </DataGridTemplateColumn.CellTemplate>
 
                     </DataGridTemplateColumn>
-
+                    
                 </DataGrid.Columns>
 
             </DataGrid>

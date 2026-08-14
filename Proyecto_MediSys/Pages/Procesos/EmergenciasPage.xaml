@@ -1,0 +1,1342 @@
+﻿<Page x:Class="Proyecto_MediSys.Pages.Procesos.EmergenciasPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d"
+      Background="#F4F6F8">
+
+    <!-- ============================================================
+                         RECURSOS / ESTILOS
+    ============================================================= -->
+
+    <Page.Resources>
+
+        <!-- ========================================================
+                             BOTÓN PRINCIPAL
+        ========================================================= -->
+
+        <Style x:Key="PrimaryButtonStyle"
+               TargetType="Button">
+
+            <Setter Property="Background"
+                    Value="#2457A6"/>
+
+            <Setter Property="Foreground"
+                    Value="White"/>
+
+            <Setter Property="BorderThickness"
+                    Value="0"/>
+
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+
+            <Setter Property="FontSize"
+                    Value="13"/>
+
+            <Setter Property="Cursor"
+                    Value="Hand"/>
+
+            <Setter Property="Padding"
+                    Value="16,0"/>
+
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="Button">
+
+                        <Border x:Name="Border"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="7">
+
+                            <ContentPresenter
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+
+                                <Setter TargetName="Border"
+                                        Property="Opacity"
+                                        Value="0.88"/>
+
+                            </Trigger>
+
+                            <Trigger Property="IsPressed"
+                                     Value="True">
+
+                                <Setter TargetName="Border"
+                                        Property="Opacity"
+                                        Value="0.72"/>
+
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+
+            </Setter>
+
+        </Style>
+
+
+        <!-- ========================================================
+                             BOTÓN SECUNDARIO
+        ========================================================= -->
+
+        <Style x:Key="SecondaryButtonStyle"
+               TargetType="Button">
+
+            <Setter Property="Background"
+                    Value="#EEF2F6"/>
+
+            <Setter Property="Foreground"
+                    Value="#334155"/>
+
+            <Setter Property="BorderThickness"
+                    Value="0"/>
+
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+
+            <Setter Property="FontSize"
+                    Value="12"/>
+
+            <Setter Property="Cursor"
+                    Value="Hand"/>
+
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="Button">
+
+                        <Border x:Name="Border"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="6">
+
+                            <ContentPresenter
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+
+                                <Setter TargetName="Border"
+                                        Property="Background"
+                                        Value="#E2E8F0"/>
+
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+
+            </Setter>
+
+        </Style>
+
+
+        <!-- ========================================================
+                             TEXTBOX
+        ========================================================= -->
+
+        <Style x:Key="ModernTextBoxStyle"
+               TargetType="TextBox">
+
+            <Setter Property="Background"
+                    Value="Transparent"/>
+
+            <Setter Property="BorderThickness"
+                    Value="0"/>
+
+            <Setter Property="Foreground"
+                    Value="#1E293B"/>
+
+            <Setter Property="FontSize"
+                    Value="14"/>
+
+            <Setter Property="VerticalContentAlignment"
+                    Value="Center"/>
+
+            <Setter Property="Padding"
+                    Value="4,0"/>
+
+        </Style>
+
+
+        <!-- ========================================================
+                             COMBOBOX
+        ========================================================= -->
+
+        <Style x:Key="ModernComboBoxStyle"
+               TargetType="ComboBox">
+
+            <Setter Property="Height"
+                    Value="42"/>
+
+            <Setter Property="Background"
+                    Value="White"/>
+
+            <Setter Property="BorderBrush"
+                    Value="#CBD5E1"/>
+
+            <Setter Property="BorderThickness"
+                    Value="1"/>
+
+            <Setter Property="Padding"
+                    Value="8,3"/>
+
+            <Setter Property="FontSize"
+                    Value="13"/>
+
+            <Setter Property="VerticalContentAlignment"
+                    Value="Center"/>
+
+        </Style>
+
+
+        <!-- ========================================================
+                          ESTILO DATAGRID
+        ========================================================= -->
+
+        <Style x:Key="ModernDataGridStyle"
+               TargetType="DataGrid">
+
+            <Setter Property="Background"
+                    Value="White"/>
+
+            <Setter Property="BorderThickness"
+                    Value="0"/>
+
+            <Setter Property="GridLinesVisibility"
+                    Value="Horizontal"/>
+
+            <Setter Property="HorizontalGridLinesBrush"
+                    Value="#E8EDF2"/>
+
+            <Setter Property="VerticalGridLinesBrush"
+                    Value="Transparent"/>
+
+            <Setter Property="RowHeight"
+                    Value="52"/>
+
+            <Setter Property="ColumnHeaderHeight"
+                    Value="48"/>
+
+            <Setter Property="AlternatingRowBackground"
+                    Value="#FAFBFC"/>
+
+            <Setter Property="HeadersVisibility"
+                    Value="Column"/>
+
+        </Style>
+
+
+        <!-- ========================================================
+                         CABECERA DATAGRID
+        ========================================================= -->
+
+        <Style x:Key="ModernDataGridHeaderStyle"
+               TargetType="DataGridColumnHeader">
+
+            <Setter Property="Background"
+                    Value="#F1F5F9"/>
+
+            <Setter Property="Foreground"
+                    Value="#475569"/>
+
+            <Setter Property="FontSize"
+                    Value="12"/>
+
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+
+            <Setter Property="BorderThickness"
+                    Value="0,0,0,1"/>
+
+            <Setter Property="BorderBrush"
+                    Value="#E2E8F0"/>
+
+            <Setter Property="HorizontalContentAlignment"
+                    Value="Left"/>
+
+            <Setter Property="VerticalContentAlignment"
+                    Value="Center"/>
+
+            <Setter Property="Padding"
+                    Value="12,0"/>
+
+        </Style>
+
+
+        <!-- ========================================================
+                             CELDAS
+        ========================================================= -->
+
+        <Style x:Key="ModernDataGridCellStyle"
+               TargetType="DataGridCell">
+
+            <Setter Property="BorderThickness"
+                    Value="0"/>
+
+            <Setter Property="Padding"
+                    Value="12,0"/>
+
+            <Setter Property="VerticalContentAlignment"
+                    Value="Center"/>
+
+            <Setter Property="Foreground"
+                    Value="#334155"/>
+
+            <Setter Property="FontSize"
+                    Value="12.5"/>
+
+            <Style.Triggers>
+
+                <Trigger Property="IsSelected"
+                         Value="True">
+
+                    <Setter Property="Background"
+                            Value="#E8F0FC"/>
+
+                    <Setter Property="Foreground"
+                            Value="#1E293B"/>
+
+                </Trigger>
+
+            </Style.Triggers>
+
+        </Style>
+
+
+        <!-- ========================================================
+                     BOTONES DE ACCIÓN DEL GRID
+        ========================================================= -->
+
+        <Style x:Key="GridActionButtonStyle"
+               TargetType="Button">
+
+            <Setter Property="Height"
+                    Value="32"/>
+
+            <Setter Property="Padding"
+                    Value="10,0"/>
+
+            <Setter Property="Margin"
+                    Value="3,0"/>
+
+            <Setter Property="BorderThickness"
+                    Value="1"/>
+
+            <Setter Property="BorderBrush"
+                    Value="#D8E0E8"/>
+
+            <Setter Property="Background"
+                    Value="White"/>
+
+            <Setter Property="Foreground"
+                    Value="#334155"/>
+
+            <Setter Property="FontSize"
+                    Value="11"/>
+
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+
+            <Setter Property="Cursor"
+                    Value="Hand"/>
+
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="Button">
+
+                        <Border x:Name="Border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="5"
+                                Padding="{TemplateBinding Padding}">
+
+                            <ContentPresenter
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+
+                                <Setter TargetName="Border"
+                                        Property="Background"
+                                        Value="#F1F5F9"/>
+
+                                <Setter TargetName="Border"
+                                        Property="BorderBrush"
+                                        Value="#94A3B8"/>
+
+                            </Trigger>
+
+                            <Trigger Property="IsPressed"
+                                     Value="True">
+
+                                <Setter TargetName="Border"
+                                        Property="Opacity"
+                                        Value="0.75"/>
+
+                            </Trigger>
+
+                            <Trigger Property="IsEnabled"
+                                     Value="False">
+
+                                <Setter TargetName="Border"
+                                        Property="Opacity"
+                                        Value="0.45"/>
+
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+
+            </Setter>
+
+        </Style>
+
+    </Page.Resources>
+
+
+    <!-- ============================================================
+                              CONTENIDO
+    ============================================================= -->
+
+    <Grid Margin="32,26,32,26">
+
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="Auto"/>
+
+            <RowDefinition Height="Auto"/>
+
+            <RowDefinition Height="Auto"/>
+
+            <RowDefinition Height="*"/>
+
+        </Grid.RowDefinitions>
+
+
+        <!-- ========================================================
+                             ENCABEZADO
+        ========================================================= -->
+
+        <Grid Grid.Row="0"
+              Margin="0,0,0,24">
+
+            <Grid.ColumnDefinitions>
+
+                <ColumnDefinition/>
+
+                <ColumnDefinition Width="Auto"/>
+
+            </Grid.ColumnDefinitions>
+
+
+            <StackPanel>
+
+                <TextBlock
+                    Text="Emergencias"
+                    FontSize="28"
+                    FontWeight="Bold"
+                    Foreground="#172033"/>
+
+                <TextBlock
+                    Text="Gestión y seguimiento de pacientes en sala de emergencia"
+                    Margin="0,6,0,0"
+                    FontSize="14"
+                    Foreground="#6B7280"/>
+
+            </StackPanel>
+
+
+            <Border Grid.Column="1"
+                    Width="46"
+                    Height="46"
+                    CornerRadius="23"
+                    Background="#EEF2F6"
+                    VerticalAlignment="Center">
+
+                <TextBlock
+                    Text="EM"
+                    FontSize="12"
+                    FontWeight="Bold"
+                    Foreground="#475569"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"/>
+
+            </Border>
+
+        </Grid>
+
+
+        <!-- ========================================================
+                         TARJETAS ESTADÍSTICAS
+        ========================================================= -->
+
+        <Grid Grid.Row="1"
+              Margin="0,0,0,20">
+
+            <Grid.ColumnDefinitions>
+
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+
+            </Grid.ColumnDefinitions>
+
+
+            <!-- PENDIENTES -->
+
+            <Border Grid.Column="0"
+                    Margin="0,0,7,0"
+                    Height="92"
+                    Background="White"
+                    BorderBrush="#E2E8F0"
+                    BorderThickness="1"
+                    CornerRadius="10">
+
+                <Grid Margin="16">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel VerticalAlignment="Center">
+
+                        <TextBlock
+                            Text="Pendientes"
+                            FontSize="12"
+                            Foreground="#64748B"/>
+
+                        <TextBlock
+                            x:Name="txtEnEspera"
+                            Text="0"
+                            Margin="0,6,0,0"
+                            FontSize="26"
+                            FontWeight="Bold"
+                            Foreground="#1E293B"/>
+
+                    </StackPanel>
+
+                    <Border
+                        Grid.Column="1"
+                        Width="10"
+                        Height="36"
+                        CornerRadius="5"
+                        Background="#D9A441"
+                        VerticalAlignment="Center"/>
+
+                </Grid>
+
+            </Border>
+
+
+            <!-- EN ATENCIÓN -->
+
+            <Border Grid.Column="1"
+                    Margin="7,0"
+                    Height="92"
+                    Background="White"
+                    BorderBrush="#E2E8F0"
+                    BorderThickness="1"
+                    CornerRadius="10">
+
+                <Grid Margin="16">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel VerticalAlignment="Center">
+
+                        <TextBlock
+                            Text="En atención"
+                            FontSize="12"
+                            Foreground="#64748B"/>
+
+                        <TextBlock
+                            x:Name="txtAtendiendo"
+                            Text="0"
+                            Margin="0,6,0,0"
+                            FontSize="26"
+                            FontWeight="Bold"
+                            Foreground="#1E293B"/>
+
+                    </StackPanel>
+
+                    <Border
+                        Grid.Column="1"
+                        Width="10"
+                        Height="36"
+                        CornerRadius="5"
+                        Background="#4F7FC8"
+                        VerticalAlignment="Center"/>
+
+                </Grid>
+
+            </Border>
+
+
+            <!-- CRÍTICOS -->
+
+            <Border Grid.Column="2"
+                    Margin="7,0"
+                    Height="92"
+                    Background="White"
+                    BorderBrush="#E2E8F0"
+                    BorderThickness="1"
+                    CornerRadius="10">
+
+                <Grid Margin="16">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel VerticalAlignment="Center">
+
+                        <TextBlock
+                            Text="Críticos"
+                            FontSize="12"
+                            Foreground="#64748B"/>
+
+                        <TextBlock
+                            x:Name="txtCriticos"
+                            Text="0"
+                            Margin="0,6,0,0"
+                            FontSize="26"
+                            FontWeight="Bold"
+                            Foreground="#1E293B"/>
+
+                    </StackPanel>
+
+                    <Border
+                        Grid.Column="1"
+                        Width="10"
+                        Height="36"
+                        CornerRadius="5"
+                        Background="#C76161"
+                        VerticalAlignment="Center"/>
+
+                </Grid>
+
+            </Border>
+
+
+            <!-- ALTAS -->
+
+            <Border Grid.Column="3"
+                    Margin="7,0"
+                    Height="92"
+                    Background="White"
+                    BorderBrush="#E2E8F0"
+                    BorderThickness="1"
+                    CornerRadius="10">
+
+                <Grid Margin="16">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel VerticalAlignment="Center">
+
+                        <TextBlock
+                            Text="Altas"
+                            FontSize="12"
+                            Foreground="#64748B"/>
+
+                        <TextBlock
+                            x:Name="txtAltas"
+                            Text="0"
+                            Margin="0,6,0,0"
+                            FontSize="26"
+                            FontWeight="Bold"
+                            Foreground="#1E293B"/>
+
+                    </StackPanel>
+
+                    <Border
+                        Grid.Column="1"
+                        Width="10"
+                        Height="36"
+                        CornerRadius="5"
+                        Background="#5C9C76"
+                        VerticalAlignment="Center"/>
+
+                </Grid>
+
+            </Border>
+
+
+            <!-- HOY -->
+
+            <Border Grid.Column="4"
+                    Margin="7,0"
+                    Height="92"
+                    Background="White"
+                    BorderBrush="#E2E8F0"
+                    BorderThickness="1"
+                    CornerRadius="10">
+
+                <Grid Margin="16">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel VerticalAlignment="Center">
+
+                        <TextBlock
+                            Text="Registradas hoy"
+                            FontSize="12"
+                            Foreground="#64748B"/>
+
+                        <TextBlock
+                            x:Name="txtHoy"
+                            Text="0"
+                            Margin="0,6,0,0"
+                            FontSize="26"
+                            FontWeight="Bold"
+                            Foreground="#1E293B"/>
+
+                    </StackPanel>
+
+                    <Border
+                        Grid.Column="1"
+                        Width="10"
+                        Height="36"
+                        CornerRadius="5"
+                        Background="#7C76A8"
+                        VerticalAlignment="Center"/>
+
+                </Grid>
+
+            </Border>
+
+
+            <!-- TOTAL -->
+
+            <Border Grid.Column="5"
+                    Margin="7,0,0,0"
+                    Height="92"
+                    Background="White"
+                    BorderBrush="#E2E8F0"
+                    BorderThickness="1"
+                    CornerRadius="10">
+
+                <Grid Margin="16">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel VerticalAlignment="Center">
+
+                        <TextBlock
+                            Text="Total"
+                            FontSize="12"
+                            Foreground="#64748B"/>
+
+                        <TextBlock
+                            x:Name="txtTotal"
+                            Text="0"
+                            Margin="0,6,0,0"
+                            FontSize="26"
+                            FontWeight="Bold"
+                            Foreground="#1E293B"/>
+
+                    </StackPanel>
+
+                    <Border
+                        Grid.Column="1"
+                        Width="10"
+                        Height="36"
+                        CornerRadius="5"
+                        Background="#475569"
+                        VerticalAlignment="Center"/>
+
+                </Grid>
+
+            </Border>
+
+        </Grid>
+
+
+        <!-- ========================================================
+                    BUSCADOR + FILTROS + NUEVO
+        ========================================================= -->
+
+        <Border Grid.Row="2"
+                Margin="0,0,0,18"
+                Background="White"
+                BorderBrush="#E2E8F0"
+                BorderThickness="1"
+                CornerRadius="10"
+                Padding="14">
+
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+
+                    <ColumnDefinition Width="2*"/>
+
+                    <ColumnDefinition Width="190"/>
+
+                    <ColumnDefinition Width="220"/>
+
+                    <ColumnDefinition Width="*"/>
+
+                    <ColumnDefinition Width="190"/>
+
+                </Grid.ColumnDefinitions>
+
+
+                <!-- BUSCADOR -->
+
+                <Border Grid.Column="0"
+                        Height="42"
+                        Background="#F8FAFC"
+                        BorderBrush="#CBD5E1"
+                        BorderThickness="1"
+                        CornerRadius="7">
+
+                    <Grid>
+
+                        <Grid.ColumnDefinitions>
+
+                            <ColumnDefinition Width="38"/>
+
+                            <ColumnDefinition/>
+
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            Text="⌕"
+                            FontSize="19"
+                            Foreground="#64748B"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"/>
+
+                        <TextBox
+                            x:Name="txtBuscar"
+                            Grid.Column="1"
+                            Style="{StaticResource ModernTextBoxStyle}"
+                            TextChanged="txtBuscar_TextChanged"/>
+
+                    </Grid>
+
+                </Border>
+
+
+                <!-- ESTADO -->
+
+                <ComboBox
+                    x:Name="cmbEstado"
+                    Grid.Column="1"
+                    Margin="12,0,0,0"
+                    Style="{StaticResource ModernComboBoxStyle}"
+                    SelectionChanged="cmbEstado_SelectionChanged">
+
+                    <ComboBoxItem Content="Todos"/>
+
+                    <ComboBoxItem Content="Pendiente"/>
+
+                    <ComboBoxItem Content="En Atención"/>
+
+                    <ComboBoxItem Content="Alta"/>
+
+                </ComboBox>
+
+
+                <!-- ESPECIALIDAD -->
+
+                <ComboBox
+                    x:Name="cmbEspecialidad"
+                    Grid.Column="2"
+                    Margin="12,0,0,0"
+                    Style="{StaticResource ModernComboBoxStyle}"
+                    SelectionChanged="cmbEspecialidad_SelectionChanged"/>
+
+
+                <!-- NUEVA EMERGENCIA -->
+
+                <Button
+                    x:Name="btnNuevaEmergencia"
+                    Grid.Column="4"
+                    Height="42"
+                    Style="{StaticResource PrimaryButtonStyle}"
+                    Click="btnNuevaEmergencia_Click"
+                    Content="+  Nueva emergencia"/>
+
+            </Grid>
+
+        </Border>
+
+
+        <!-- ========================================================
+                           LISTADO
+        ========================================================= -->
+
+        <Border Grid.Row="3"
+                Background="White"
+                BorderBrush="#E2E8F0"
+                BorderThickness="1"
+                CornerRadius="10"
+                Padding="1">
+
+            <Grid>
+
+                <Grid.RowDefinitions>
+
+                    <RowDefinition Height="Auto"/>
+
+                    <RowDefinition Height="*"/>
+
+                </Grid.RowDefinitions>
+
+
+                <!-- ENCABEZADO LISTA -->
+
+                <Grid Grid.Row="0"
+                      Margin="18,15,18,12">
+
+                    <Grid.ColumnDefinitions>
+
+                        <ColumnDefinition/>
+
+                        <ColumnDefinition Width="Auto"/>
+
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel>
+
+                        <TextBlock
+                            Text="Emergencias registradas"
+                            FontSize="16"
+                            FontWeight="SemiBold"
+                            Foreground="#1E293B"/>
+
+                        <TextBlock
+                            Text="Consulta y seguimiento de las atenciones registradas"
+                            Margin="0,3,0,0"
+                            FontSize="12"
+                            Foreground="#94A3B8"/>
+
+                    </StackPanel>
+
+                </Grid>
+
+
+                <!-- =================================================
+                               DATAGRID
+                ================================================== -->
+
+                <DataGrid
+                    x:Name="dgEmergencias"
+                    Grid.Row="1"
+                    Style="{StaticResource ModernDataGridStyle}"
+                    ColumnHeaderStyle="{StaticResource ModernDataGridHeaderStyle}"
+                    CellStyle="{StaticResource ModernDataGridCellStyle}"
+                    AutoGenerateColumns="False"
+                    CanUserAddRows="False"
+                    IsReadOnly="True"
+                    SelectionMode="Single"
+                    SelectionUnit="FullRow">
+
+                    <DataGrid.Columns>
+
+
+                        <!-- CÓDIGO -->
+
+                        <DataGridTextColumn
+                            Header="Código"
+                            Binding="{Binding CodigoEmergencia}"
+                            Width="110"/>
+
+
+                        <!-- PACIENTE -->
+
+                        <DataGridTextColumn
+                            Header="Paciente"
+                            Binding="{Binding NombrePaciente}"
+                            Width="1.6*"/>
+
+
+                        <!-- MÉDICO -->
+
+                        <DataGridTextColumn
+                            Header="Médico"
+                            Binding="{Binding NombreMedico}"
+                            Width="1.25*"/>
+
+
+                        <!-- ESPECIALIDAD -->
+
+                        <DataGridTextColumn
+                            Header="Especialidad"
+                            Binding="{Binding Especialidad}"
+                            Width="1.25*"/>
+
+
+                        <!-- =================================================
+                                     ESTADO
+                        ================================================== -->
+
+                        <DataGridTemplateColumn
+                            Header="Estado"
+                            Width="130">
+
+                            <DataGridTemplateColumn.CellTemplate>
+
+                                <DataTemplate>
+
+                                    <Border
+                                        x:Name="EstadoBorder"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        CornerRadius="10"
+                                        Padding="10,4"
+                                        Background="#F1F5F9">
+
+                                        <TextBlock
+                                            x:Name="EstadoTexto"
+                                            Text="{Binding Estado}"
+                                            FontSize="11"
+                                            FontWeight="SemiBold"
+                                            Foreground="#475569"/>
+
+                                    </Border>
+
+                                    <DataTemplate.Triggers>
+
+
+                                        <!-- PENDIENTE -->
+
+                                        <DataTrigger
+                                            Binding="{Binding Estado}"
+                                            Value="Pendiente">
+
+                                            <Setter
+                                                TargetName="EstadoBorder"
+                                                Property="Background"
+                                                Value="#FFF4CC"/>
+
+                                            <Setter
+                                                TargetName="EstadoTexto"
+                                                Property="Foreground"
+                                                Value="#9A6700"/>
+
+                                        </DataTrigger>
+
+
+                                        <!-- EN ATENCIÓN -->
+
+                                        <DataTrigger
+                                            Binding="{Binding Estado}"
+                                            Value="En Atención">
+
+                                            <Setter
+                                                TargetName="EstadoBorder"
+                                                Property="Background"
+                                                Value="#E8F1FC"/>
+
+                                            <Setter
+                                                TargetName="EstadoTexto"
+                                                Property="Foreground"
+                                                Value="#2457A6"/>
+
+                                        </DataTrigger>
+
+
+                                        <!-- CRÍTICO -->
+
+                                        <DataTrigger
+                                            Binding="{Binding Estado}"
+                                            Value="Crítico">
+
+                                            <Setter
+                                                TargetName="EstadoBorder"
+                                                Property="Background"
+                                                Value="#FDECEC"/>
+
+                                            <Setter
+                                                TargetName="EstadoTexto"
+                                                Property="Foreground"
+                                                Value="#B42318"/>
+
+                                        </DataTrigger>
+
+
+                                        <!-- ALTA -->
+
+                                        <DataTrigger
+                                            Binding="{Binding Estado}"
+                                            Value="Alta">
+
+                                            <Setter
+                                                TargetName="EstadoBorder"
+                                                Property="Background"
+                                                Value="#EAF7EF"/>
+
+                                            <Setter
+                                                TargetName="EstadoTexto"
+                                                Property="Foreground"
+                                                Value="#287A4B"/>
+
+                                        </DataTrigger>
+
+
+                                        <!-- OBSERVACIÓN -->
+
+                                        <DataTrigger
+                                            Binding="{Binding Estado}"
+                                            Value="Observación">
+
+                                            <Setter
+                                                TargetName="EstadoBorder"
+                                                Property="Background"
+                                                Value="#F3E8FF"/>
+
+                                            <Setter
+                                                TargetName="EstadoTexto"
+                                                Property="Foreground"
+                                                Value="#7E22CE"/>
+
+                                        </DataTrigger>
+
+
+                                        <!-- HOSPITALIZACIÓN -->
+
+                                        <DataTrigger
+                                            Binding="{Binding Estado}"
+                                            Value="Hospitalización">
+
+                                            <Setter
+                                                TargetName="EstadoBorder"
+                                                Property="Background"
+                                                Value="#E0F2FE"/>
+
+                                            <Setter
+                                                TargetName="EstadoTexto"
+                                                Property="Foreground"
+                                                Value="#0369A1"/>
+
+                                        </DataTrigger>
+
+
+                                        <!-- TRASLADADO -->
+
+                                        <DataTrigger
+                                            Binding="{Binding Estado}"
+                                            Value="Trasladado">
+
+                                            <Setter
+                                                TargetName="EstadoBorder"
+                                                Property="Background"
+                                                Value="#F1F5F9"/>
+
+                                            <Setter
+                                                TargetName="EstadoTexto"
+                                                Property="Foreground"
+                                                Value="#475569"/>
+
+                                        </DataTrigger>
+
+                                    </DataTemplate.Triggers>
+
+                                </DataTemplate>
+
+                            </DataGridTemplateColumn.CellTemplate>
+
+                        </DataGridTemplateColumn>
+
+
+                        <!-- INGRESO -->
+
+                        <DataGridTextColumn
+                            Header="Ingreso"
+                            Binding="{Binding FechaIngreso,
+                                      StringFormat={}{0:dd/MM/yyyy HH:mm}}"
+                            Width="145"/>
+
+
+                        <!-- =================================================
+                                      ACCIONES
+                        ================================================== -->
+
+                        <DataGridTemplateColumn
+                            Header="Acciones"
+                            Width="390">
+
+                            <DataGridTemplateColumn.CellTemplate>
+
+                                <DataTemplate>
+
+                                    <StackPanel
+                                          Orientation="Horizontal"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center">
+
+                                        <!-- VER -->
+
+                                        <Button
+                                            MinWidth="52"
+                                            Style="{StaticResource GridActionButtonStyle}"
+                                            Content="Ver"
+                                            ToolTip="Consultar expediente completo"
+                                            Click="btnVerEmergencia_Click"/>
+
+
+                                        <!-- ATENDER -->
+
+                                        <Button
+                                            x:Name="btnAtenderFila"
+                                            MinWidth="72"
+                                            Content="Atender"
+                                            ToolTip="Iniciar o continuar atención"
+                                            Click="btnContinuarEmergencia_Click">
+
+                                            <Button.Style>
+
+                                                <Style
+                                                        TargetType="Button"
+                                                        BasedOn="{StaticResource GridActionButtonStyle}">
+
+                                                    <Setter
+                                                        Property="Background"
+                                                        Value="#E8F1FC"/>
+
+                                                    <Setter
+                                                        Property="BorderBrush"
+                                                        Value="#C5D9F3"/>
+
+                                                    <Setter
+                                                        Property="Foreground"
+                                                        Value="#2457A6"/>
+
+                                                    <Style.Triggers>
+
+                                                        <DataTrigger
+                                                                Binding="{Binding Estado}"
+                                                                Value="Alta">
+
+                                                            <Setter
+                                                                Property="IsEnabled"
+                                                                Value="False"/>
+
+                                                            <Setter
+                                                                Property="Opacity"
+                                                                Value="0.45"/>
+
+                                                            <Setter
+                                                                Property="ToolTip"
+                                                                Value="La emergencia ya fue dada de alta"/>
+
+                                                        </DataTrigger>
+
+                                                        <DataTrigger
+                                                                Binding="{Binding Estado}"
+                                                                Value="Trasladado">
+
+                                                            <Setter
+                                                                Property="IsEnabled"
+                                                                Value="False"/>
+
+                                                            <Setter
+                                                                Property="Opacity"
+                                                                Value="0.45"/>
+
+                                                            <Setter
+                                                                Property="ToolTip"
+                                                                Value="La emergencia fue cerrada por traslado"/>
+
+                                                        </DataTrigger>
+
+                                                    </Style.Triggers>
+
+                                                </Style>
+
+                                            </Button.Style>
+
+                                        </Button>
+
+
+                                        <!-- PDF -->
+
+                                        <Button
+                                            MinWidth="52"
+                                            Style="{StaticResource GridActionButtonStyle}"
+                                            Background="#FFF1F1"
+                                            BorderBrush="#F5CCCC"
+                                            Foreground="#B42318"
+                                            Content="PDF"
+                                            ToolTip="Generar expediente en PDF"
+                                            Click="btnPDFEmergencia_Click"/>
+
+
+                                        <!-- ESTADO -->
+
+                                        <Button
+                                            MinWidth="65"
+                                            Style="{StaticResource GridActionButtonStyle}"
+                                            Content="Estado"
+                                            ToolTip="Cambiar estado de la emergencia"
+                                            Click="btnCambiarEstado_Click"/>
+
+                                    </StackPanel>
+
+                                </DataTemplate>
+
+                            </DataGridTemplateColumn.CellTemplate>
+
+                        </DataGridTemplateColumn>
+
+                    </DataGrid.Columns>
+
+                </DataGrid>
+
+            </Grid>
+
+        </Border>
+
+    </Grid>
+
+</Page>

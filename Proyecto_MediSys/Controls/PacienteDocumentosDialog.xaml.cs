@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using Proyecto_MediSys.Data;
 using Proyecto_MediSys.Models;
 using Proyecto_MediSys.Services;
 using System;
@@ -21,6 +22,7 @@ namespace Proyecto_MediSys.Controls
     public partial class PacienteDocumentosDialog : UserControl
     {
         private PacienteDialog formularioPaciente;
+        private readonly DocumentoPacienteDAO documentoDAO = new DocumentoPacienteDAO();
 
         public PacienteDocumentosDialog(PacienteDialog formulario)
         {
@@ -29,9 +31,11 @@ namespace Proyecto_MediSys.Controls
             formularioPaciente = formulario;
 
             dgDocumentos.ItemsSource = formularioPaciente.Documentos;
+
+            CargarDocumentos();
         }
 
-        
+
         //boton agregar documento
         private void btnAgregar_Click(object sender, RoutedEventArgs e)
         {
@@ -73,31 +77,96 @@ namespace Proyecto_MediSys.Controls
                 }
             }
 
-                    formularioPaciente.Documentos.Add(
-            new DocumentoPaciente
+            // Crear carpeta del paciente
+            string carpetaPaciente = Path.Combine(
+                                    AppDomain.CurrentDomain.BaseDirectory,
+                                    "Archivos",
+                                    "Pacientes",
+                                    formularioPaciente.CodigoPaciente);
+
+            if (!Directory.Exists(carpetaPaciente))
             {
+                Directory.CreateDirectory(carpetaPaciente);
+            }
+
+            // Copiar archivo
+            string destino = Path.Combine(
+                carpetaPaciente,
+                archivo.Name);
+
+            File.Copy(
+                rutaArchivoSeleccionado,
+                destino,
+                true);
+            // Crear objeto
+            DocumentoPaciente documento = new DocumentoPaciente
+            {
+
+                IdPaciente = formularioPaciente.IdPaciente,
+
                 TipoDocumento = ((ComboBoxItem)cmbTipoDocumento.SelectedItem).Content.ToString(),
 
                 NombreArchivo = archivo.Name,
 
-                RutaArchivo = archivo.FullName,
+                RutaArchivo = destino,
 
-                FechaRegistro = DateTime.Now,
+                Extension = archivo.Extension,
 
-                Tamano = (archivo.Length / 1024.0).ToString("N1") + " KB",
+                TamanoKB = Math.Round(archivo.Length / 1024m, 2),
 
-                Estado = "Activo"
-            });
+                FechaSubida = DateTime.Now,
 
-            formularioPaciente.ActualizarEstadoDocumentos();
+                Activo = true
+            };
 
-            MessageBox.Show(
-                "Documento agregado correctamente.",
-                "MediSys",
-                MessageBoxButton.OK,
-                MessageBoxImage.Information);
+            // Guardar en SQL
+            //=====================================================
+            // Si el paciente todavía NO existe en la base de datos
+            //=====================================================
+            if (formularioPaciente.IdPaciente == 0)
+            {
+                formularioPaciente.Documentos.Add(documento);
 
-            LimpiarFormulario();
+                formularioPaciente.ActualizarEstadoDocumentos();
+
+                MessageBox.Show(
+                    "Documento agregado temporalmente.\n\nSe guardará cuando registre el paciente.",
+                    "MediSys",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+
+                LimpiarFormulario();
+
+                return;
+            }
+
+            //=====================================================
+            // El paciente YA existe
+            //=====================================================
+            if (documentoDAO.Insertar(documento))
+            {
+                formularioPaciente.Documentos.Add(documento);
+
+                CargarDocumentos();
+
+                formularioPaciente.ActualizarEstadoDocumentos();
+
+                MessageBox.Show(
+                    "Documento guardado correctamente.",
+                    "MediSys",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+
+                LimpiarFormulario();
+            }
+            else
+            {
+                MessageBox.Show(
+                    "No fue posible guardar el documento.",
+                    "MediSys",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
         }
 
 
@@ -322,6 +391,19 @@ namespace Proyecto_MediSys.Controls
             await Task.Delay(150);
 
             await DialogService.Mostrar(formularioPaciente);
+        }
+
+        //cargar documentos del paciente
+        private void CargarDocumentos()
+        {
+            formularioPaciente.Documentos.Clear();
+
+            foreach (var doc in documentoDAO.ObtenerPorPaciente(formularioPaciente.IdPaciente))
+            {
+                formularioPaciente.Documentos.Add(doc);
+            }
+
+            formularioPaciente.ActualizarEstadoDocumentos();
         }
 
         //metodo limpiar formulario

@@ -9,6 +9,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Proyecto_MediSys.Helpers;
+using Proyecto_MediSys.Models;
 
 namespace Proyecto_MediSys
 {
@@ -62,10 +64,12 @@ namespace Proyecto_MediSys
 
             UsuarioDAO usuarioDAO = new UsuarioDAO();
 
-            bool acceso = usuarioDAO.ValidarLogin(usuario, clave);
+            Usuario? usuarioActual = usuarioDAO.IniciarSesion(usuario, clave);
 
-            if (acceso)
+            if (usuarioActual != null)
             {
+                // Guardar la sesión del usuario
+                SesionActual.Usuario = usuarioActual;
 
                 DashboardWindow dashboard = new DashboardWindow();
                 dashboard.Show();
@@ -74,7 +78,11 @@ namespace Proyecto_MediSys
             }
             else
             {
-                MessageBox.Show("Usuario o contraseña incorrectos");
+                MessageBox.Show(
+                    "Usuario o contraseña incorrectos.",
+                    "MediSys",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
             }
         }
 

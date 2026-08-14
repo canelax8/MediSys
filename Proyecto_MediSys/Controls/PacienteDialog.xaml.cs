@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Proyecto_MediSys.Helpers;
 
 
 
@@ -18,6 +19,8 @@ namespace Proyecto_MediSys.Controls
 
     public partial class PacienteDialog : UserControl
     {
+        private bool cargandoFormulario = false;
+
         private readonly PacienteDAO dao = new PacienteDAO();
 
         private readonly TipoPacienteDAO tipoPacienteDAO = new TipoPacienteDAO();
@@ -28,7 +31,7 @@ namespace Proyecto_MediSys.Controls
 
 
         private Paciente? pacienteActual;
-        public event Action? PacienteGuardado;
+        public event Action<Paciente>? PacienteGuardado;
         private readonly ModoFormulario modo;
         public ObservableCollection<DocumentoPaciente> 
         Documentos { get; set; } = new ObservableCollection<DocumentoPaciente>();
@@ -38,11 +41,11 @@ namespace Proyecto_MediSys.Controls
         {
             InitializeComponent();
 
+            modo = modoFormulario;
+
             CargarCatalogos();
 
             pacienteActual = paciente;
-
-            modo = modoFormulario;
 
             CargarPaciente(paciente);
 
@@ -60,10 +63,15 @@ namespace Proyecto_MediSys.Controls
 
         private void CargarCatalogos()
         {
+            // Tipo de paciente
             cmbTipoPaciente.ItemsSource = tipoPacienteDAO.ObtenerTodos();
-            
-            cmbSeguro.ItemsSource = seguroDAO.ObtenerTodos();
+            cmbTipoPaciente.DisplayMemberPath = "Nombre";
+            cmbTipoPaciente.SelectedValuePath = "IdTipoPaciente";
 
+            // Seguro
+            cmbSeguro.ItemsSource = seguroDAO.ObtenerTodos();
+            cmbSeguro.DisplayMemberPath = "Nombre";
+            cmbSeguro.SelectedValuePath = "IdSeguro";
         }
 
 
@@ -93,19 +101,30 @@ namespace Proyecto_MediSys.Controls
         // Cargar los datos del paciente en el formulario
         private void CargarPaciente(Paciente paciente)
         {
+            cargandoFormulario = true;
             txtNombre.Text = paciente.Nombre;
             txtApellido.Text = paciente.Apellido;
             txtTelefono.Text = paciente.Telefono;
+            //txtCorreo.Text = paciente.Correo;
+            //txtSegundoNombre.Text = paciente.SegundoNombre;
+            //txtSegundoApellido.Text = paciente.SegundoApellido;
             txtDireccion.Text = paciente.Direccion;
-            txtDocumento.Text = paciente.NumeroDocumento;
+            txtDocumento.Text = paciente.NumeroDocumento;          
             dpNacimiento.SelectedDate = paciente.FechaNacimiento;
             txtCodigoTemporal.Text = paciente.CodigoTemporal;
             chkIndocumentado.IsChecked = paciente.Indocumentado;
 
-            SeleccionarCombo(cmbSexo, paciente.Sexo);
-            SeleccionarCombo(cmbTipoPaciente, paciente.NombreTipoPaciente);
+            if (paciente.Sexo == "M")
+                cmbSexo.SelectedIndex = 1;
+            else if (paciente.Sexo == "F")
+                cmbSexo.SelectedIndex = 2;
+
+            cmbTipoPaciente.SelectedValue = paciente.IdTipoPaciente;
+            
             SeleccionarCombo(cmbTipoDocumento, paciente.TipoDocumento);
-            SeleccionarCombo(cmbSeguro, paciente.NombreSeguro);
+           
+            cmbSeguro.SelectedValue = paciente.IdSeguro;
+            cargandoFormulario = false;
         }// Cargar los datos del paciente en el formulario
 
         // Seleccionar un valor en un ComboBox por su contenido
@@ -229,7 +248,10 @@ namespace Proyecto_MediSys.Controls
 
                 paciente.FechaNacimiento = dpNacimiento.SelectedDate ?? DateTime.Today;
 
-                paciente.Sexo = ((ComboBoxItem)cmbSexo.SelectedItem).Content.ToString();
+                string sexo =((ComboBoxItem)cmbSexo.SelectedItem).Content.ToString();
+
+                paciente.Sexo =
+                sexo == "Masculino" ? "M" : "F";
 
                 paciente.IdSeguro = Convert.ToInt32(cmbSeguro.SelectedValue);
 
@@ -240,6 +262,23 @@ namespace Proyecto_MediSys.Controls
                 if (modo == ModoFormulario.Nuevo)
                 {
                     guardado = dao.Insertar(paciente);
+
+                    pacienteActual = paciente;
+
+                    //=========================================
+                    // Guardar documentos temporales
+                    //=========================================
+                    if (guardado && Documentos.Count > 0)
+                    {
+                        DocumentoPacienteDAO documentoDAO = new DocumentoPacienteDAO();
+
+                        foreach (var doc in Documentos)
+                        {
+                            doc.IdPaciente = paciente.IdPaciente;
+
+                            documentoDAO.Insertar(doc);
+                        }
+                    }
                 }
                 else if (modo == ModoFormulario.Editar)
                 {
@@ -256,10 +295,12 @@ namespace Proyecto_MediSys.Controls
                         MessageBoxButton.OK,
                         MessageBoxImage.Information);
 
-                    PacienteGuardado?.Invoke();
+                    PacienteGuardado?.Invoke(pacienteActual);
 
                     MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand.Execute(null, this);
                 }
+
+             
                 else
                 {
                     MessageBox.Show(
@@ -321,7 +362,7 @@ namespace Proyecto_MediSys.Controls
 
             if (chkIndocumentado.IsChecked == false)
             {
-                if (cmbTipoPaciente.SelectedIndex <= 0)
+                if (cmbTipoPaciente.SelectedValue == null)
                 {
                     MessageBox.Show("Seleccione el tipo de paciente.");
                     cmbTipoPaciente.Focus();
@@ -398,7 +439,7 @@ namespace Proyecto_MediSys.Controls
             }
 
             //seguro
-            if (cmbSeguro.SelectedIndex <= 0)
+            if (cmbSeguro.SelectedValue == null)
             {
                 MessageBox.Show("Seleccione un seguro.");
                 cmbSeguro.Focus();
@@ -414,6 +455,10 @@ namespace Proyecto_MediSys.Controls
             if (cmbTipoDocumento.SelectedItem == null)
                 return;
 
+            // NO borrar el documento mientras se carga el formulario
+            if (cargandoFormulario)
+                return;
+
             ComboBoxItem item = (ComboBoxItem)cmbTipoDocumento.SelectedItem;
 
             string tipo = item.Content.ToString();
@@ -421,17 +466,16 @@ namespace Proyecto_MediSys.Controls
             txtDocumento.Clear();
 
             if (tipo == "Cédula")
-            {
                 txtDocumento.MaxLength = 11;
-            }
-            else if (tipo == "Pasaporte")
-            {
-                txtDocumento.MaxLength = 6;
-            }
+            else
+                txtDocumento.MaxLength = 20;
         }
         //------------------------------------------------------------------//
         private void chkIndocumentado_Checked(object sender, RoutedEventArgs e)
         {
+            if (cargandoFormulario)
+                return;
+
             // Bloquear controles
             cmbTipoPaciente.IsEnabled = false;
             cmbTipoDocumento.IsEnabled = false;
@@ -463,6 +507,9 @@ namespace Proyecto_MediSys.Controls
         //--------------------------------------------------------------------//
         private void chkIndocumentado_Unchecked(object sender, RoutedEventArgs e)
         {
+            if (cargandoFormulario)
+                return;
+
             // Habilitar nuevamente
             cmbTipoPaciente.IsEnabled = true;
             cmbTipoDocumento.IsEnabled = true;
@@ -494,6 +541,7 @@ namespace Proyecto_MediSys.Controls
         //------------------------------------------------------------------//
         private async void btnDocumentos_Click(object sender, RoutedEventArgs e)
         {
+            //MessageBox.Show($"IdPaciente = {pacienteActual?.IdPaciente}\nCódigo = {pacienteActual?.CodigoPaciente}");
             //Cerrar el dialogo actual
             MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand.Execute(null, this);
 
@@ -540,6 +588,22 @@ namespace Proyecto_MediSys.Controls
             get
             {
                 return txtCodigoTemporal.Text;
+            }
+
+        }
+        public int IdPaciente
+        {
+            get
+            {
+                return pacienteActual?.IdPaciente ?? 0;
+            }
+        }
+
+        public string CodigoPaciente
+        {
+            get
+            {
+                return pacienteActual?.CodigoPaciente ?? txtCodigoTemporal.Text;
             }
         }
     }

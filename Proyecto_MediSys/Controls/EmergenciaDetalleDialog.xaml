@@ -1,0 +1,1334 @@
+﻿<Window x:Class="Proyecto_MediSys.Controls.EmergenciaDetalleDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Expediente de Emergencia"
+        Width="1180"
+        Height="780"
+        MinWidth="1000"
+        MinHeight="650"
+        WindowStartupLocation="CenterOwner"
+        Background="#F4F6F8">
+
+    <Window.Resources>
+
+        <!-- =====================================================
+                            TÍTULO DE SECCIÓN
+        ====================================================== -->
+
+        <Style x:Key="SectionTitleStyle"
+               TargetType="TextBlock">
+
+            <Setter Property="FontSize"
+                    Value="17"/>
+
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+
+            <Setter Property="Foreground"
+                    Value="#1E3A5F"/>
+
+        </Style>
+
+
+        <!-- =====================================================
+                              ETIQUETA
+        ====================================================== -->
+
+        <Style x:Key="LabelStyle"
+               TargetType="TextBlock">
+
+            <Setter Property="FontSize"
+                    Value="11"/>
+
+            <Setter Property="Foreground"
+                    Value="#64748B"/>
+
+        </Style>
+
+
+        <!-- =====================================================
+                              VALOR
+        ====================================================== -->
+
+        <Style x:Key="ValueStyle"
+               TargetType="TextBlock">
+
+            <Setter Property="FontSize"
+                    Value="14"/>
+
+            <Setter Property="Foreground"
+                    Value="#172033"/>
+
+            <Setter Property="TextWrapping"
+                    Value="Wrap"/>
+
+        </Style>
+
+
+        <!-- =====================================================
+                           TARJETA PRINCIPAL
+        ====================================================== -->
+
+        <Style x:Key="CardStyle"
+               TargetType="Border">
+
+            <Setter Property="Background"
+                    Value="White"/>
+
+            <Setter Property="BorderBrush"
+                    Value="#E2E8F0"/>
+
+            <Setter Property="BorderThickness"
+                    Value="1"/>
+
+            <Setter Property="CornerRadius"
+                    Value="10"/>
+
+            <Setter Property="Padding"
+                    Value="18"/>
+
+            <Setter Property="Margin"
+                    Value="0,0,0,14"/>
+
+        </Style>
+
+
+        <!-- =====================================================
+                           BOTÓN SECUNDARIO
+        ====================================================== -->
+
+        <Style x:Key="SecondaryButtonStyle"
+               TargetType="Button">
+
+            <Setter Property="Height"
+                    Value="40"/>
+
+            <Setter Property="Padding"
+                    Value="18,0"/>
+
+            <Setter Property="Background"
+                    Value="#EEF2F6"/>
+
+            <Setter Property="Foreground"
+                    Value="#334155"/>
+
+            <Setter Property="BorderThickness"
+                    Value="0"/>
+
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+
+            <Setter Property="Cursor"
+                    Value="Hand"/>
+
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="Button">
+
+                        <Border x:Name="Border"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="6">
+
+                            <ContentPresenter
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+
+                                <Setter TargetName="Border"
+                                        Property="Background"
+                                        Value="#E2E8F0"/>
+
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+
+            </Setter>
+
+        </Style>
+
+
+        <!-- =====================================================
+                              BOTÓN PDF
+        ====================================================== -->
+
+        <Style x:Key="PdfButtonStyle"
+               TargetType="Button">
+
+            <Setter Property="Height"
+                    Value="40"/>
+
+            <Setter Property="Padding"
+                    Value="18,0"/>
+
+            <Setter Property="Background"
+                    Value="#B42318"/>
+
+            <Setter Property="Foreground"
+                    Value="White"/>
+
+            <Setter Property="BorderThickness"
+                    Value="0"/>
+
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+
+            <Setter Property="Cursor"
+                    Value="Hand"/>
+
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="Button">
+
+                        <Border x:Name="Border"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="6">
+
+                            <ContentPresenter
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+
+                                <Setter TargetName="Border"
+                                        Property="Opacity"
+                                        Value="0.88"/>
+
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+
+            </Setter>
+
+        </Style>
+
+    </Window.Resources>
+
+
+    <Grid Margin="22">
+
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="Auto"/>
+
+            <RowDefinition Height="*"/>
+
+            <RowDefinition Height="Auto"/>
+
+        </Grid.RowDefinitions>
+
+
+        <!-- =====================================================
+                            ENCABEZADO
+        ====================================================== -->
+
+        <Border Grid.Row="0"
+                Style="{StaticResource CardStyle}"
+                Margin="0,0,0,14">
+
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+
+                    <ColumnDefinition/>
+
+                    <ColumnDefinition Width="Auto"/>
+
+                </Grid.ColumnDefinitions>
+
+
+                <StackPanel>
+
+                    <TextBlock
+                        Text="EXPEDIENTE DE EMERGENCIA"
+                        FontSize="24"
+                        FontWeight="Bold"
+                        Foreground="#1E3A5F"/>
+
+                    <TextBlock
+                        x:Name="txtPacienteHeader"
+                        Margin="0,5,0,0"
+                        FontSize="15"
+                        FontWeight="SemiBold"
+                        Foreground="#475569"/>
+
+                </StackPanel>
+
+
+                <StackPanel
+                    Grid.Column="1"
+                    HorizontalAlignment="Right">
+
+                    <TextBlock
+                        Text="CÓDIGO"
+                        FontSize="10"
+                        Foreground="#64748B"
+                        HorizontalAlignment="Right"/>
+
+                    <TextBlock
+                        x:Name="txtCodigo"
+                        FontSize="20"
+                        FontWeight="Bold"
+                        Foreground="#B42318"
+                        HorizontalAlignment="Right"/>
+
+                    <Border
+                        Margin="0,6,0,0"
+                        Padding="10,4"
+                        CornerRadius="10"
+                        Background="#FFF4CC"
+                        HorizontalAlignment="Right">
+
+                        <TextBlock
+                            x:Name="txtEstado"
+                            FontSize="11"
+                            FontWeight="SemiBold"
+                            Foreground="#9A6700"/>
+
+                    </Border>
+
+                </StackPanel>
+
+            </Grid>
+
+        </Border>
+
+
+        <!-- =====================================================
+                             CONTENIDO
+        ====================================================== -->
+
+        <ScrollViewer
+            Grid.Row="1"
+            VerticalScrollBarVisibility="Auto"
+            HorizontalScrollBarVisibility="Disabled">
+
+            <StackPanel>
+
+
+                <!-- =================================================
+                              PACIENTE
+                ================================================== -->
+
+                <Border Style="{StaticResource CardStyle}">
+
+                    <StackPanel>
+
+                        <TextBlock
+                            Text="Datos del paciente"
+                            Style="{StaticResource SectionTitleStyle}"
+                            Margin="0,0,0,16"/>
+
+
+                        <Grid>
+
+                            <Grid.ColumnDefinitions>
+
+                                <ColumnDefinition Width="2*"/>
+
+                                <ColumnDefinition/>
+
+                                <ColumnDefinition/>
+
+                                <ColumnDefinition/>
+
+                            </Grid.ColumnDefinitions>
+
+
+                            <!-- NOMBRE -->
+
+                            <StackPanel
+                                Grid.Column="0"
+                                Margin="0,0,20,16">
+
+                                <TextBlock
+                                    Text="Nombre completo"
+                                    Style="{StaticResource LabelStyle}"/>
+
+                                <TextBlock
+                                    x:Name="txtNombrePaciente"
+                                    Style="{StaticResource ValueStyle}"
+                                    FontWeight="SemiBold"/>
+
+                            </StackPanel>
+
+
+                            <!-- DOCUMENTO -->
+
+                            <StackPanel
+                                Grid.Column="1"
+                                Margin="0,0,20,16">
+
+                                <TextBlock
+                                    Text="Documento"
+                                    Style="{StaticResource LabelStyle}"/>
+
+                                <TextBlock
+                                    x:Name="txtDocumento"
+                                    Style="{StaticResource ValueStyle}"
+                                    FontWeight="SemiBold"/>
+
+                            </StackPanel>
+
+
+                            <!-- EDAD -->
+
+                            <StackPanel
+                                Grid.Column="2"
+                                Margin="0,0,20,16">
+
+                                <TextBlock
+                                    Text="Edad"
+                                    Style="{StaticResource LabelStyle}"/>
+
+                                <TextBlock
+                                    x:Name="txtEdad"
+                                    Style="{StaticResource ValueStyle}"
+                                    FontWeight="SemiBold"/>
+
+                            </StackPanel>
+
+
+                            <!-- SEXO -->
+
+                            <StackPanel
+                                Grid.Column="3"
+                                Margin="0,0,0,16">
+
+                                <TextBlock
+                                    Text="Sexo"
+                                    Style="{StaticResource LabelStyle}"/>
+
+                                <TextBlock
+                                    x:Name="txtSexo"
+                                    Style="{StaticResource ValueStyle}"/>
+
+                            </StackPanel>
+
+                        </Grid>
+
+
+                        <Grid>
+
+                            <Grid.ColumnDefinitions>
+
+                                <ColumnDefinition/>
+
+                                <ColumnDefinition/>
+
+                                <ColumnDefinition Width="2*"/>
+
+                            </Grid.ColumnDefinitions>
+
+
+                            <!-- TELÉFONO -->
+
+                            <StackPanel
+                                Grid.Column="0"
+                                Margin="0,0,20,0">
+
+                                <TextBlock
+                                    Text="Teléfono"
+                                    Style="{StaticResource LabelStyle}"/>
+
+                                <TextBlock
+                                    x:Name="txtTelefono"
+                                    Style="{StaticResource ValueStyle}"/>
+
+                            </StackPanel>
+
+
+                            <!-- SEGURO -->
+
+                            <StackPanel
+                                Grid.Column="1"
+                                Margin="0,0,20,0">
+
+                                <TextBlock
+                                    Text="Seguro"
+                                    Style="{StaticResource LabelStyle}"/>
+
+                                <TextBlock
+                                    x:Name="txtSeguro"
+                                    Style="{StaticResource ValueStyle}"
+                                    FontWeight="SemiBold"/>
+
+                            </StackPanel>
+
+
+                            <!-- DIRECCIÓN -->
+
+                            <StackPanel Grid.Column="2">
+
+                                <TextBlock
+                                    Text="Dirección"
+                                    Style="{StaticResource LabelStyle}"/>
+
+                                <TextBlock
+                                    x:Name="txtDireccion"
+                                    Style="{StaticResource ValueStyle}"/>
+
+                            </StackPanel>
+
+                        </Grid>
+
+                    </StackPanel>
+
+                </Border>
+
+
+                <!-- =================================================
+                         EVALUACIÓN INICIAL
+                ================================================== -->
+
+                <Border Style="{StaticResource CardStyle}">
+
+                    <StackPanel>
+
+                        <TextBlock
+                            Text="Evaluación inicial"
+                            Style="{StaticResource SectionTitleStyle}"/>
+
+                        <TextBlock
+                            Text="Triage y signos vitales registrados durante la valoración inicial."
+                            FontSize="11"
+                            Foreground="#94A3B8"
+                            Margin="0,3,0,16"/>
+
+
+                        <!-- FILA 1 -->
+
+                        <Grid>
+
+                            <Grid.ColumnDefinitions>
+
+                                <ColumnDefinition/>
+
+                                <ColumnDefinition/>
+
+                                <ColumnDefinition/>
+
+                                <ColumnDefinition/>
+
+                                <ColumnDefinition/>
+
+                            </Grid.ColumnDefinitions>
+
+
+                            <StackPanel Grid.Column="0">
+
+                                <TextBlock
+                                    Text="Triage"
+                                    Style="{StaticResource LabelStyle}"/>
+
+                                <TextBlock
+                                    x:Name="txtTriage"
+                                    Style="{StaticResource ValueStyle}"
+                                    FontWeight="SemiBold"/>
+
+                            </StackPanel>
+
+
+                            <StackPanel Grid.Column="1">
+
+                                <TextBlock
+                                    Text="Temperatura"
+                                    Style="{StaticResource LabelStyle}"/>
+
+                                <TextBlock
+                                    x:Name="txtTemperatura"
+                                    Style="{StaticResource ValueStyle}"
+                                    FontWeight="SemiBold"/>
+
+                            </StackPanel>
+
+
+                            <StackPanel Grid.Column="2">
+
+                                <TextBlock
+                                    Text="Presión arterial"
+                                    Style="{StaticResource LabelStyle}"/>
+
+                                <TextBlock
+                                    x:Name="txtPresion"
+                                    Style="{StaticResource ValueStyle}"
+                                    FontWeight="SemiBold"/>
+
+                            </StackPanel>
+
+
+                            <StackPanel Grid.Column="3">
+
+                                <TextBlock
+                                    Text="Frecuencia cardíaca"
+                                    Style="{StaticResource LabelStyle}"/>
+
+                                <TextBlock
+                                    x:Name="txtFrecuenciaCardiaca"
+                                    Style="{StaticResource ValueStyle}"
+                                    FontWeight="SemiBold"/>
+
+                            </StackPanel>
+
+
+                            <StackPanel Grid.Column="4">
+
+                                <TextBlock
+                                    Text="Saturación O₂"
+                                    Style="{StaticResource LabelStyle}"/>
+
+                                <TextBlock
+                                    x:Name="txtSaturacion"
+                                    Style="{StaticResource ValueStyle}"
+                                    FontWeight="SemiBold"/>
+
+                            </StackPanel>
+
+                        </Grid>
+
+
+                        <!-- FILA 2 -->
+
+                        <Grid Margin="0,18,0,0">
+
+                            <Grid.ColumnDefinitions>
+
+                                <ColumnDefinition/>
+
+                                <ColumnDefinition/>
+
+                                <ColumnDefinition/>
+
+                                <ColumnDefinition/>
+
+                            </Grid.ColumnDefinitions>
+
+
+                            <StackPanel Grid.Column="0">
+
+                                <TextBlock
+                                    Text="Frecuencia respiratoria"
+                                    Style="{StaticResource LabelStyle}"/>
+
+                                <TextBlock
+                                    x:Name="txtFrecuenciaRespiratoria"
+                                    Style="{StaticResource ValueStyle}"
+                                    FontWeight="SemiBold"/>
+
+                            </StackPanel>
+
+
+                            <StackPanel Grid.Column="1">
+
+                                <TextBlock
+                                    Text="Glucemia"
+                                    Style="{StaticResource LabelStyle}"/>
+
+                                <TextBlock
+                                    x:Name="txtGlucemia"
+                                    Style="{StaticResource ValueStyle}"
+                                    FontWeight="SemiBold"/>
+
+                            </StackPanel>
+
+
+                            <StackPanel Grid.Column="2">
+
+                                <TextBlock
+                                    Text="Peso"
+                                    Style="{StaticResource LabelStyle}"/>
+
+                                <TextBlock
+                                    x:Name="txtPeso"
+                                    Style="{StaticResource ValueStyle}"
+                                    FontWeight="SemiBold"/>
+
+                            </StackPanel>
+
+
+                            <StackPanel Grid.Column="3">
+
+                                <TextBlock
+                                    Text="Talla"
+                                    Style="{StaticResource LabelStyle}"/>
+
+                                <TextBlock
+                                    x:Name="txtTalla"
+                                    Style="{StaticResource ValueStyle}"
+                                    FontWeight="SemiBold"/>
+
+                            </StackPanel>
+
+                        </Grid>
+
+                    </StackPanel>
+
+                </Border>
+
+
+                <!-- =================================================
+                         INFORMACIÓN CLÍNICA
+                ================================================== -->
+
+                <Border Style="{StaticResource CardStyle}">
+
+                    <StackPanel>
+
+                        <TextBlock
+                            Text="Información clínica"
+                            Style="{StaticResource SectionTitleStyle}"
+                            Margin="0,0,0,14"/>
+
+
+                        <TextBlock
+                            Text="Motivo de consulta"
+                            Style="{StaticResource LabelStyle}"/>
+
+                        <TextBlock
+                            x:Name="txtMotivo"
+                            Style="{StaticResource ValueStyle}"
+                            Margin="0,3,0,14"/>
+
+
+                        <Grid>
+
+                            <Grid.ColumnDefinitions>
+
+                                <ColumnDefinition/>
+
+                                <ColumnDefinition/>
+
+                            </Grid.ColumnDefinitions>
+
+
+                            <!-- ANTECEDENTES -->
+
+                            <StackPanel
+                                Grid.Column="0"
+                                Margin="0,0,20,0">
+
+                                <TextBlock
+                                    Text="Antecedentes"
+                                    Style="{StaticResource LabelStyle}"/>
+
+                                <TextBlock
+                                    x:Name="txtAntecedentes"
+                                    Style="{StaticResource ValueStyle}"/>
+
+                            </StackPanel>
+
+
+                            <!-- ALERGIAS -->
+
+                            <Border
+                                Grid.Column="1"
+                                Padding="12"
+                                Background="#FFF7ED"
+                                BorderBrush="#FED7AA"
+                                BorderThickness="1"
+                                CornerRadius="7">
+
+                                <StackPanel>
+
+                                    <TextBlock
+                                        Text="Alergias conocidas"
+                                        FontSize="11"
+                                        Foreground="#9A3412"/>
+
+                                    <TextBlock
+                                        x:Name="txtAlergias"
+                                        FontSize="14"
+                                        FontWeight="SemiBold"
+                                        Foreground="#9A3412"
+                                        TextWrapping="Wrap"/>
+
+                                </StackPanel>
+
+                            </Border>
+
+                        </Grid>
+
+
+                        <Grid Margin="0,16,0,0">
+
+                            <Grid.ColumnDefinitions>
+
+                                <ColumnDefinition/>
+
+                                <ColumnDefinition/>
+
+                            </Grid.ColumnDefinitions>
+
+
+                            <StackPanel
+                                Grid.Column="0"
+                                Margin="0,0,20,0">
+
+                                <TextBlock
+                                    Text="Medicamentos habituales"
+                                    Style="{StaticResource LabelStyle}"/>
+
+                                <TextBlock
+                                    x:Name="txtMedicamentos"
+                                    Style="{StaticResource ValueStyle}"/>
+
+                            </StackPanel>
+
+
+                            <StackPanel Grid.Column="1">
+
+                                <TextBlock
+                                    Text="Observaciones clínicas"
+                                    Style="{StaticResource LabelStyle}"/>
+
+                                <TextBlock
+                                    x:Name="txtObservacionesClinicas"
+                                    Style="{StaticResource ValueStyle}"/>
+
+                            </StackPanel>
+
+                        </Grid>
+
+                    </StackPanel>
+
+                </Border>
+
+
+                <!-- =================================================
+                             DIAGNÓSTICOS
+                ================================================== -->
+
+                <Border Style="{StaticResource CardStyle}">
+
+                    <StackPanel>
+
+                        <Grid Margin="0,0,0,14">
+
+                            <Grid.ColumnDefinitions>
+
+                                <ColumnDefinition/>
+
+                                <ColumnDefinition Width="Auto"/>
+
+                            </Grid.ColumnDefinitions>
+
+
+                            <StackPanel>
+
+                                <TextBlock
+                                    Text="Diagnóstico"
+                                    Style="{StaticResource SectionTitleStyle}"/>
+
+                                <TextBlock
+                                    Text="Diagnósticos asociados a la atención de emergencia."
+                                    FontSize="11"
+                                    Foreground="#94A3B8"
+                                    Margin="0,3,0,0"/>
+
+                            </StackPanel>
+
+
+                            <Border
+                                Grid.Column="1"
+                                Padding="10,4"
+                                Background="#EEF4FC"
+                                CornerRadius="10">
+
+                                <TextBlock
+                                    Text="CIE-10"
+                                    FontSize="10"
+                                    Foreground="#2457A6"/>
+
+                            </Border>
+
+                        </Grid>
+
+
+                        <!-- PRINCIPAL -->
+
+                        <Border
+                            Padding="14"
+                            Background="#F8FAFC"
+                            BorderBrush="#DCE5EE"
+                            BorderThickness="1"
+                            CornerRadius="7"
+                            Margin="0,0,0,14">
+
+                            <StackPanel>
+
+                                <TextBlock
+                                    Text="Diagnóstico principal"
+                                    Style="{StaticResource LabelStyle}"/>
+
+                                <TextBlock
+                                    x:Name="txtDiagnosticoPrincipal"
+                                    Margin="0,4,0,0"
+                                    FontSize="15"
+                                    FontWeight="SemiBold"
+                                    Foreground="#2457A6"
+                                    TextWrapping="Wrap"/>
+
+                            </StackPanel>
+
+                        </Border>
+
+
+                        <Grid>
+
+                            <Grid.ColumnDefinitions>
+
+                                <ColumnDefinition/>
+
+                                <ColumnDefinition/>
+
+                            </Grid.ColumnDefinitions>
+
+
+                            <!-- SECUNDARIOS -->
+
+                            <StackPanel
+                                Grid.Column="0"
+                                Margin="0,0,20,0">
+
+                                <TextBlock
+                                    Text="Diagnósticos secundarios"
+                                    Style="{StaticResource LabelStyle}"/>
+
+                                <TextBlock
+                                    x:Name="txtDiagnosticoSecundario"
+                                    Style="{StaticResource ValueStyle}"
+                                    Margin="0,4,0,0"/>
+
+                            </StackPanel>
+
+
+                            <!-- MANUALES -->
+
+                            <StackPanel Grid.Column="1">
+
+                                <TextBlock
+                                    Text="Diagnósticos manuales"
+                                    Style="{StaticResource LabelStyle}"/>
+
+                                <TextBlock
+                                    x:Name="txtDiagnosticosManuales"
+                                    Style="{StaticResource ValueStyle}"
+                                    Margin="0,4,0,0"/>
+
+                            </StackPanel>
+
+                        </Grid>
+
+
+                        <Grid Margin="0,16,0,0">
+
+                            <Grid.ColumnDefinitions>
+
+                                <ColumnDefinition/>
+
+                                <ColumnDefinition/>
+
+                            </Grid.ColumnDefinitions>
+
+
+                            <StackPanel
+                                Grid.Column="0"
+                                Margin="0,0,20,0">
+
+                                <TextBlock
+                                    Text="Impresión clínica"
+                                    Style="{StaticResource LabelStyle}"/>
+
+                                <TextBlock
+                                    x:Name="txtImpresionClinica"
+                                    Style="{StaticResource ValueStyle}"
+                                    Margin="0,4,0,0"/>
+
+                            </StackPanel>
+
+
+                            <StackPanel Grid.Column="1">
+
+                                <TextBlock
+                                    Text="Observaciones médicas"
+                                    Style="{StaticResource LabelStyle}"/>
+
+                                <TextBlock
+                                    x:Name="txtObservacionesMedicas"
+                                    Style="{StaticResource ValueStyle}"
+                                    Margin="0,4,0,0"/>
+
+                            </StackPanel>
+
+                        </Grid>
+
+                    </StackPanel>
+
+                </Border>
+
+
+                <!-- =================================================
+                     TRATAMIENTO / SERVICIOS / PRECIOS
+                ================================================== -->
+
+                <Border Style="{StaticResource CardStyle}">
+
+                    <StackPanel>
+
+                        <Grid Margin="0,0,0,14">
+
+                            <Grid.ColumnDefinitions>
+
+                                <ColumnDefinition/>
+
+                                <ColumnDefinition Width="Auto"/>
+
+                            </Grid.ColumnDefinitions>
+
+
+                            <StackPanel>
+
+                                <TextBlock
+                                    Text="Tratamiento y servicios"
+                                    Style="{StaticResource SectionTitleStyle}"/>
+
+                                <TextBlock
+                                    Text="Medicamentos, materiales, procedimientos y estudios asociados a esta emergencia."
+                                    FontSize="11"
+                                    Foreground="#94A3B8"
+                                    Margin="0,3,0,0"/>
+
+                            </StackPanel>
+
+
+                            <StackPanel
+                                Grid.Column="1"
+                                HorizontalAlignment="Right">
+
+                                <TextBlock
+                                    Text="Plan tarifario"
+                                    Style="{StaticResource LabelStyle}"
+                                    HorizontalAlignment="Right"/>
+
+                                <TextBlock
+                                    x:Name="txtPlanTarifario"
+                                    FontSize="13"
+                                    FontWeight="SemiBold"
+                                    Foreground="#334155"
+                                    HorizontalAlignment="Right"/>
+
+                            </StackPanel>
+
+                        </Grid>
+
+
+                        <DataGrid
+                            x:Name="dgItemsClinicos"
+                            AutoGenerateColumns="False"
+                            CanUserAddRows="False"
+                            IsReadOnly="True"
+                            HeadersVisibility="Column"
+                            GridLinesVisibility="Horizontal"
+                            HorizontalGridLinesBrush="#E2E8F0"
+                            BorderBrush="#E2E8F0"
+                            BorderThickness="1"
+                            Background="White"
+                            RowHeight="38"
+                            MaxHeight="300"
+                            FontSize="11">
+
+                            <DataGrid.Columns>
+
+                                <DataGridTextColumn
+                                    Header="Código"
+                                    Binding="{Binding Codigo}"
+                                    Width="100"/>
+
+                                <DataGridTextColumn
+                                    Header="Tipo"
+                                    Binding="{Binding TipoItem}"
+                                    Width="130"/>
+
+                                <DataGridTextColumn
+                                    Header="Servicio / artículo"
+                                    Binding="{Binding Nombre}"
+                                    Width="*"/>
+
+                                <DataGridTextColumn
+                                    Header="Cantidad"
+                                    Binding="{Binding Cantidad}"
+                                    Width="85"/>
+
+                                <DataGridTextColumn
+                                    Header="Precio unit."
+                                    Binding="{Binding PrecioUnitarioAplicado, StringFormat={}{0:N2}}"
+                                    Width="105"/>
+
+                                <DataGridTextColumn
+                                    Header="Total"
+                                    Binding="{Binding Total, StringFormat={}{0:N2}}"
+                                    Width="105"/>
+
+                            </DataGrid.Columns>
+
+                        </DataGrid>
+
+
+                        <!-- TOTAL -->
+
+                        <Border
+                            Margin="0,14,0,0"
+                            Padding="14"
+                            Background="#F8FAFC"
+                            BorderBrush="#E2E8F0"
+                            BorderThickness="1"
+                            CornerRadius="7">
+
+                            <Grid>
+
+                                <Grid.ColumnDefinitions>
+
+                                    <ColumnDefinition/>
+
+                                    <ColumnDefinition Width="Auto"/>
+
+                                </Grid.ColumnDefinitions>
+
+
+                                <StackPanel>
+
+                                    <TextBlock
+                                        Text="Subtotal de servicios"
+                                        FontSize="11"
+                                        Foreground="#64748B"/>
+
+                                    <TextBlock
+                                        Text="Importe asociado a los servicios registrados en esta emergencia."
+                                        FontSize="10"
+                                        Foreground="#94A3B8"
+                                        Margin="0,3,0,0"/>
+
+                                </StackPanel>
+
+
+                                <TextBlock
+                                    x:Name="txtSubtotal"
+                                    Grid.Column="1"
+                                    Text="RD$ 0.00"
+                                    FontSize="20"
+                                    FontWeight="Bold"
+                                    Foreground="#2457A6"
+                                    VerticalAlignment="Center"/>
+
+                            </Grid>
+
+                        </Border>
+
+                    </StackPanel>
+
+                </Border>
+
+
+                <!-- =================================================
+                             DESTINO
+                ================================================== -->
+
+                <Border Style="{StaticResource CardStyle}">
+
+                    <StackPanel>
+
+                        <TextBlock
+                            Text="Destino del paciente"
+                            Style="{StaticResource SectionTitleStyle}"
+                            Margin="0,0,0,14"/>
+
+
+                        <Grid>
+
+                            <Grid.ColumnDefinitions>
+
+                                <ColumnDefinition/>
+
+                                <ColumnDefinition/>
+
+                                <ColumnDefinition Width="2*"/>
+
+                            </Grid.ColumnDefinitions>
+
+
+                            <StackPanel
+                                Grid.Column="0"
+                                Margin="0,0,20,0">
+
+                                <TextBlock
+                                    Text="Destino"
+                                    Style="{StaticResource LabelStyle}"/>
+
+                                <TextBlock
+                                    x:Name="txtDestino"
+                                    Style="{StaticResource ValueStyle}"
+                                    FontWeight="SemiBold"/>
+
+                            </StackPanel>
+
+
+                            <StackPanel
+                                Grid.Column="1"
+                                Margin="0,0,20,0">
+
+                                <TextBlock
+                                    Text="Fecha de salida"
+                                    Style="{StaticResource LabelStyle}"/>
+
+                                <TextBlock
+                                    x:Name="txtFechaSalida"
+                                    Style="{StaticResource ValueStyle}"/>
+
+                            </StackPanel>
+
+
+                            <StackPanel Grid.Column="2">
+
+                                <TextBlock
+                                    Text="Observaciones finales"
+                                    Style="{StaticResource LabelStyle}"/>
+
+                                <TextBlock
+                                    x:Name="txtObservacionesFinales"
+                                    Style="{StaticResource ValueStyle}"/>
+
+                            </StackPanel>
+
+                        </Grid>
+
+                    </StackPanel>
+
+                </Border>
+
+
+                <!-- =================================================
+                              MÉDICO
+                ================================================== -->
+
+                <Border Style="{StaticResource CardStyle}">
+
+                    <Grid>
+
+                        <Grid.ColumnDefinitions>
+
+                            <ColumnDefinition/>
+
+                            <ColumnDefinition/>
+
+                        </Grid.ColumnDefinitions>
+
+
+                        <StackPanel
+                            Grid.Column="0"
+                            Margin="0,0,20,0">
+
+                            <TextBlock
+                                Text="Médico responsable"
+                                Style="{StaticResource LabelStyle}"/>
+
+                            <TextBlock
+                                x:Name="txtMedico"
+                                Style="{StaticResource ValueStyle}"
+                                FontSize="15"
+                                FontWeight="SemiBold"/>
+
+                        </StackPanel>
+
+
+                        <StackPanel Grid.Column="1">
+
+                            <TextBlock
+                                Text="Especialidad"
+                                Style="{StaticResource LabelStyle}"/>
+
+                            <TextBlock
+                                x:Name="txtEspecialidad"
+                                Style="{StaticResource ValueStyle}"
+                                FontSize="15"
+                                FontWeight="SemiBold"/>
+
+                        </StackPanel>
+
+                    </Grid>
+
+                </Border>
+
+            </StackPanel>
+
+        </ScrollViewer>
+
+
+        <!-- =====================================================
+                              BOTONES
+        ====================================================== -->
+
+        <Border
+            Grid.Row="2"
+            Margin="0,14,0,0"
+            Padding="14"
+            Background="White"
+            BorderBrush="#E2E8F0"
+            BorderThickness="1"
+            CornerRadius="10">
+
+            <StackPanel
+                Orientation="Horizontal"
+                HorizontalAlignment="Right">
+
+                <Button
+                    x:Name="btnCerrar"
+                    Width="110"
+                    Style="{StaticResource SecondaryButtonStyle}"
+                    Content="Cerrar"
+                    Click="btnCerrar_Click"/>
+                <Button
+                    x:Name="btnImprimir"
+                    Width="120"
+                    Margin="10,0,0,0"
+                    Style="{StaticResource SecondaryButtonStyle}"
+                    Content="Imprimir"
+                    Click="btnImprimir_Click"/>     
+
+                <Button
+                    x:Name="btnPDF"
+                    Width="145"
+                    Margin="10,0,0,0"
+                    Style="{StaticResource PdfButtonStyle}"
+                    Content="Generar PDF"
+                    Click="btnPDF_Click"/>
+                
+
+            </StackPanel>
+
+        </Border>
+
+    </Grid>
+
+</Window>

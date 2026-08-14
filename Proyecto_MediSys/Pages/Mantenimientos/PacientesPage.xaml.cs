@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using Proyecto_MediSys.Models;
 using System.Collections.Generic;
 using System.Linq;
+using Proyecto_MediSys.Helpers;
 
 namespace Proyecto_MediSys.Pages.Mantenimientos
 {
@@ -33,14 +34,30 @@ namespace Proyecto_MediSys.Pages.Mantenimientos
 
         private async void btnNuevoPaciente_Click(object sender, RoutedEventArgs e)
         {
-            PacienteDialog dialog = new PacienteDialog();
 
-            dialog.PacienteGuardado += () =>
+            try
             {
-                CargarPacientes();
-            };
+                btnNuevoPaciente.IsEnabled = false;
 
-            await DialogService.Mostrar(dialog);
+                PacienteDialog dialog = new PacienteDialog();
+
+                dialog.PacienteGuardado += (paciente) =>
+                {
+                    MessageBox.Show("Recargando DataGrid");
+
+                    CargarPacientes();
+                };
+
+                await DialogService.Mostrar(dialog);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al abrir el diálogo de nuevo paciente: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            finally { btnNuevoPaciente.IsEnabled = true; }
+
+            
         }
 
       
@@ -113,7 +130,7 @@ namespace Proyecto_MediSys.Pages.Mantenimientos
                 paciente,
                 ModoFormulario.Editar);
 
-            dialog.PacienteGuardado += () =>
+            dialog.PacienteGuardado += (paciente) =>
             {
                 CargarPacientes();
             };
@@ -170,6 +187,11 @@ namespace Proyecto_MediSys.Pages.Mantenimientos
                     MessageBoxButton.OK,
                     MessageBoxImage.Warning);
             }
+        }
+
+        private void dgPacientes_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

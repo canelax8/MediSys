@@ -62,7 +62,7 @@
 
                 <TextBlock
                     Grid.Column="0"
-                    Text="🏥 MediSys"
+                    Text=" MediSys"
                     Foreground="White"
                     FontSize="24"
                     FontWeight="Bold"
@@ -105,16 +105,7 @@
 
                 <!-- BOTÓN MODO OSCURO -->
 
-                <Button
-                    Grid.Column="5"
-                    x:Name="btnTema"
-                    Width="40"
-                    Height="40"
-                    Content="🌙"
-                    Margin="5"
-                    FontSize="16"/>
-
-                </Grid>
+            </Grid>
 
         </Border>
 
@@ -123,7 +114,7 @@
         <controls:SidebarMenu
            x:Name="Sidebar"
            Grid.Row="1"
-           Grid.Column="0"/>
+           Grid.Column="0" Loaded="Sidebar_Loaded"/>
 
         <!-- Aquí se cargan las páginas -->
 

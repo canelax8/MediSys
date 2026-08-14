@@ -1,0 +1,199 @@
+﻿<UserControl x:Class="Proyecto_MediSys.Controls.PasoPaciente"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="White">
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+
+            <!-- Título -->
+            <RowDefinition Height="Auto"/>
+
+            <!-- Buscador -->
+            <RowDefinition Height="Auto"/>
+
+            <!-- Lista de pacientes -->
+            <RowDefinition Height="220"/>
+
+            <!-- Paciente seleccionado -->
+            <RowDefinition Height="Auto"/>
+
+        </Grid.RowDefinitions>
+
+
+        <!-- ===================================================== -->
+        <!-- TÍTULO -->
+        <!-- ===================================================== -->
+
+        <TextBlock Grid.Row="0"
+                   Text="PASO 1 - SELECCIONAR PACIENTE"
+                   FontSize="24"
+                   FontWeight="Bold"
+                   Foreground="#1E3A8A"/>
+
+
+        <!-- ===================================================== -->
+        <!-- BUSCADOR -->
+        <!-- ===================================================== -->
+
+        <Grid Grid.Row="1"
+              Margin="0,25,0,15">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="160"/>
+            </Grid.ColumnDefinitions>
+
+
+            <!-- Buscar -->
+
+            <StackPanel Grid.Row="0"
+                        Grid.Column="0">
+
+                <TextBlock Text="Buscar paciente"
+                           Margin="0,0,0,6"
+                           FontWeight="SemiBold"
+                           Foreground="#334155"/>
+
+                <TextBox x:Name="txtBuscarPaciente"
+                         Height="40"
+                         Padding="10,5"
+                         FontSize="15"
+                         VerticalContentAlignment="Center"
+                         TextChanged="txtBuscarPaciente_TextChanged"/>
+
+            </StackPanel>
+
+
+            <!-- Botón buscar -->
+
+            <Button Grid.Row="0"
+                    Grid.Column="1"
+                    Margin="20,24,0,0"
+                    Height="40"
+                    x:Name="btnBuscarPaciente"
+                    Content="🔍 Buscar"
+                    Background="#2563EB"
+                    Foreground="White"
+                    FontWeight="SemiBold"
+                    BorderThickness="0"
+                    Click="btnBuscarPaciente_Click"/>
+
+
+            <!-- Paciente provisional -->
+
+            <StackPanel Grid.Row="1"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Orientation="Horizontal"
+                        Margin="0,12,0,0">
+
+                <TextBlock VerticalAlignment="Center"
+                           FontSize="14"
+                           Foreground="#6B7280"
+                           Text="¿El paciente no aparece en la búsqueda?"/>
+
+                <Button x:Name="btnPacienteProvisional"
+                        Margin="20,0,0,0"
+                        Width="240"
+                        Height="36"
+                        Content="+ Registrar Paciente Provisional"
+                        Background="#F59E0B"
+                        Foreground="White"
+                        BorderThickness="0"
+                        FontWeight="Bold"
+                        Click="btnNuevoPaciente_Click"/>
+
+            </StackPanel>
+
+        </Grid>
+
+
+        <!-- ===================================================== -->
+        <!-- DATAGRID -->
+        <!-- ===================================================== -->
+
+        <Border Grid.Row="2"
+                BorderBrush="#D6E4F0"
+                BorderThickness="1"
+                CornerRadius="10"
+                Background="White">
+
+            <DataGrid x:Name="dgPacientes"
+                      AutoGenerateColumns="False"
+                      CanUserAddRows="False"
+                      IsReadOnly="True"
+                      SelectionMode="Single"
+                      SelectionUnit="FullRow"
+                      HeadersVisibility="Column"
+                      GridLinesVisibility="Horizontal"
+                      BorderThickness="0"
+                      RowHeight="38"
+                      ColumnHeaderHeight="38"
+                      AlternatingRowBackground="#F8FAFC"
+                      SelectionChanged="dgPacientes_SelectionChanged"
+                      MouseDoubleClick="dgPacientes_MouseDoubleClick"/>
+
+        </Border>
+
+
+        <!-- ===================================================== -->
+        <!-- PACIENTE SELECCIONADO -->
+        <!-- ===================================================== -->
+
+        <Border Grid.Row="3"
+                Margin="0,18,0,0"
+                MinHeight="145"
+                Padding="20"
+                CornerRadius="10"
+                BorderBrush="#BFDBFE"
+                BorderThickness="1"
+                Background="#F8FAFC">
+
+            <Grid>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+
+                <StackPanel Grid.Row="0"
+                            Orientation="Horizontal">
+
+                    <TextBlock Text="👤"
+                               FontSize="20"
+                               Margin="0,0,8,0"
+                               VerticalAlignment="Center"/>
+
+                    <TextBlock Text="Paciente seleccionado"
+                               FontSize="19"
+                               FontWeight="Bold"
+                               Foreground="#1E3A8A"
+                               VerticalAlignment="Center"/>
+
+                </StackPanel>
+
+
+                <TextBlock x:Name="txtPacienteSeleccionado"
+                           Grid.Row="1"
+                           Margin="28,12,0,0"
+                           FontSize="14"
+                           Foreground="#334155"
+                           TextWrapping="Wrap"
+                           LineHeight="22"
+                           Text="Ningún paciente seleccionado."/>
+
+            </Grid>
+
+        </Border>
+
+    </Grid>
+
+</UserControl>

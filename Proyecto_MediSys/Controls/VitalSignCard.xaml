@@ -1,0 +1,152 @@
+﻿<UserControl x:Class="Proyecto_MediSys.Controls.VitalSignCard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             MinHeight="165"
+             MinWidth="220"
+             Background="Transparent">
+
+    <Border x:Name="card"
+            Margin="6"
+            Padding="16"
+            Background="White"
+            BorderBrush="#E2E8F0"
+            BorderThickness="1"
+            CornerRadius="10">
+
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+
+            <!-- =====================================================
+                             ENCABEZADO
+            ====================================================== -->
+
+            <StackPanel Grid.Row="0">
+
+                <TextBlock
+                    x:Name="txtTitulo"
+                    FontSize="15"
+                    FontWeight="SemiBold"
+                    Foreground="#1E293B"
+                    Text="Título"
+                    TextWrapping="Wrap"/>
+
+                <TextBlock
+                    x:Name="txtDescripcion"
+                    Margin="0,4,0,0"
+                    FontSize="11"
+                    Foreground="#64748B"
+                    Text="Descripción"
+                    TextWrapping="Wrap"/>
+
+            </StackPanel>
+
+
+            <!-- =====================================================
+                               VALOR
+            ====================================================== -->
+
+            <Border Grid.Row="1"
+                    Margin="0,14,0,0"
+                    Height="48"
+                    Background="#F8FAFC"
+                    BorderBrush="#CBD5E1"
+                    BorderThickness="1"
+                    CornerRadius="7">
+
+                <Grid>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+
+                    <TextBox
+                        x:Name="txtValor"
+                        Grid.Column="0"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        FontSize="19"
+                        FontWeight="SemiBold"
+                        Foreground="#0F172A"
+                        Padding="12,0"
+                        VerticalContentAlignment="Center"
+                        HorizontalContentAlignment="Left"
+                        PreviewTextInput="txtValor_PreviewTextInput"
+                        TextChanged="txtValor_TextChanged"/>
+
+
+                    <TextBlock
+                        x:Name="txtUnidad"
+                        Grid.Column="1"
+                        Margin="8,0,12,0"
+                        FontSize="11"
+                        Foreground="#64748B"
+                        VerticalAlignment="Center"
+                        Text="Unidad"/>
+
+                </Grid>
+
+            </Border>
+
+
+            <!-- =====================================================
+                               ESTADO
+            ====================================================== -->
+
+            <Border Grid.Row="2"
+                    Margin="0,12,0,0"
+                    Height="30"
+                    Background="#F8FAFC"
+                    CornerRadius="6"
+                    Padding="10,0">
+
+                <Grid>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+
+                    <Ellipse
+                        Width="7"
+                        Height="7"
+                        Fill="#94A3B8"
+                        VerticalAlignment="Center"
+                        Margin="0,0,8,0"/>
+
+
+                    <TextBlock
+                        x:Name="txtEstado"
+                        Grid.Column="1"
+                        FontSize="11"
+                        FontWeight="SemiBold"
+                        Foreground="#475569"
+                        VerticalAlignment="Center"
+                        TextWrapping="Wrap"/>
+
+                </Grid>
+
+            </Border>
+
+
+            <!-- Separador visual inferior -->
+
+            <Border Grid.Row="3"
+                    Margin="0,12,0,0"
+                    Height="1"
+                    Background="#EEF2F6"/>
+
+        </Grid>
+
+    </Border>
+
+</UserControl>

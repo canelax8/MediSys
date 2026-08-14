@@ -1,0 +1,600 @@
+﻿<UserControl x:Class="Proyecto_MediSys.Controls.PasoDiagnostico"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="#F6F8FA">
+
+    <UserControl.Resources>
+
+        <!-- =====================================================
+                         TÍTULO DE SECCIÓN
+        ====================================================== -->
+
+        <Style x:Key="SectionTitleStyle"
+               TargetType="TextBlock">
+
+            <Setter Property="FontSize"
+                    Value="17"/>
+
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+
+            <Setter Property="Foreground"
+                    Value="#1E293B"/>
+
+        </Style>
+
+
+        <!-- =====================================================
+                             DESCRIPCIÓN
+        ====================================================== -->
+
+        <Style x:Key="SectionDescriptionStyle"
+               TargetType="TextBlock">
+
+            <Setter Property="FontSize"
+                    Value="12"/>
+
+            <Setter Property="Foreground"
+                    Value="#64748B"/>
+
+            <Setter Property="Margin"
+                    Value="0,4,0,14"/>
+
+        </Style>
+
+
+        <!-- =====================================================
+                              LABEL
+        ====================================================== -->
+
+        <Style x:Key="LabelStyle"
+               TargetType="TextBlock">
+
+            <Setter Property="FontSize"
+                    Value="12"/>
+
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+
+            <Setter Property="Foreground"
+                    Value="#475569"/>
+
+        </Style>
+
+
+        <!-- =====================================================
+                             TEXTBOX
+        ====================================================== -->
+
+        <Style x:Key="ClinicalTextBoxStyle"
+               TargetType="TextBox">
+
+            <Setter Property="Background"
+                    Value="#F8FAFC"/>
+
+            <Setter Property="BorderBrush"
+                    Value="#CBD5E1"/>
+
+            <Setter Property="BorderThickness"
+                    Value="1"/>
+
+            <Setter Property="Padding"
+                    Value="12,8"/>
+
+            <Setter Property="FontSize"
+                    Value="13"/>
+
+            <Setter Property="Foreground"
+                    Value="#1E293B"/>
+
+            <Setter Property="VerticalContentAlignment"
+                    Value="Top"/>
+
+        </Style>
+
+
+        <!-- =====================================================
+                          BOTÓN DE CATÁLOGO
+        ====================================================== -->
+
+        <Style x:Key="CatalogButtonStyle"
+               TargetType="Button">
+
+            <Setter Property="Height"
+                    Value="36"/>
+
+            <Setter Property="MinWidth"
+                    Value="120"/>
+
+            <Setter Property="Padding"
+                    Value="12,0"/>
+
+            <Setter Property="Background"
+                    Value="#EAF1FB"/>
+
+            <Setter Property="Foreground"
+                    Value="#2457A6"/>
+
+            <Setter Property="BorderThickness"
+                    Value="0"/>
+
+            <Setter Property="FontSize"
+                    Value="11"/>
+
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+
+            <Setter Property="Cursor"
+                    Value="Hand"/>
+
+        </Style>
+
+    </UserControl.Resources>
+
+
+    <Grid Margin="4">
+
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="Auto"/>
+
+            <RowDefinition Height="*"/>
+
+        </Grid.RowDefinitions>
+
+
+        <!-- =====================================================
+                             ENCABEZADO
+        ====================================================== -->
+
+        <Grid Grid.Row="0"
+              Margin="0,0,0,18">
+
+            <Grid.ColumnDefinitions>
+
+                <ColumnDefinition/>
+
+                <ColumnDefinition Width="Auto"/>
+
+            </Grid.ColumnDefinitions>
+
+
+            <StackPanel>
+
+                <TextBlock
+                    Text="Diagnóstico médico"
+                    FontSize="26"
+                    FontWeight="Bold"
+                    Foreground="#172033"/>
+
+                <TextBlock
+                    Margin="0,5,0,0"
+                    FontSize="13"
+                    Foreground="#64748B"
+                    Text="Selección diagnóstica e impresión clínica del paciente."/>
+
+            </StackPanel>
+
+
+            <Border Grid.Column="1"
+                    Height="34"
+                    Padding="14,0"
+                    Background="#EAF1FB"
+                    CornerRadius="17"
+                    VerticalAlignment="Center">
+
+                <TextBlock
+                    Text="Paso 4 de 7"
+                    FontSize="11"
+                    FontWeight="SemiBold"
+                    Foreground="#2457A6"
+                    VerticalAlignment="Center"/>
+
+            </Border>
+
+        </Grid>
+
+
+        <!-- =====================================================
+                              CONTENIDO
+        ====================================================== -->
+
+        <ScrollViewer Grid.Row="1"
+                      VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Disabled">
+
+            <StackPanel Margin="0,0,8,10">
+
+
+                <!-- =================================================
+                  DIAGNÓSTICOS CIE-10
+================================================== -->
+
+                <Border Background="White"
+        BorderBrush="#E2E8F0"
+        BorderThickness="1"
+        CornerRadius="10"
+        Padding="18"
+        Margin="0,0,0,14">
+
+                    <StackPanel>
+
+                        <!-- ENCABEZADO -->
+
+                        <Grid>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel>
+
+                                <TextBlock
+                    Style="{StaticResource SectionTitleStyle}"
+                    Text="Diagnósticos"/>
+
+                                <TextBlock
+                    Style="{StaticResource SectionDescriptionStyle}"
+                    Text="Busque y seleccione diagnósticos utilizando el catálogo CIE-10."/>
+
+                            </StackPanel>
+
+                            <Border Grid.Column="1"
+                    Background="#F1F5F9"
+                    CornerRadius="13"
+                    Padding="10,4"
+                    VerticalAlignment="Top">
+
+                                <TextBlock
+                    Text="Catálogo CIE-10"
+                    FontSize="10"
+                    Foreground="#64748B"/>
+
+                            </Border>
+
+                        </Grid>
+
+
+                        <!-- BUSCADOR -->
+
+                        <TextBlock
+            Text="Buscar por código o descripción"
+            FontSize="11"
+            FontWeight="SemiBold"
+            Foreground="#475569"/>
+
+                        <Grid Margin="0,6,0,8">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="105"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBox
+                x:Name="txtBuscarCIE10"
+                Height="36"
+                Padding="10,5"
+                Background="#F8FAFC"
+                BorderBrush="#CBD5E1"
+                BorderThickness="1"
+                VerticalContentAlignment="Center"
+                TextChanged="txtBuscarCIE10_TextChanged"/>
+
+                            <Button
+                Grid.Column="1"
+                Margin="8,0,0,0"
+                Height="36"
+                Background="#EAF1FB"
+                Foreground="#2457A6"
+                BorderThickness="0"
+                FontSize="11"
+                FontWeight="SemiBold"
+                Cursor="Hand"
+                Content="+ Agregar"
+                Click="btnAgregarDiagnostico_Click"/>
+
+                        </Grid>
+
+
+                        <!-- RESULTADOS -->
+
+                        <ListBox
+            x:Name="lstResultadosCIE10"
+            Height="100"
+            Background="#FAFBFC"
+            BorderBrush="#E2E8F0"
+            BorderThickness="1"
+            DisplayMemberPath="Mostrar"/>
+
+
+                        <!-- PRINCIPAL -->
+
+                        <Border
+            Margin="0,14,0,12"
+            Background="#F8FAFC"
+            BorderBrush="#E2E8F0"
+            BorderThickness="1"
+            CornerRadius="8"
+            Padding="12">
+
+                            <Grid>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <Border
+                    Width="28"
+                    Height="28"
+                    CornerRadius="14"
+                    Background="#EAF1FB">
+
+                                    <TextBlock
+                        Text="★"
+                        Foreground="#2457A6"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"/>
+
+                                </Border>
+
+                                <StackPanel
+                    Grid.Column="1"
+                    Margin="10,0,0,0">
+
+                                    <TextBlock
+                        Text="Diagnóstico principal"
+                        FontSize="11"
+                        Foreground="#64748B"/>
+
+                                    <TextBlock
+                        x:Name="txtDiagnosticoPrincipalSeleccionado"
+                        Margin="0,3,0,0"
+                        Text="Ninguno seleccionado"
+                        FontSize="13"
+                        FontWeight="SemiBold"
+                        Foreground="#1E293B"
+                        TextWrapping="Wrap"/>
+
+                                </StackPanel>
+
+                            </Grid>
+
+                        </Border>
+
+
+                        <!-- DIAGNÓSTICOS SELECCIONADOS -->
+
+                        <TextBlock
+            Text="Diagnósticos seleccionados"
+            FontSize="11"
+            FontWeight="SemiBold"
+            Foreground="#475569"
+            Margin="0,0,0,6"/>
+
+                        <DataGrid
+            x:Name="dgDiagnosticosSeleccionados"
+            Height="125"
+            AutoGenerateColumns="False"
+            CanUserAddRows="False"
+            IsReadOnly="True"
+            HeadersVisibility="Column"
+            GridLinesVisibility="Horizontal"
+            BorderBrush="#E2E8F0"
+            BorderThickness="1"
+            FontSize="11">
+
+                            <DataGrid.Columns>
+
+                                <DataGridTextColumn
+                    Header="Código"
+                    Binding="{Binding Codigo}"
+                    Width="85"/>
+
+                                <DataGridTextColumn
+                    Header="Diagnóstico"
+                    Binding="{Binding Descripcion}"
+                    Width="*"/>
+
+                                <DataGridTemplateColumn
+                    Header=""
+                    Width="85">
+
+                                    <DataGridTemplateColumn.CellTemplate>
+
+                                        <DataTemplate>
+
+                                            <Button
+                                Width="72"
+                                Height="25"
+                                Background="#EAF1FB"
+                                Foreground="#2457A6"
+                                BorderThickness="0"
+                                FontSize="10"
+                                Cursor="Hand"
+                                Content="Principal"
+                                Click="btnPrincipal_Click"/>
+
+                                        </DataTemplate>
+
+                                    </DataGridTemplateColumn.CellTemplate>
+
+                                </DataGridTemplateColumn>
+
+
+                                <DataGridTemplateColumn
+                    Header=""
+                    Width="65">
+
+                                    <DataGridTemplateColumn.CellTemplate>
+
+                                        <DataTemplate>
+
+                                            <Button
+                                Width="50"
+                                Height="25"
+                                Background="#FCEEEE"
+                                Foreground="#A94442"
+                                BorderThickness="0"
+                                FontSize="10"
+                                Cursor="Hand"
+                                Content="Quitar"
+                                Click="btnQuitarDiagnostico_Click"/>
+
+                                        </DataTemplate>
+
+                                    </DataGridTemplateColumn.CellTemplate>
+
+                                </DataGridTemplateColumn>
+
+                            </DataGrid.Columns>
+
+                        </DataGrid>
+
+
+                        <!-- MANUAL -->
+
+                        <Border
+            Margin="0,14,0,0"
+            Padding="12"
+            Background="#F8FAFC"
+            BorderBrush="#E2E8F0"
+            BorderThickness="1"
+            CornerRadius="8">
+
+                            <StackPanel>
+
+                                <TextBlock
+                    Text="¿No aparece el diagnóstico en CIE-10?"
+                    FontSize="11"
+                    FontWeight="SemiBold"
+                    Foreground="#475569"/>
+
+                                <TextBlock
+                    Margin="0,2,0,7"
+                    Text="Puede registrar un diagnóstico manualmente."
+                    FontSize="10"
+                    Foreground="#94A3B8"/>
+
+                                <Grid>
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="105"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBox
+                        x:Name="txtDiagnosticoManual"
+                        Height="34"
+                        Padding="9,4"
+                        Background="White"
+                        BorderBrush="#CBD5E1"
+                        BorderThickness="1"/>
+
+                                    <Button
+                        Grid.Column="1"
+                        Margin="8,0,0,0"
+                        Height="34"
+                        Background="#EEF2F6"
+                        Foreground="#475569"
+                        BorderThickness="0"
+                        FontSize="10"
+                        FontWeight="SemiBold"
+                        Cursor="Hand"
+                        Content="+ Registrar"
+                        Click="btnAgregarDiagnosticoManual_Click"/>
+
+                                </Grid>
+
+
+                                <ListBox
+                    x:Name="lstDiagnosticosManuales"
+                    Margin="0,8,0,0"
+                    Height="55"
+                    Background="White"
+                    BorderBrush="#E2E8F0"
+                    BorderThickness="1"/>
+
+                            </StackPanel>
+
+                        </Border>
+
+                    </StackPanel>
+
+                </Border>
+
+
+                <!-- =================================================
+                         IMPRESIÓN CLÍNICA
+                ================================================== -->
+
+                <Border Background="White"
+                        BorderBrush="#E2E8F0"
+                        BorderThickness="1"
+                        CornerRadius="10"
+                        Padding="18"
+                        Margin="0,0,0,14">
+
+                    <StackPanel>
+
+                        <TextBlock
+                            Style="{StaticResource SectionTitleStyle}"
+                            Text="Impresión clínica"/>
+
+                        <TextBlock
+                            Style="{StaticResource SectionDescriptionStyle}"
+                            Text="Descripción clínica, razonamiento médico o interpretación de los hallazgos."/>
+
+                        <TextBox
+                            x:Name="txtImpresionClinica"
+                            Style="{StaticResource ClinicalTextBoxStyle}"
+                            Height="95"
+                            AcceptsReturn="True"
+                            TextWrapping="Wrap"
+                            VerticalScrollBarVisibility="Auto"/>
+
+                    </StackPanel>
+
+                </Border>
+
+
+                <!-- =================================================
+                         OBSERVACIONES
+                ================================================== -->
+
+                <Border Background="White"
+                        BorderBrush="#E2E8F0"
+                        BorderThickness="1"
+                        CornerRadius="10"
+                        Padding="18">
+
+                    <StackPanel>
+
+                        <TextBlock
+                            Style="{StaticResource SectionTitleStyle}"
+                            Text="Observaciones médicas"/>
+
+                        <TextBlock
+                            Style="{StaticResource SectionDescriptionStyle}"
+                            Text="Notas adicionales relacionadas con el diagnóstico o la evolución del paciente."/>
+
+                        <TextBox
+                            x:Name="txtObservacionesMedicas"
+                            Style="{StaticResource ClinicalTextBoxStyle}"
+                            Height="80"
+                            AcceptsReturn="True"
+                            TextWrapping="Wrap"
+                            VerticalScrollBarVisibility="Auto"/>
+
+                    </StackPanel>
+
+                </Border>
+
+            </StackPanel>
+
+        </ScrollViewer>
+
+    </Grid>
+
+</UserControl>

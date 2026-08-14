@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Proyecto_MediSys.Controls;
+using Proyecto_MediSys.Helpers;
+using Proyecto_MediSys.Pages.Dashboard;
+using Proyecto_MediSys.Pages.Mantenimientos;
+using Proyecto_MediSys.Pages.Procesos;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
-
-using Proyecto_MediSys.Controls;
-using Proyecto_MediSys.Pages.Dashboard;
-using Proyecto_MediSys.Pages.Mantenimientos;
 
 namespace Proyecto_MediSys
 {
@@ -18,6 +19,10 @@ namespace Proyecto_MediSys
         public DashboardWindow()
         {
             InitializeComponent();
+
+            MessageBox.Show(
+                            $"Usuario: {SesionActual.Usuario!.NombreCompleto}\n" +
+                            $"Id Médico: {SesionActual.Usuario.IdMedico}");
 
             MainFramePrincipal = MainFrame;
 
@@ -54,7 +59,7 @@ namespace Proyecto_MediSys
                     break;
 
                 case "Usuarios":
-                    MessageBox.Show("Módulo Usuarios en construcción.");
+                    MainFrame.Navigate(new UsuariosPage());
                     break;
 
                 case "Medicos":
@@ -70,7 +75,7 @@ namespace Proyecto_MediSys
                     break;
 
                 case "Emergencias":
-                    MessageBox.Show("Módulo Emergencias en construcción.");
+                    MainFrame.Navigate(new EmergenciasPage());
                     break;
 
                 case "Citas":
@@ -105,6 +110,11 @@ namespace Proyecto_MediSys
                     MessageBox.Show("Módulo Configuración en construcción.");
                     break;
             }
+        }
+
+        private void Sidebar_Loaded(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
