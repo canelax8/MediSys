@@ -5,44 +5,93 @@
 
     <UserControl.Resources>
 
-        <!-- Título de sección -->
+        <!-- =====================================================
+                         TÍTULO DE SECCIÓN
+        ====================================================== -->
+
         <Style x:Key="SectionTitleStyle"
                TargetType="TextBlock">
-            <Setter Property="FontSize" Value="17"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="Foreground" Value="#1E293B"/>
+
+            <Setter Property="FontSize"
+                    Value="17"/>
+
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+
+            <Setter Property="Foreground"
+                    Value="#1E293B"/>
+
         </Style>
 
-        <!-- Descripción -->
+
+        <!-- =====================================================
+                            DESCRIPCIÓN
+        ====================================================== -->
+
         <Style x:Key="SectionDescriptionStyle"
                TargetType="TextBlock">
-            <Setter Property="FontSize" Value="12"/>
-            <Setter Property="Foreground" Value="#64748B"/>
-            <Setter Property="Margin" Value="0,4,0,14"/>
+
+            <Setter Property="FontSize"
+                    Value="12"/>
+
+            <Setter Property="Foreground"
+                    Value="#64748B"/>
+
+            <Setter Property="Margin"
+                    Value="0,4,0,14"/>
+
         </Style>
 
-        <!-- Caja de texto clínica -->
+
+        <!-- =====================================================
+                         CAJA DE TEXTO CLÍNICA
+        ====================================================== -->
+
         <Style x:Key="ClinicalTextBoxStyle"
                TargetType="TextBox">
 
-            <Setter Property="Background" Value="#F8FAFC"/>
-            <Setter Property="BorderBrush" Value="#CBD5E1"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Padding" Value="12,8"/>
-            <Setter Property="FontSize" Value="13"/>
-            <Setter Property="Foreground" Value="#1E293B"/>
-            <Setter Property="VerticalContentAlignment" Value="Top"/>
+            <Setter Property="Background"
+                    Value="#F8FAFC"/>
+
+            <Setter Property="BorderBrush"
+                    Value="#CBD5E1"/>
+
+            <Setter Property="BorderThickness"
+                    Value="1"/>
+
+            <Setter Property="Padding"
+                    Value="12,8"/>
+
+            <Setter Property="FontSize"
+                    Value="13"/>
+
+            <Setter Property="Foreground"
+                    Value="#1E293B"/>
+
+            <Setter Property="VerticalContentAlignment"
+                    Value="Top"/>
 
         </Style>
 
-        <!-- RadioButton -->
+
+        <!-- =====================================================
+                            RADIOBUTTON
+        ====================================================== -->
+
         <Style x:Key="DestinationRadioStyle"
                TargetType="RadioButton">
 
-            <Setter Property="FontSize" Value="13"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="Foreground" Value="#334155"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontSize"
+                    Value="13"/>
+
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+
+            <Setter Property="Foreground"
+                    Value="#334155"/>
+
+            <Setter Property="VerticalAlignment"
+                    Value="Center"/>
 
         </Style>
 
@@ -52,21 +101,27 @@
     <Grid Margin="4">
 
         <Grid.RowDefinitions>
+
             <RowDefinition Height="Auto"/>
+
             <RowDefinition Height="*"/>
+
         </Grid.RowDefinitions>
 
 
         <!-- =====================================================
-                              ENCABEZADO
+                             ENCABEZADO
         ====================================================== -->
 
         <Grid Grid.Row="0"
               Margin="0,0,0,18">
 
             <Grid.ColumnDefinitions>
+
                 <ColumnDefinition/>
+
                 <ColumnDefinition Width="Auto"/>
+
             </Grid.ColumnDefinitions>
 
 
@@ -107,12 +162,13 @@
 
 
         <!-- =====================================================
-                               CONTENIDO
+                              CONTENIDO
         ====================================================== -->
 
-        <ScrollViewer Grid.Row="1"
-                      VerticalScrollBarVisibility="Auto"
-                      HorizontalScrollBarVisibility="Disabled">
+        <ScrollViewer
+            Grid.Row="1"
+            VerticalScrollBarVisibility="Auto"
+            HorizontalScrollBarVisibility="Disabled">
 
             <StackPanel Margin="0,0,8,10">
 
@@ -121,20 +177,29 @@
                           SELECCIÓN DE DESTINO
                 ================================================== -->
 
-                <Border Background="White"
-                        BorderBrush="#E2E8F0"
-                        BorderThickness="1"
-                        CornerRadius="10"
-                        Padding="18"
-                        Margin="0,0,0,14">
+                <Border
+                    Background="White"
+                    BorderBrush="#E2E8F0"
+                    BorderThickness="1"
+                    CornerRadius="10"
+                    Padding="18"
+                    Margin="0,0,0,14">
 
                     <StackPanel>
+
+
+                        <!-- =========================================
+                               CABECERA DE LA SECCIÓN
+                        ========================================== -->
 
                         <Grid>
 
                             <Grid.ColumnDefinitions>
+
                                 <ColumnDefinition/>
+
                                 <ColumnDefinition Width="Auto"/>
+
                             </Grid.ColumnDefinitions>
 
 
@@ -146,16 +211,17 @@
 
                                 <TextBlock
                                     Style="{StaticResource SectionDescriptionStyle}"
-                                    Text="Seleccione una opción de acuerdo con la condición y evolución del paciente."/>
+                                    Text="Seleccione un único destino de acuerdo con la condición y evolución del paciente."/>
 
                             </StackPanel>
 
 
-                            <Border Grid.Column="1"
-                                    Background="#F1F5F9"
-                                    CornerRadius="13"
-                                    Padding="10,4"
-                                    VerticalAlignment="Top">
+                            <Border
+                                Grid.Column="1"
+                                Background="#F1F5F9"
+                                CornerRadius="13"
+                                Padding="10,4"
+                                VerticalAlignment="Top">
 
                                 <TextBlock
                                     Text="Catálogo de destinos"
@@ -168,40 +234,49 @@
 
 
                         <!-- =========================================
-                              DESTINOS
+                                 DESTINOS
                         ========================================== -->
 
-                        <UniformGrid Columns="3"
-                                     Margin="-5">
+                        <UniformGrid
+                            Columns="3"
+                            Margin="-5">
 
 
-                            <!-- ALTA -->
+                            <!-- =====================================
+                                      ALTA
+                            ====================================== -->
 
-                            <Border Margin="5"
-                                    Padding="14"
-                                    Height="78"
-                                    Background="#F8FAFC"
-                                    BorderBrush="#E2E8F0"
-                                    BorderThickness="1"
-                                    CornerRadius="8">
+                            <Border
+                                Margin="5"
+                                Padding="14"
+                                Height="78"
+                                Background="#F8FAFC"
+                                BorderBrush="#E2E8F0"
+                                BorderThickness="1"
+                                CornerRadius="8">
 
                                 <Grid>
 
                                     <Grid.ColumnDefinitions>
+
                                         <ColumnDefinition Width="Auto"/>
+
                                         <ColumnDefinition/>
+
                                     </Grid.ColumnDefinitions>
 
 
                                     <RadioButton
                                         x:Name="rbAlta"
+                                        GroupName="DestinoPaciente"
                                         Style="{StaticResource DestinationRadioStyle}"
                                         VerticalAlignment="Center"/>
 
 
-                                    <StackPanel Grid.Column="1"
-                                                Margin="10,0,0,0"
-                                                VerticalAlignment="Center">
+                                    <StackPanel
+                                        Grid.Column="1"
+                                        Margin="10,0,0,0"
+                                        VerticalAlignment="Center">
 
                                         <TextBlock
                                             Text="Alta"
@@ -222,33 +297,41 @@
                             </Border>
 
 
-                            <!-- OBSERVACIÓN -->
+                            <!-- =====================================
+                                    OBSERVACIÓN
+                            ====================================== -->
 
-                            <Border Margin="5"
-                                    Padding="14"
-                                    Height="78"
-                                    Background="#F8FAFC"
-                                    BorderBrush="#E2E8F0"
-                                    BorderThickness="1"
-                                    CornerRadius="8">
+                            <Border
+                                Margin="5"
+                                Padding="14"
+                                Height="78"
+                                Background="#F8FAFC"
+                                BorderBrush="#E2E8F0"
+                                BorderThickness="1"
+                                CornerRadius="8">
 
                                 <Grid>
 
                                     <Grid.ColumnDefinitions>
+
                                         <ColumnDefinition Width="Auto"/>
+
                                         <ColumnDefinition/>
+
                                     </Grid.ColumnDefinitions>
 
 
                                     <RadioButton
                                         x:Name="rbObservacion"
+                                        GroupName="DestinoPaciente"
                                         Style="{StaticResource DestinationRadioStyle}"
                                         VerticalAlignment="Center"/>
 
 
-                                    <StackPanel Grid.Column="1"
-                                                Margin="10,0,0,0"
-                                                VerticalAlignment="Center">
+                                    <StackPanel
+                                        Grid.Column="1"
+                                        Margin="10,0,0,0"
+                                        VerticalAlignment="Center">
 
                                         <TextBlock
                                             Text="Observación"
@@ -269,33 +352,41 @@
                             </Border>
 
 
-                            <!-- HOSPITALIZACIÓN -->
+                            <!-- =====================================
+                                 HOSPITALIZACIÓN
+                            ====================================== -->
 
-                            <Border Margin="5"
-                                    Padding="14"
-                                    Height="78"
-                                    Background="#F8FAFC"
-                                    BorderBrush="#E2E8F0"
-                                    BorderThickness="1"
-                                    CornerRadius="8">
+                            <Border
+                                Margin="5"
+                                Padding="14"
+                                Height="78"
+                                Background="#F8FAFC"
+                                BorderBrush="#E2E8F0"
+                                BorderThickness="1"
+                                CornerRadius="8">
 
                                 <Grid>
 
                                     <Grid.ColumnDefinitions>
+
                                         <ColumnDefinition Width="Auto"/>
+
                                         <ColumnDefinition/>
+
                                     </Grid.ColumnDefinitions>
 
 
                                     <RadioButton
                                         x:Name="rbHospitalizacion"
+                                        GroupName="DestinoPaciente"
                                         Style="{StaticResource DestinationRadioStyle}"
                                         VerticalAlignment="Center"/>
 
 
-                                    <StackPanel Grid.Column="1"
-                                                Margin="10,0,0,0"
-                                                VerticalAlignment="Center">
+                                    <StackPanel
+                                        Grid.Column="1"
+                                        Margin="10,0,0,0"
+                                        VerticalAlignment="Center">
 
                                         <TextBlock
                                             Text="Hospitalización"
@@ -316,33 +407,41 @@
                             </Border>
 
 
-                            <!-- UCI -->
+                            <!-- =====================================
+                                       UCI
+                            ====================================== -->
 
-                            <Border Margin="5"
-                                    Padding="14"
-                                    Height="78"
-                                    Background="#F8FAFC"
-                                    BorderBrush="#E2E8F0"
-                                    BorderThickness="1"
-                                    CornerRadius="8">
+                            <Border
+                                Margin="5"
+                                Padding="14"
+                                Height="78"
+                                Background="#F8FAFC"
+                                BorderBrush="#E2E8F0"
+                                BorderThickness="1"
+                                CornerRadius="8">
 
                                 <Grid>
 
                                     <Grid.ColumnDefinitions>
+
                                         <ColumnDefinition Width="Auto"/>
+
                                         <ColumnDefinition/>
+
                                     </Grid.ColumnDefinitions>
 
 
                                     <RadioButton
                                         x:Name="rbUCI"
+                                        GroupName="DestinoPaciente"
                                         Style="{StaticResource DestinationRadioStyle}"
                                         VerticalAlignment="Center"/>
 
 
-                                    <StackPanel Grid.Column="1"
-                                                Margin="10,0,0,0"
-                                                VerticalAlignment="Center">
+                                    <StackPanel
+                                        Grid.Column="1"
+                                        Margin="10,0,0,0"
+                                        VerticalAlignment="Center">
 
                                         <TextBlock
                                             Text="UCI"
@@ -363,33 +462,41 @@
                             </Border>
 
 
-                            <!-- QUIRÓFANO -->
+                            <!-- =====================================
+                                     QUIRÓFANO
+                            ====================================== -->
 
-                            <Border Margin="5"
-                                    Padding="14"
-                                    Height="78"
-                                    Background="#F8FAFC"
-                                    BorderBrush="#E2E8F0"
-                                    BorderThickness="1"
-                                    CornerRadius="8">
+                            <Border
+                                Margin="5"
+                                Padding="14"
+                                Height="78"
+                                Background="#F8FAFC"
+                                BorderBrush="#E2E8F0"
+                                BorderThickness="1"
+                                CornerRadius="8">
 
                                 <Grid>
 
                                     <Grid.ColumnDefinitions>
+
                                         <ColumnDefinition Width="Auto"/>
+
                                         <ColumnDefinition/>
+
                                     </Grid.ColumnDefinitions>
 
 
                                     <RadioButton
                                         x:Name="rbQuirofano"
+                                        GroupName="DestinoPaciente"
                                         Style="{StaticResource DestinationRadioStyle}"
                                         VerticalAlignment="Center"/>
 
 
-                                    <StackPanel Grid.Column="1"
-                                                Margin="10,0,0,0"
-                                                VerticalAlignment="Center">
+                                    <StackPanel
+                                        Grid.Column="1"
+                                        Margin="10,0,0,0"
+                                        VerticalAlignment="Center">
 
                                         <TextBlock
                                             Text="Quirófano"
@@ -410,33 +517,41 @@
                             </Border>
 
 
-                            <!-- TRASLADO -->
+                            <!-- =====================================
+                                      TRASLADO
+                            ====================================== -->
 
-                            <Border Margin="5"
-                                    Padding="14"
-                                    Height="78"
-                                    Background="#F8FAFC"
-                                    BorderBrush="#E2E8F0"
-                                    BorderThickness="1"
-                                    CornerRadius="8">
+                            <Border
+                                Margin="5"
+                                Padding="14"
+                                Height="78"
+                                Background="#F8FAFC"
+                                BorderBrush="#E2E8F0"
+                                BorderThickness="1"
+                                CornerRadius="8">
 
                                 <Grid>
 
                                     <Grid.ColumnDefinitions>
+
                                         <ColumnDefinition Width="Auto"/>
+
                                         <ColumnDefinition/>
+
                                     </Grid.ColumnDefinitions>
 
 
                                     <RadioButton
                                         x:Name="rbTraslado"
+                                        GroupName="DestinoPaciente"
                                         Style="{StaticResource DestinationRadioStyle}"
                                         VerticalAlignment="Center"/>
 
 
-                                    <StackPanel Grid.Column="1"
-                                                Margin="10,0,0,0"
-                                                VerticalAlignment="Center">
+                                    <StackPanel
+                                        Grid.Column="1"
+                                        Margin="10,0,0,0"
+                                        VerticalAlignment="Center">
 
                                         <TextBlock
                                             Text="Traslado"
@@ -464,24 +579,34 @@
 
 
                 <!-- =================================================
-                       OBSERVACIONES FINALES
+                       OBSERVACIONES DE ENFERMERÍA
                 ================================================== -->
 
-                <Border Background="White"
-                        BorderBrush="#E2E8F0"
-                        BorderThickness="1"
-                        CornerRadius="10"
-                        Padding="18">
+                <Border
+                    Background="White"
+                    BorderBrush="#E2E8F0"
+                    BorderThickness="1"
+                    CornerRadius="10"
+                    Padding="18">
 
                     <StackPanel>
 
                         <TextBlock
                             Style="{StaticResource SectionTitleStyle}"
-                            Text="Observaciones finales"/>
+                            Text="Observaciones de enfermería"/>
+
 
                         <TextBlock
                             Style="{StaticResource SectionDescriptionStyle}"
-                            Text="Indique recomendaciones, condiciones de egreso, instrucciones o información relevante para el destino seleccionado."/>
+                            Text="Registre las observaciones de enfermería relevantes sobre el estado del paciente, cuidados realizados, evolución y condiciones al momento de definir su destino."/>
+
+
+                        <!--
+                            IMPORTANTE:
+                            mantenemos el nombre txtObservacionesFinales
+                            para no romper PasoDestino.xaml.cs
+                            ni el modelo actual.
+                        -->
 
                         <TextBox
                             x:Name="txtObservacionesFinales"
@@ -489,7 +614,8 @@
                             Height="105"
                             AcceptsReturn="True"
                             TextWrapping="Wrap"
-                            VerticalScrollBarVisibility="Auto"/>
+                            VerticalScrollBarVisibility="Auto"
+                            MaxLength="1000"/>
 
                     </StackPanel>
 

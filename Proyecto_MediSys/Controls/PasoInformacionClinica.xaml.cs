@@ -53,6 +53,57 @@ namespace Proyecto_MediSys.Controls
 
 
         // ============================================================
+        // CARGAR INFORMACIÓN CLÍNICA EXISTENTE
+        // ============================================================
+
+        public void CargarInformacion(
+            InformacionClinica informacionExistente)
+        {
+            if (informacionExistente == null)
+                return;
+
+
+            informacion =
+                informacionExistente;
+
+
+            txtMotivoConsulta.Text =
+                informacionExistente.MotivoConsulta ?? "";
+
+
+            chkDiabetes.IsChecked =
+                informacionExistente.Diabetes;
+
+
+            chkHipertension.IsChecked =
+                informacionExistente.Hipertension;
+
+
+            chkAsma.IsChecked =
+                informacionExistente.Asma;
+
+
+            chkCardiopatia.IsChecked =
+                informacionExistente.Cardiopatia;
+
+
+            chkEmbarazo.IsChecked =
+                informacionExistente.Embarazo;
+
+
+            chkNinguno.IsChecked =
+                informacionExistente.Ninguno;
+
+
+            txtMedicamentos.Text =
+                informacionExistente.MedicamentosActuales ?? "";
+
+
+            txtObservaciones.Text =
+                informacionExistente.Observaciones ?? "";
+        }
+
+        // ============================================================
         // CARGAR CATÁLOGO GENERAL
         // ============================================================
 

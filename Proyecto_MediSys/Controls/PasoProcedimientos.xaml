@@ -344,7 +344,7 @@
 
 
                 <!-- ============================================================
-                    MEDICAMENTOS
+                     MEDICAMENTOS
 ============================================================= -->
 
                 <Border
@@ -357,12 +357,20 @@
 
                     <StackPanel>
 
+                        <!-- =====================================================
+                             ENCABEZADO
+        ====================================================== -->
+
                         <Grid>
 
                             <Grid.ColumnDefinitions>
+
                                 <ColumnDefinition/>
+
                                 <ColumnDefinition Width="Auto"/>
+
                             </Grid.ColumnDefinitions>
+
 
                             <StackPanel>
 
@@ -372,9 +380,10 @@
 
                                 <TextBlock
                     Style="{StaticResource SectionDescriptionStyle}"
-                    Text="Seleccione medicamentos del catálogo e indique dosis, vía, frecuencia y cantidad."/>
+                    Text="Seleccione el medicamento del catálogo e indique la cantidad utilizada."/>
 
                             </StackPanel>
+
 
                             <Border
                 Grid.Column="1"
@@ -392,36 +401,98 @@
                         </Grid>
 
 
-                        <!-- BUSCADOR -->
+                        <!-- =====================================================
+                    BUSCAR + CANTIDAD + AGREGAR
+        ====================================================== -->
 
-                        <Grid Margin="0,0,0,8">
+                        <Grid Margin="0,0,0,10">
 
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition Width="120"/>
+
+                                <!-- BUSCADOR -->
+                                <ColumnDefinition Width="*"/>
+
+                                <!-- CANTIDAD -->
+                                <ColumnDefinition Width="110"/>
+
+                                <!-- BOTÓN -->
+                                <ColumnDefinition Width="125"/>
+
                             </Grid.ColumnDefinitions>
 
-                            <TextBox
-                x:Name="txtBuscarMedicamento"
-                Height="36"
-                Padding="10,5"
-                Background="#F8FAFC"
-                BorderBrush="#CBD5E1"
-                BorderThickness="1"
-                VerticalContentAlignment="Center"/>
+
+                            <!-- =================================================
+                             BUSCADOR
+            ================================================== -->
+
+                            <StackPanel
+                Grid.Column="0"
+                Margin="0,0,10,0">
+
+                                <TextBlock
+                    Text="Buscar medicamento"
+                    FontSize="10"
+                    Foreground="#64748B"
+                    Margin="0,0,0,5"/>
+
+                                <TextBox
+                    x:Name="txtBuscarMedicamento"
+                    Height="36"
+                    Padding="10,5"
+                    Background="#F8FAFC"
+                    BorderBrush="#CBD5E1"
+                    BorderThickness="1"
+                    VerticalContentAlignment="Center"/>
+
+                            </StackPanel>
+
+
+                            <!-- =================================================
+                             CANTIDAD
+            ================================================== -->
+
+                            <StackPanel
+                Grid.Column="1"
+                Margin="0,0,10,0">
+
+                                <TextBlock
+                    Text="Cantidad"
+                    FontSize="10"
+                    Foreground="#64748B"
+                    Margin="0,0,0,5"/>
+
+                                <TextBox
+                    x:Name="txtCantidadMedicamento"
+                    Height="36"
+                    Text="1"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Background="#F8FAFC"
+                    BorderBrush="#CBD5E1"
+                    BorderThickness="1"
+                    FontSize="13"/>
+
+                            </StackPanel>
+
+
+                            <!-- =================================================
+                              AGREGAR
+            ================================================== -->
 
                             <Button
                 x:Name="btnAgregarMedicamento"
-                Grid.Column="1"
-                Margin="8,0,0,0"
+                Grid.Column="2"
                 Height="36"
+                VerticalAlignment="Bottom"
                 Style="{StaticResource CatalogButtonStyle}"
                 Content="+ Agregar"/>
 
                         </Grid>
 
 
-                        <!-- RESULTADOS -->
+                        <!-- =====================================================
+                        RESULTADOS DE BÚSQUEDA
+        ====================================================== -->
 
                         <ListBox
             x:Name="lstMedicamentos"
@@ -432,86 +503,17 @@
             DisplayMemberPath="Mostrar"/>
 
 
-                        <!-- DATOS DEL MEDICAMENTO -->
-
-                        <Grid Margin="0,12,0,10">
-
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition Width="100"/>
-                            </Grid.ColumnDefinitions>
-
-                            <StackPanel Margin="0,0,8,0">
-                                <TextBlock Text="Dosis"
-                           FontSize="10"
-                           Foreground="#64748B"/>
-                                <TextBox x:Name="txtDosisMedicamento"
-                         Height="34"
-                         Style="{StaticResource ClinicalTextBoxStyle}"/>
-                            </StackPanel>
-
-                            <StackPanel Grid.Column="1"
-                        Margin="0,0,8,0">
-                                <TextBlock Text="Vía"
-                           FontSize="10"
-                           Foreground="#64748B"/>
-                                <ComboBox x:Name="cmbViaMedicamento"
-                          Height="34">
-                                    <ComboBoxItem Content="Oral"/>
-                                    <ComboBoxItem Content="Intravenosa"/>
-                                    <ComboBoxItem Content="Intramuscular"/>
-                                    <ComboBoxItem Content="Subcutánea"/>
-                                    <ComboBoxItem Content="Tópica"/>
-                                    <ComboBoxItem Content="Inhalada"/>
-                                    <ComboBoxItem Content="Otra"/>
-                                </ComboBox>
-                            </StackPanel>
-
-                            <StackPanel Grid.Column="2"
-                        Margin="0,0,8,0">
-                                <TextBlock Text="Frecuencia"
-                           FontSize="10"
-                           Foreground="#64748B"/>
-                                <TextBox x:Name="txtFrecuenciaMedicamento"
-                         Height="34"
-                         Style="{StaticResource ClinicalTextBoxStyle}"/>
-                            </StackPanel>
-
-                            <StackPanel Grid.Column="3"
-                        Margin="0,0,8,0">
-                                <TextBlock Text="Indicaciones"
-                           FontSize="10"
-                           Foreground="#64748B"/>
-                                <TextBox x:Name="txtIndicacionesMedicamento"
-                         Height="34"
-                         Style="{StaticResource ClinicalTextBoxStyle}"/>
-                            </StackPanel>
-
-                            <StackPanel Grid.Column="4">
-                                <TextBlock Text="Cantidad"
-                           FontSize="10"
-                           Foreground="#64748B"/>
-                                <TextBox x:Name="txtCantidadMedicamento"
-                         Height="34"
-                         Text="1"
-                         HorizontalContentAlignment="Center"
-                         VerticalContentAlignment="Center"/>
-                            </StackPanel>
-
-                        </Grid>
-
-
-                        <!-- SELECCIONADOS -->
+                        <!-- =====================================================
+                        MEDICAMENTOS AGREGADOS
+        ====================================================== -->
 
                         <TextBlock
             Text="Medicamentos seleccionados"
             FontSize="11"
             FontWeight="SemiBold"
             Foreground="#475569"
-            Margin="0,0,0,6"/>
+            Margin="0,12,0,6"/>
+
 
                         <DataGrid
             x:Name="dgMedicamentos"
@@ -523,56 +525,71 @@
             GridLinesVisibility="Horizontal"
             BorderBrush="#E2E8F0"
             BorderThickness="1"
-            FontSize="11">
+            FontSize="11"
+            MinRowHeight="44"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled">
 
                             <DataGrid.Columns>
+
+
+                                <!-- MEDICAMENTO -->
 
                                 <DataGridTextColumn
                     Header="Medicamento"
                     Binding="{Binding Nombre}"
                     Width="*"/>
 
+
+                                <!-- CANTIDAD -->
+
                                 <DataGridTextColumn
-                    Header="Cant."
+                    Header="Cantidad"
                     Binding="{Binding Cantidad}"
-                    Width="55"/>
+                    Width="85"/>
 
-                                <DataGridTextColumn
-                    Header="Dosis"
-                    Binding="{Binding Dosis}"
-                    Width="90"/>
 
-                                <DataGridTextColumn
-                    Header="Vía"
-                    Binding="{Binding ViaAdministracion}"
-                    Width="100"/>
+                                <!-- PRECIO -->
 
                                 <DataGridTextColumn
                     Header="Precio"
                     Binding="{Binding PrecioTexto}"
-                    Width="90"/>
+                    Width="110"/>
+
+
+                                <!-- TOTAL -->
 
                                 <DataGridTextColumn
                     Header="Total"
                     Binding="{Binding TotalTexto}"
-                    Width="90"/>
+                    Width="110"/>
+
+
+                                <!-- QUITAR -->
 
                                 <DataGridTemplateColumn
                     Header=""
-                    Width="65">
+                    Width="85">
 
                                     <DataGridTemplateColumn.CellTemplate>
 
                                         <DataTemplate>
 
                                             <Button
-                                Width="50"
-                                Height="25"
-                                Background="#FCEEEE"
-                                Foreground="#A94442"
-                                BorderThickness="0"
                                 Content="Quitar"
-                                Tag="{Binding}"/>
+                                Tag="{Binding}"
+                                Width="62"
+                                Height="28"
+                                Margin="4"
+                                Padding="6,0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Background="#FEE2E2"
+                                Foreground="#B91C1C"
+                                BorderBrush="#FECACA"
+                                BorderThickness="1"
+                                FontSize="11"
+                                FontWeight="SemiBold"
+                                Cursor="Hand"/>
 
                                         </DataTemplate>
 
@@ -591,7 +608,7 @@
 
                 <!-- ============================================================
                   MATERIAL GASTABLE
-============================================================= -->
+                ============================================================= -->
 
                 <Border
     Background="White"
@@ -718,22 +735,29 @@
                     Binding="{Binding TotalTexto}"
                     Width="90"/>
 
-                                <DataGridTemplateColumn
-                    Header=""
-                    Width="65">
+                                <DataGridTemplateColumn Header=""
+                        Width="80">
 
                                     <DataGridTemplateColumn.CellTemplate>
 
                                         <DataTemplate>
 
                                             <Button
-                                Width="50"
-                                Height="25"
-                                Background="#FCEEEE"
-                                Foreground="#A94442"
-                                BorderThickness="0"
-                                Content="Quitar"
-                                Tag="{Binding}"/>
+                                                Content="Quitar"
+                                                Tag="{Binding}"
+                                                Width="62"
+                                                Height="28"
+                                                Margin="4"
+                                                Padding="6,0"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Background="#FEE2E2"
+                                                Foreground="#B91C1C"
+                                                BorderBrush="#FECACA"
+                                                BorderThickness="1"
+                                                FontSize="11"
+                                                FontWeight="SemiBold"
+                                                Cursor="Hand"/>
 
                                         </DataTemplate>
 
@@ -752,7 +776,7 @@
 
                 <!-- ============================================================
                      PROCEDIMIENTOS
-============================================================= -->
+                 ============================================================= -->
 
                 <Border
     Background="White"
@@ -913,7 +937,7 @@
 
                 <!-- ============================================================
                 LABORATORIOS + IMÁGENES
-============================================================= -->
+                ============================================================= -->
 
                 <Grid Margin="0,0,0,14">
 
@@ -1123,7 +1147,7 @@
 
                 <!-- ============================================================
                     NOTA FINAL
-============================================================= -->
+                ============================================================= -->
 
                 <Border
     Background="#F8FAFC"

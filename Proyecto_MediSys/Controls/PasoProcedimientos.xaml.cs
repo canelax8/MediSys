@@ -91,6 +91,112 @@ namespace Proyecto_MediSys.Controls
             CargarAlergiasPaciente();
         }
 
+
+        // ============================================================
+        // CARGAR ITEMS DE UNA EMERGENCIA EXISTENTE
+        // ============================================================
+
+        public void CargarItems(
+            List<EmergenciaItem>? items)
+        {
+            // ========================================================
+            // LIMPIAR COLECCIONES
+            // ========================================================
+
+            medicamentosSeleccionados.Clear();
+
+            materialesSeleccionados.Clear();
+
+            procedimientosSeleccionados.Clear();
+
+            laboratoriosSeleccionados.Clear();
+
+            imagenesSeleccionadas.Clear();
+
+
+            if (items == null ||
+                items.Count == 0)
+            {
+                ActualizarSubtotal();
+
+                return;
+            }
+
+
+            // ========================================================
+            // DISTRIBUIR ITEMS POR TIPO
+            // ========================================================
+
+            foreach (EmergenciaItem item in items)
+            {
+                string tipo =
+                    item.TipoItem?.Trim() ?? "";
+
+
+                if (tipo.Equals(
+                    "Medicamento",
+                    StringComparison.OrdinalIgnoreCase))
+                {
+                    medicamentosSeleccionados.Add(
+                        item);
+                }
+
+                else if (tipo.Equals(
+                    "Material gastable",
+                    StringComparison.OrdinalIgnoreCase))
+                {
+                    materialesSeleccionados.Add(
+                        item);
+                }
+
+                else if (tipo.Equals(
+                    "Procedimiento",
+                    StringComparison.OrdinalIgnoreCase))
+                {
+                    procedimientosSeleccionados.Add(
+                        item);
+                }
+
+                else if (tipo.Equals(
+                    "Laboratorio",
+                    StringComparison.OrdinalIgnoreCase))
+                {
+                    laboratoriosSeleccionados.Add(
+                        item);
+                }
+
+                else if (tipo.Equals(
+                    "Imagen",
+                    StringComparison.OrdinalIgnoreCase))
+                {
+                    imagenesSeleccionadas.Add(
+                        item);
+                }
+            }
+
+
+            // ========================================================
+            // ACTUALIZAR DATAGRIDS
+            // ========================================================
+
+            dgMedicamentos.Items.Refresh();
+
+            dgMateriales.Items.Refresh();
+
+            dgProcedimientos.Items.Refresh();
+
+            dgLaboratorios.Items.Refresh();
+
+            dgImagenes.Items.Refresh();
+
+
+            // ========================================================
+            // SUBTOTAL
+            // ========================================================
+
+            ActualizarSubtotal();
+        }
+
         // ============================================================
         // CARGAR ALERTA DE ALERGIAS
         // ============================================================
@@ -496,6 +602,10 @@ namespace Proyecto_MediSys.Controls
             object sender,
             RoutedEventArgs e)
         {
+            // ========================================================
+            // VALIDAR MEDICAMENTO
+            // ========================================================
+
             if (lstMedicamentos.SelectedItem
                 is not ItemClinico item)
             {
@@ -505,6 +615,10 @@ namespace Proyecto_MediSys.Controls
                 return;
             }
 
+
+            // ========================================================
+            // VALIDAR CANTIDAD
+            // ========================================================
 
             if (!decimal.TryParse(
                 txtCantidadMedicamento.Text,
@@ -518,9 +632,15 @@ namespace Proyecto_MediSys.Controls
                     MessageBoxButton.OK,
                     MessageBoxImage.Warning);
 
+                txtCantidadMedicamento.Focus();
+
                 return;
             }
 
+
+            // ========================================================
+            // EVITAR DUPLICADOS
+            // ========================================================
 
             if (ExisteItem(
                 medicamentosSeleccionados,
@@ -536,33 +656,55 @@ namespace Proyecto_MediSys.Controls
             }
 
 
+            // ========================================================
+            // CREAR ITEM
+            // ========================================================
+
             EmergenciaItem? emergenciaItem =
                 CrearEmergenciaItem(
                     item,
                     cantidad);
 
+
             if (emergenciaItem == null)
                 return;
 
 
-            emergenciaItem.Dosis =
-                txtDosisMedicamento.Text.Trim();
+            // ========================================================
+            // YA NO UTILIZAMOS:
+            // DOSIS
+            // VÍA
+            // FRECUENCIA
+            // INDICACIONES
+            // ========================================================
 
-            emergenciaItem.ViaAdministracion =
-                ObtenerViaSeleccionada();
+            emergenciaItem.Dosis = "";
 
-            emergenciaItem.Frecuencia =
-                txtFrecuenciaMedicamento.Text.Trim();
+            emergenciaItem.ViaAdministracion = "";
 
-            emergenciaItem.Indicaciones =
-                txtIndicacionesMedicamento.Text.Trim();
+            emergenciaItem.Frecuencia = "";
 
+            emergenciaItem.Indicaciones = "";
+
+
+            // ========================================================
+            // AGREGAR
+            // ========================================================
 
             medicamentosSeleccionados.Add(
                 emergenciaItem);
 
 
+            // ========================================================
+            // LIMPIAR
+            // ========================================================
+
             LimpiarMedicamento();
+
+
+            // ========================================================
+            // ACTUALIZAR TOTAL
+            // ========================================================
 
             ActualizarSubtotal();
         }
@@ -893,20 +1035,8 @@ namespace Proyecto_MediSys.Controls
             return emergenciaItem;
         }
 
-
-        // ============================================================
-        // OBTENER VÍA
-        // ============================================================
-
         private string ObtenerViaSeleccionada()
         {
-            if (cmbViaMedicamento.SelectedItem
-                is ComboBoxItem item)
-            {
-                return item.Content
-                    ?.ToString() ?? "";
-            }
-
             return "";
         }
 
@@ -1077,17 +1207,16 @@ namespace Proyecto_MediSys.Controls
 
         private void LimpiarMedicamento()
         {
-            txtDosisMedicamento.Clear();
-
-            cmbViaMedicamento.SelectedIndex =
-                -1;
-
-            txtFrecuenciaMedicamento.Clear();
-
-            txtIndicacionesMedicamento.Clear();
-
             txtCantidadMedicamento.Text =
                 "1";
+
+
+            txtBuscarMedicamento.Clear();
+
+
+            lstMedicamentos.ItemsSource =
+                catalogoMedicamentos;
+
 
             lstMedicamentos.SelectedItem =
                 null;

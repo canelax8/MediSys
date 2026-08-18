@@ -6,7 +6,23 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
-  </PropertyGroup>
+
+
+	<!-- PUBLICACIÓN -->
+	<RuntimeIdentifier>win-x64</RuntimeIdentifier>
+	<SelfContained>true</SelfContained>
+	<PublishSingleFile>true</PublishSingleFile>
+
+	<!-- Incluir DLL nativas dentro del EXE -->
+	<IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+
+	<!-- Comprimir el ejecutable -->
+	<EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+
+	<!-- Evitar que aparezca el .pdb -->
+	<DebugType>none</DebugType>
+	<DebugSymbols>false</DebugSymbols>
+	</PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="MaterialDesignThemes" Version="5.3.2" />

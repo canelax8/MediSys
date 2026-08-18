@@ -169,8 +169,19 @@ namespace Proyecto_MediSys.Pages.Procesos
 
                 dialog.Owner = Window.GetWindow(this);
 
-                bool? resultado = dialog.ShowDialog();
+                bool? resultado =
+                    dialog.ShowDialog();
 
+
+                if (resultado == true)
+                {
+                    ProcesarInternamientoDesdeEmergencia(
+                        dialog.IdEmergenciaProcesada);
+                }
+
+
+                // Recargar siempre
+                CargarEmergencias();
                 // Recargar siempre porque el estado pudo cambiar
                 CargarEmergencias();
             }
@@ -200,15 +211,14 @@ namespace Proyecto_MediSys.Pages.Procesos
 
                 bool? resultado = dialog.ShowDialog();
 
+
                 if (resultado == true)
                 {
                     CargarEmergencias();
 
-                    MessageBox.Show(
-                        "La lista de emergencias fue actualizada.",
-                        "MediSys",
-                        MessageBoxButton.OK,
-                        MessageBoxImage.Information);
+
+                    ProcesarInternamientoDesdeEmergencia(
+                        dialog.IdEmergenciaProcesada);
                 }
             }
             catch (Exception ex)
@@ -580,6 +590,162 @@ namespace Proyecto_MediSys.Pages.Procesos
             {
                 MessageBox.Show(
                     $"No fue posible generar el PDF.\n\n{ex.Message}",
+                    "MediSys",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+        }
+
+        // ============================================================
+        // PROCESAR INTERNAMIENTO DESDE EMERGENCIA
+        // ============================================================
+
+        private void ProcesarInternamientoDesdeEmergencia(
+            long idEmergencia)
+        {
+            if (idEmergencia <= 0)
+                return;
+
+
+            try
+            {
+                // =====================================================
+                // CARGAR EXPEDIENTE
+                // =====================================================
+
+                EmergenciaDAO emergenciaDAO =
+                    new EmergenciaDAO();
+
+
+                var resultado =
+                    emergenciaDAO.ObtenerPorId(
+                        idEmergencia);
+
+
+                if (resultado.Emergencia == null ||
+                    resultado.Proceso == null ||
+                    resultado.Proceso.Destino == null)
+                {
+                    return;
+                }
+
+
+                string destino =
+                    resultado.Proceso
+                        .Destino
+                        .Destino
+                        ?.Trim()
+                    ?? "";
+
+
+                // =====================================================
+                // SOLO HOSPITALIZACIÓN O UCI
+                // =====================================================
+
+                bool esHospitalizacion =
+                    destino.Equals(
+                        "Hospitalización",
+                        StringComparison.OrdinalIgnoreCase)
+
+                    ||
+
+                    destino.Equals(
+                        "Hospitalizacion",
+                        StringComparison.OrdinalIgnoreCase);
+
+
+                bool esUci =
+                    destino.Equals(
+                        "UCI",
+                        StringComparison.OrdinalIgnoreCase);
+
+
+                if (!esHospitalizacion &&
+                    !esUci)
+                {
+                    return;
+                }
+
+
+                // =====================================================
+                // EVITAR INTERNAMIENTO DUPLICADO
+                // =====================================================
+
+                InternamientoDAO internamientoDAO =
+                    new InternamientoDAO();
+
+
+                if (internamientoDAO
+                    .ExisteInternamientoPorEmergencia(
+                        idEmergencia))
+                {
+                    return;
+                }
+
+
+                // =====================================================
+                // CONFIRMAR
+                // =====================================================
+
+                string tipo =
+                    esUci
+                        ? "UCI"
+                        : "Hospitalización";
+
+
+                MessageBoxResult respuesta =
+                    MessageBox.Show(
+                        $"El destino seleccionado para el paciente es:\n\n" +
+                        $"{tipo}\n\n" +
+                        $"Se debe asignar una cama para completar el internamiento.\n\n" +
+                        $"¿Desea continuar ahora?",
+                        "Crear internamiento",
+                        MessageBoxButton.YesNo,
+                        MessageBoxImage.Question);
+
+
+                if (respuesta !=
+                    MessageBoxResult.Yes)
+                {
+                    return;
+                }
+
+
+                // =====================================================
+                // ABRIR INTERNAMIENTO YA PRECARGADO
+                // =====================================================
+
+                InternamientoDialog dialog =
+                    new InternamientoDialog(
+                        idEmergencia,
+                        tipo);
+
+
+                dialog.Owner =
+                    Window.GetWindow(this);
+
+
+                bool? guardado =
+                    dialog.ShowDialog();
+
+
+                if (guardado == true)
+                {
+                    MessageBox.Show(
+                        "El paciente fue internado correctamente.\n\n" +
+                        "La cama asignada ha quedado marcada como ocupada.",
+                        "MediSys",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information);
+
+
+                    CargarEmergencias();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"No fue posible iniciar el internamiento desde la emergencia.\n\n{ex.Message}",
                     "MediSys",
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);

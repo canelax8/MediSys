@@ -208,14 +208,14 @@
 
                 <!-- =================================================
                   DIAGNÓSTICOS CIE-10
-================================================== -->
+                ================================================== -->
 
                 <Border Background="White"
-        BorderBrush="#E2E8F0"
-        BorderThickness="1"
-        CornerRadius="10"
-        Padding="18"
-        Margin="0,0,0,14">
+                        BorderBrush="#E2E8F0"
+                        BorderThickness="1"
+                        CornerRadius="10"
+                        Padding="18"
+                        Margin="0,0,0,14">
 
                     <StackPanel>
 
@@ -231,12 +231,12 @@
                             <StackPanel>
 
                                 <TextBlock
-                    Style="{StaticResource SectionTitleStyle}"
-                    Text="Diagnósticos"/>
+                                        Style="{StaticResource SectionTitleStyle}"
+                                        Text="Diagnósticos"/>       
 
                                 <TextBlock
-                    Style="{StaticResource SectionDescriptionStyle}"
-                    Text="Busque y seleccione diagnósticos utilizando el catálogo CIE-10."/>
+                                        Style="{StaticResource SectionDescriptionStyle}"
+                                        Text="Busque y seleccione diagnósticos utilizando el catálogo CIE-10."/>
 
                             </StackPanel>
 
@@ -456,26 +456,26 @@
                         <!-- MANUAL -->
 
                         <Border
-            Margin="0,14,0,0"
-            Padding="12"
-            Background="#F8FAFC"
-            BorderBrush="#E2E8F0"
-            BorderThickness="1"
-            CornerRadius="8">
+                            Margin="0,14,0,0"
+                            Padding="12"
+                            Background="#F8FAFC"
+                            BorderBrush="#E2E8F0"
+                            BorderThickness="1"
+                            CornerRadius="8">
 
                             <StackPanel>
 
                                 <TextBlock
-                    Text="¿No aparece el diagnóstico en CIE-10?"
-                    FontSize="11"
-                    FontWeight="SemiBold"
-                    Foreground="#475569"/>
+                                    Text="¿No aparece el diagnóstico en CIE-10?"
+                                    FontSize="11"
+                                    FontWeight="SemiBold"
+                                    Foreground="#475569"/>
 
                                 <TextBlock
-                    Margin="0,2,0,7"
-                    Text="Puede registrar un diagnóstico manualmente."
-                    FontSize="10"
-                    Foreground="#94A3B8"/>
+                                    Margin="0,2,0,7"
+                                    Text="Puede registrar un diagnóstico manualmente."
+                                    FontSize="10"
+                                    Foreground="#94A3B8"/>      
 
                                 <Grid>
 
@@ -485,36 +485,36 @@
                                     </Grid.ColumnDefinitions>
 
                                     <TextBox
-                        x:Name="txtDiagnosticoManual"
-                        Height="34"
-                        Padding="9,4"
-                        Background="White"
-                        BorderBrush="#CBD5E1"
-                        BorderThickness="1"/>
+                                        x:Name="txtDiagnosticoManual"
+                                        Height="34"
+                                        Padding="9,4"
+                                        Background="White"
+                                        BorderBrush="#CBD5E1"
+                                        BorderThickness="1"/>
 
                                     <Button
-                        Grid.Column="1"
-                        Margin="8,0,0,0"
-                        Height="34"
-                        Background="#EEF2F6"
-                        Foreground="#475569"
-                        BorderThickness="0"
-                        FontSize="10"
-                        FontWeight="SemiBold"
-                        Cursor="Hand"
-                        Content="+ Registrar"
-                        Click="btnAgregarDiagnosticoManual_Click"/>
+                                        Grid.Column="1"
+                                        Margin="8,0,0,0"
+                                        Height="34"
+                                        Background="#EEF2F6"
+                                        Foreground="#475569"
+                                        BorderThickness="0"
+                                        FontSize="10"
+                                        FontWeight="SemiBold"
+                                        Cursor="Hand"
+                                        Content="+ Registrar"
+                                        Click="btnAgregarDiagnosticoManual_Click"/>
 
                                 </Grid>
 
 
                                 <ListBox
-                    x:Name="lstDiagnosticosManuales"
-                    Margin="0,8,0,0"
-                    Height="55"
-                    Background="White"
-                    BorderBrush="#E2E8F0"
-                    BorderThickness="1"/>
+                                    x:Name="lstDiagnosticosManuales"
+                                    Margin="0,8,0,0"
+                                    Height="55"
+                                    Background="White"
+                                    BorderBrush="#E2E8F0"
+                                    BorderThickness="1"/>
 
                             </StackPanel>
 
@@ -540,11 +540,11 @@
 
                         <TextBlock
                             Style="{StaticResource SectionTitleStyle}"
-                            Text="Impresión clínica"/>
+                            Text="Observaciones clinicas"/>
 
                         <TextBlock
                             Style="{StaticResource SectionDescriptionStyle}"
-                            Text="Descripción clínica, razonamiento médico o interpretación de los hallazgos."/>
+                            Text="Razonamiento medico."/>
 
                         <TextBox
                             x:Name="txtImpresionClinica"
@@ -573,11 +573,11 @@
 
                         <TextBlock
                             Style="{StaticResource SectionTitleStyle}"
-                            Text="Observaciones médicas"/>
+                            Text="Plan de manejo"/>
 
                         <TextBlock
                             Style="{StaticResource SectionDescriptionStyle}"
-                            Text="Notas adicionales relacionadas con el diagnóstico o la evolución del paciente."/>
+                            Text="Descripcion de como se va a manejar el paciente."/>
 
                         <TextBox
                             x:Name="txtObservacionesMedicas"

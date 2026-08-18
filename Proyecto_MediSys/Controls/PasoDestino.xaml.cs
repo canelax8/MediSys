@@ -15,6 +15,107 @@ namespace Proyecto_MediSys.Controls
         }
 
 
+
+        // ============================================================
+        // CARGAR DESTINO EXISTENTE
+        // ============================================================
+
+        public void CargarDestino(
+            DestinoEmergencia destinoExistente)
+        {
+            if (destinoExistente == null)
+                return;
+
+
+            destino =
+                destinoExistente;
+
+
+            // ========================================================
+            // LIMPIAR SELECCIÓN
+            // ========================================================
+
+            rbAlta.IsChecked = false;
+
+            rbObservacion.IsChecked = false;
+
+            rbHospitalizacion.IsChecked = false;
+
+            rbUCI.IsChecked = false;
+
+            rbQuirofano.IsChecked = false;
+
+            rbTraslado.IsChecked = false;
+
+
+            // ========================================================
+            // MARCAR DESTINO
+            // ========================================================
+
+            string valor =
+                destinoExistente.Destino?
+                    .Trim() ?? "";
+
+
+            if (valor.Equals(
+                "Alta",
+                StringComparison.OrdinalIgnoreCase))
+            {
+                rbAlta.IsChecked =
+                    true;
+            }
+
+            else if (valor.Equals(
+                "Observación",
+                StringComparison.OrdinalIgnoreCase))
+            {
+                rbObservacion.IsChecked =
+                    true;
+            }
+
+            else if (valor.Equals(
+                "Hospitalización",
+                StringComparison.OrdinalIgnoreCase))
+            {
+                rbHospitalizacion.IsChecked =
+                    true;
+            }
+
+            else if (valor.Equals(
+                "UCI",
+                StringComparison.OrdinalIgnoreCase))
+            {
+                rbUCI.IsChecked =
+                    true;
+            }
+
+            else if (valor.Equals(
+                "Quirófano",
+                StringComparison.OrdinalIgnoreCase))
+            {
+                rbQuirofano.IsChecked =
+                    true;
+            }
+
+            else if (
+                valor.Equals(
+                    "Traslado",
+                    StringComparison.OrdinalIgnoreCase)
+                ||
+                valor.Equals(
+                    "Trasladado",
+                    StringComparison.OrdinalIgnoreCase))
+            {
+                rbTraslado.IsChecked =
+                    true;
+            }
+
+
+            txtObservacionesFinales.Text =
+                destinoExistente
+                    .ObservacionesFinales ?? "";
+        }
+
         // ============================================================
         // VALIDAR
         // ============================================================

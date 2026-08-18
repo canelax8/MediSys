@@ -11,6 +11,13 @@ namespace Proyecto_MediSys.Data
     {
         private readonly Conexion conexion = new Conexion();
 
+        // Última emergencia creada por esta instancia del DAO.
+        public long UltimoIdEmergenciaGuardada
+        {
+            get;
+            private set;
+        }
+
 
         public List<Emergencia> ObtenerTodos()
         {
@@ -111,6 +118,8 @@ namespace Proyecto_MediSys.Data
                          con,
                          trans,
                          emergencia);
+
+                    UltimoIdEmergenciaGuardada = idEmergencia;
 
                     InsertarEvaluacionInicial(
                         con,
@@ -738,9 +747,866 @@ namespace Proyecto_MediSys.Data
         }
 
         // =========================================================
-        // DETALLE ESPECÍFICO DEL MEDICAMENTO
+        // ACTUALIZAR EMERGENCIA COMPLETA
         // =========================================================
 
+        public bool ActualizarEmergenciaCompleta(
+            long idEmergencia,
+            ProcesoEmergencia proceso)
+        {
+            using SqlConnection con =
+                conexion.ObtenerConexion();
+
+            con.Open();
+
+
+            using SqlTransaction trans =
+                con.BeginTransaction();
+
+
+            try
+            {
+                // =====================================================
+                // 1. EMERGENCIA PRINCIPAL
+                // =====================================================
+
+                ActualizarDatosGeneralesEmergencia(
+                    con,
+                    trans,
+                    idEmergencia,
+                    proceso);
+
+
+                // =====================================================
+                // 2. EVALUACIÓN
+                // =====================================================
+
+                ActualizarEvaluacionInicial(
+                    con,
+                    trans,
+                    idEmergencia,
+                    proceso.Evaluacion);
+
+
+                // =====================================================
+                // 3. INFORMACIÓN CLÍNICA
+                // =====================================================
+
+                ActualizarInformacionClinica(
+                    con,
+                    trans,
+                    idEmergencia,
+                    proceso.InformacionClinica);
+
+
+                // =====================================================
+                // 4. DIAGNÓSTICO GENERAL
+                // =====================================================
+
+                ActualizarDiagnosticoEmergencia(
+                    con,
+                    trans,
+                    idEmergencia,
+                    proceso.Diagnostico);
+
+
+                // =====================================================
+                // 5. DIAGNÓSTICOS CIE-10
+                // =====================================================
+
+                DesactivarDiagnosticosCIE10(
+                    con,
+                    trans,
+                    idEmergencia);
+
+
+                InsertarDiagnosticosCIE10(
+                    con,
+                    trans,
+                    idEmergencia,
+                    proceso);
+
+
+                // =====================================================
+                // 6. PROCEDIMIENTOS RESUMIDOS
+                // =====================================================
+
+                ActualizarProcedimientosEmergencia(
+                    con,
+                    trans,
+                    idEmergencia,
+                    proceso.Procedimientos);
+
+
+                // =====================================================
+                // 7. ITEMS CLÍNICOS
+                //
+                // No borramos físicamente los anteriores.
+                // Los desactivamos y registramos la nueva versión.
+                // =====================================================
+
+                DesactivarItemsEmergencia(
+                    con,
+                    trans,
+                    idEmergencia);
+
+
+                InsertarItemsClinicos(
+                    con,
+                    trans,
+                    idEmergencia,
+                    proceso.ItemsClinicos);
+
+
+                // =====================================================
+                // 8. DESTINO
+                // =====================================================
+
+                ActualizarDestinoEmergencia(
+                    con,
+                    trans,
+                    idEmergencia,
+                    proceso.Destino);
+
+
+                // =====================================================
+                // 9. ESTADO FINAL
+                // =====================================================
+
+                ActualizarEstadoEmergencia(
+                    con,
+                    trans,
+                    idEmergencia,
+                    proceso.Destino
+                        .IdEstadoEmergenciaResultado);
+
+
+                trans.Commit();
+
+
+                return true;
+            }
+            catch
+            {
+                trans.Rollback();
+
+                throw;
+            }
+        }
+
+
+        // =========================================================
+        // ACTUALIZAR DATOS GENERALES
+        // =========================================================
+
+        private void ActualizarDatosGeneralesEmergencia(
+            SqlConnection con,
+            SqlTransaction trans,
+            long idEmergencia,
+            ProcesoEmergencia proceso)
+        {
+            string sql = @"
+        UPDATE tbEmergencias
+
+        SET
+            MotivoConsulta = @MotivoConsulta,
+            FechaModificacion = GETDATE()
+
+        WHERE IdEmergencia = @IdEmergencia;
+    ";
+
+
+            using SqlCommand cmd =
+                new SqlCommand(
+                    sql,
+                    con,
+                    trans);
+
+
+            cmd.Parameters.AddWithValue(
+                "@IdEmergencia",
+                idEmergencia);
+
+
+            cmd.Parameters.AddWithValue(
+                "@MotivoConsulta",
+                string.IsNullOrWhiteSpace(
+                    proceso.InformacionClinica
+                        .MotivoConsulta)
+
+                    ? DBNull.Value
+                    : proceso.InformacionClinica
+                        .MotivoConsulta);
+
+
+            cmd.ExecuteNonQuery();
+        }
+
+
+        // =========================================================
+        // ACTUALIZAR EVALUACIÓN
+        // =========================================================
+
+        private void ActualizarEvaluacionInicial(
+            SqlConnection con,
+            SqlTransaction trans,
+            long idEmergencia,
+            EvaluacionInicial evaluacion)
+        {
+            string sql = @"
+        IF EXISTS
+        (
+            SELECT 1
+            FROM tbEvaluacionInicial
+            WHERE IdEmergencia = @IdEmergencia
+        )
+
+        BEGIN
+
+            UPDATE tbEvaluacionInicial
+
+            SET
+                NivelTriage = @NivelTriage,
+                Temperatura = @Temperatura,
+                PresionArterial = @PresionArterial,
+                FrecuenciaCardiaca = @FrecuenciaCardiaca,
+                FrecuenciaRespiratoria = @FrecuenciaRespiratoria,
+                Saturacion = @Saturacion,
+                Glucemia = @Glucemia,
+                Peso = @Peso,
+                Talla = @Talla
+
+            WHERE IdEvaluacion =
+            (
+                SELECT TOP 1 IdEvaluacion
+                FROM tbEvaluacionInicial
+                WHERE IdEmergencia = @IdEmergencia
+                ORDER BY IdEvaluacion DESC
+            );
+
+        END
+
+        ELSE
+
+        BEGIN
+
+            INSERT INTO tbEvaluacionInicial
+            (
+                IdEmergencia,
+                NivelTriage,
+                Temperatura,
+                PresionArterial,
+                FrecuenciaCardiaca,
+                FrecuenciaRespiratoria,
+                Saturacion,
+                Glucemia,
+                Peso,
+                Talla
+            )
+
+            VALUES
+            (
+                @IdEmergencia,
+                @NivelTriage,
+                @Temperatura,
+                @PresionArterial,
+                @FrecuenciaCardiaca,
+                @FrecuenciaRespiratoria,
+                @Saturacion,
+                @Glucemia,
+                @Peso,
+                @Talla
+            );
+
+        END
+    ";
+
+
+            using SqlCommand cmd =
+                new SqlCommand(
+                    sql,
+                    con,
+                    trans);
+
+
+            cmd.Parameters.AddWithValue(
+                "@IdEmergencia",
+                idEmergencia);
+
+
+            cmd.Parameters.AddWithValue(
+                "@NivelTriage",
+                evaluacion.NivelTriage);
+
+
+            cmd.Parameters.AddWithValue(
+                "@Temperatura",
+                evaluacion.Temperatura
+                ?? (object)DBNull.Value);
+
+
+            cmd.Parameters.AddWithValue(
+                "@PresionArterial",
+                string.IsNullOrWhiteSpace(
+                    evaluacion.PresionArterial)
+
+                    ? DBNull.Value
+                    : evaluacion.PresionArterial);
+
+
+            cmd.Parameters.AddWithValue(
+                "@FrecuenciaCardiaca",
+                evaluacion.FrecuenciaCardiaca
+                ?? (object)DBNull.Value);
+
+
+            cmd.Parameters.AddWithValue(
+                "@FrecuenciaRespiratoria",
+                evaluacion.FrecuenciaRespiratoria
+                ?? (object)DBNull.Value);
+
+
+            cmd.Parameters.AddWithValue(
+                "@Saturacion",
+                evaluacion.Saturacion
+                ?? (object)DBNull.Value);
+
+
+            cmd.Parameters.AddWithValue(
+                "@Glucemia",
+                evaluacion.Glucemia
+                ?? (object)DBNull.Value);
+
+
+            cmd.Parameters.AddWithValue(
+                "@Peso",
+                evaluacion.Peso
+                ?? (object)DBNull.Value);
+
+
+            cmd.Parameters.AddWithValue(
+                "@Talla",
+                evaluacion.Talla
+                ?? (object)DBNull.Value);
+
+
+            cmd.ExecuteNonQuery();
+        }
+
+
+        // =========================================================
+        // ACTUALIZAR INFORMACIÓN CLÍNICA
+        // =========================================================
+
+        private void ActualizarInformacionClinica(
+            SqlConnection con,
+            SqlTransaction trans,
+            long idEmergencia,
+            InformacionClinica informacion)
+        {
+            string sql = @"
+        IF EXISTS
+        (
+            SELECT 1
+            FROM tbInformacionClinica
+            WHERE IdEmergencia = @IdEmergencia
+        )
+
+        BEGIN
+
+            UPDATE tbInformacionClinica
+
+            SET
+                MotivoConsulta = @MotivoConsulta,
+                Diabetes = @Diabetes,
+                Hipertension = @Hipertension,
+                Asma = @Asma,
+                Cardiopatia = @Cardiopatia,
+                Embarazo = @Embarazo,
+                Ninguno = @Ninguno,
+                Alergias = @Alergias,
+                MedicamentosActuales = @MedicamentosActuales,
+                Observaciones = @Observaciones
+
+            WHERE IdInformacion =
+            (
+                SELECT TOP 1 IdInformacion
+                FROM tbInformacionClinica
+                WHERE IdEmergencia = @IdEmergencia
+                ORDER BY IdInformacion DESC
+            );
+
+        END
+
+        ELSE
+
+        BEGIN
+
+            INSERT INTO tbInformacionClinica
+            (
+                IdEmergencia,
+                MotivoConsulta,
+                Diabetes,
+                Hipertension,
+                Asma,
+                Cardiopatia,
+                Embarazo,
+                Ninguno,
+                Alergias,
+                MedicamentosActuales,
+                Observaciones
+            )
+
+            VALUES
+            (
+                @IdEmergencia,
+                @MotivoConsulta,
+                @Diabetes,
+                @Hipertension,
+                @Asma,
+                @Cardiopatia,
+                @Embarazo,
+                @Ninguno,
+                @Alergias,
+                @MedicamentosActuales,
+                @Observaciones
+            );
+
+        END
+    ";
+
+
+            using SqlCommand cmd =
+                new SqlCommand(
+                    sql,
+                    con,
+                    trans);
+
+
+            cmd.Parameters.AddWithValue(
+                "@IdEmergencia",
+                idEmergencia);
+
+
+            cmd.Parameters.AddWithValue(
+                "@MotivoConsulta",
+                informacion.MotivoConsulta ?? "");
+
+
+            cmd.Parameters.AddWithValue(
+                "@Diabetes",
+                informacion.Diabetes);
+
+
+            cmd.Parameters.AddWithValue(
+                "@Hipertension",
+                informacion.Hipertension);
+
+
+            cmd.Parameters.AddWithValue(
+                "@Asma",
+                informacion.Asma);
+
+
+            cmd.Parameters.AddWithValue(
+                "@Cardiopatia",
+                informacion.Cardiopatia);
+
+
+            cmd.Parameters.AddWithValue(
+                "@Embarazo",
+                informacion.Embarazo);
+
+
+            cmd.Parameters.AddWithValue(
+                "@Ninguno",
+                informacion.Ninguno);
+
+
+            cmd.Parameters.AddWithValue(
+                "@Alergias",
+                informacion.Alergias ?? "");
+
+
+            cmd.Parameters.AddWithValue(
+                "@MedicamentosActuales",
+                informacion.MedicamentosActuales ?? "");
+
+
+            cmd.Parameters.AddWithValue(
+                "@Observaciones",
+                informacion.Observaciones ?? "");
+
+
+            cmd.ExecuteNonQuery();
+        }
+
+
+        // =========================================================
+        // ACTUALIZAR DIAGNÓSTICO GENERAL
+        // =========================================================
+
+        private void ActualizarDiagnosticoEmergencia(
+            SqlConnection con,
+            SqlTransaction trans,
+            long idEmergencia,
+            DiagnosticoEmergencia diagnostico)
+        {
+            string sql = @"
+        IF EXISTS
+        (
+            SELECT 1
+            FROM tbDiagnosticoEmergencia
+            WHERE IdEmergencia = @IdEmergencia
+        )
+
+        BEGIN
+
+            UPDATE tbDiagnosticoEmergencia
+
+            SET
+                DiagnosticoPrincipal = @DiagnosticoPrincipal,
+                DiagnosticoSecundario = @DiagnosticoSecundario,
+                ImpresionClinica = @ImpresionClinica,
+                Observaciones = @Observaciones
+
+            WHERE IdDiagnostico =
+            (
+                SELECT TOP 1 IdDiagnostico
+                FROM tbDiagnosticoEmergencia
+                WHERE IdEmergencia = @IdEmergencia
+                ORDER BY IdDiagnostico DESC
+            );
+
+        END
+
+        ELSE
+
+        BEGIN
+
+            INSERT INTO tbDiagnosticoEmergencia
+            (
+                IdEmergencia,
+                DiagnosticoPrincipal,
+                DiagnosticoSecundario,
+                ImpresionClinica,
+                Observaciones
+            )
+
+            VALUES
+            (
+                @IdEmergencia,
+                @DiagnosticoPrincipal,
+                @DiagnosticoSecundario,
+                @ImpresionClinica,
+                @Observaciones
+            );
+
+        END
+    ";
+
+
+            using SqlCommand cmd =
+                new SqlCommand(
+                    sql,
+                    con,
+                    trans);
+
+
+            cmd.Parameters.AddWithValue(
+                "@IdEmergencia",
+                idEmergencia);
+
+
+            cmd.Parameters.AddWithValue(
+                "@DiagnosticoPrincipal",
+                diagnostico.DiagnosticoPrincipal ?? "");
+
+
+            cmd.Parameters.AddWithValue(
+                "@DiagnosticoSecundario",
+                diagnostico.DiagnosticoSecundario ?? "");
+
+
+            cmd.Parameters.AddWithValue(
+                "@ImpresionClinica",
+                diagnostico.ImpresionClinica ?? "");
+
+
+            cmd.Parameters.AddWithValue(
+                "@Observaciones",
+                diagnostico.Observaciones ?? "");
+
+
+            cmd.ExecuteNonQuery();
+        }
+
+
+        // =========================================================
+        // DESACTIVAR DIAGNÓSTICOS CIE-10 ANTERIORES
+        // =========================================================
+
+        private void DesactivarDiagnosticosCIE10(
+            SqlConnection con,
+            SqlTransaction trans,
+            long idEmergencia)
+        {
+            string sql = @"
+        UPDATE tbEmergenciaDiagnosticos
+
+        SET Activo = 0
+
+        WHERE IdEmergencia = @IdEmergencia
+          AND Activo = 1;
+    ";
+
+
+            using SqlCommand cmd =
+                new SqlCommand(
+                    sql,
+                    con,
+                    trans);
+
+
+            cmd.Parameters.AddWithValue(
+                "@IdEmergencia",
+                idEmergencia);
+
+
+            cmd.ExecuteNonQuery();
+        }
+
+
+        // =========================================================
+        // ACTUALIZAR PROCEDIMIENTOS RESUMIDOS
+        // =========================================================
+
+        private void ActualizarProcedimientosEmergencia(
+            SqlConnection con,
+            SqlTransaction trans,
+            long idEmergencia,
+            ProcedimientoEmergencia procedimiento)
+        {
+            string sql = @"
+        IF EXISTS
+        (
+            SELECT 1
+            FROM tbProcedimientosEmergencia
+            WHERE IdEmergencia = @IdEmergencia
+        )
+
+        BEGIN
+
+            UPDATE tbProcedimientosEmergencia
+
+            SET
+                Medicamentos = @Medicamentos,
+                Procedimientos = @Procedimientos,
+                Laboratorios = @Laboratorios,
+                Imagenes = @Imagenes
+
+            WHERE IdProcedimiento =
+            (
+                SELECT TOP 1 IdProcedimiento
+                FROM tbProcedimientosEmergencia
+                WHERE IdEmergencia = @IdEmergencia
+                ORDER BY IdProcedimiento DESC
+            );
+
+        END
+
+        ELSE
+
+        BEGIN
+
+            INSERT INTO tbProcedimientosEmergencia
+            (
+                IdEmergencia,
+                Medicamentos,
+                Procedimientos,
+                Laboratorios,
+                Imagenes
+            )
+
+            VALUES
+            (
+                @IdEmergencia,
+                @Medicamentos,
+                @Procedimientos,
+                @Laboratorios,
+                @Imagenes
+            );
+
+        END
+    ";
+
+
+            using SqlCommand cmd =
+                new SqlCommand(
+                    sql,
+                    con,
+                    trans);
+
+
+            cmd.Parameters.AddWithValue(
+                "@IdEmergencia",
+                idEmergencia);
+
+
+            cmd.Parameters.AddWithValue(
+                "@Medicamentos",
+                procedimiento.Medicamentos ?? "");
+
+
+            cmd.Parameters.AddWithValue(
+                "@Procedimientos",
+                procedimiento.Procedimientos ?? "");
+
+
+            cmd.Parameters.AddWithValue(
+                "@Laboratorios",
+                procedimiento.Laboratorios ?? "");
+
+
+            cmd.Parameters.AddWithValue(
+                "@Imagenes",
+                procedimiento.Imagenes ?? "");
+
+
+            cmd.ExecuteNonQuery();
+        }
+
+
+        // =========================================================
+        // DESACTIVAR ITEMS CLÍNICOS ANTERIORES
+        // =========================================================
+
+        private void DesactivarItemsEmergencia(
+            SqlConnection con,
+            SqlTransaction trans,
+            long idEmergencia)
+        {
+            string sql = @"
+        UPDATE tbEmergenciaItems
+
+        SET Activo = 0
+
+        WHERE IdEmergencia = @IdEmergencia
+          AND Activo = 1;
+    ";
+
+
+            using SqlCommand cmd =
+                new SqlCommand(
+                    sql,
+                    con,
+                    trans);
+
+
+            cmd.Parameters.AddWithValue(
+                "@IdEmergencia",
+                idEmergencia);
+
+
+            cmd.ExecuteNonQuery();
+        }
+
+
+        // =========================================================
+        // ACTUALIZAR DESTINO
+        // =========================================================
+
+        private void ActualizarDestinoEmergencia(
+            SqlConnection con,
+            SqlTransaction trans,
+            long idEmergencia,
+            DestinoEmergencia destino)
+        {
+            string sql = @"
+                            IF EXISTS
+                            (
+                                SELECT 1
+                                FROM tbDestinoEmergencia
+                                WHERE IdEmergencia = @IdEmergencia
+                            )
+
+                            BEGIN
+
+                                UPDATE tbDestinoEmergencia
+
+                                SET
+                                    Destino = @Destino,
+                                    ObservacionesFinales = @ObservacionesFinales,
+                                    FechaSalida = @FechaSalida
+
+                                WHERE IdDestino =
+                                (
+                                    SELECT TOP 1 IdDestino
+                                    FROM tbDestinoEmergencia
+                                    WHERE IdEmergencia = @IdEmergencia
+                                    ORDER BY IdDestino DESC
+                                );
+
+                            END
+
+                            ELSE
+
+                            BEGIN
+
+                                INSERT INTO tbDestinoEmergencia
+                                (
+                                    IdEmergencia,
+                                    Destino,
+                                    ObservacionesFinales,
+                                    FechaSalida
+                                )
+
+                                VALUES
+                                (
+                                    @IdEmergencia,
+                                    @Destino,
+                                    @ObservacionesFinales,
+                                    @FechaSalida
+                                );
+
+                            END
+                        ";
+
+
+            using SqlCommand cmd =
+                new SqlCommand(
+                    sql,
+                    con,
+                    trans);
+
+
+            cmd.Parameters.AddWithValue(
+                "@IdEmergencia",
+                idEmergencia);
+
+
+            cmd.Parameters.AddWithValue(
+                "@Destino",
+                destino.Destino ?? "");
+
+
+            cmd.Parameters.AddWithValue(
+                "@ObservacionesFinales",
+                destino.ObservacionesFinales ?? "");
+
+
+            cmd.Parameters.AddWithValue(
+                "@FechaSalida",
+                destino.FechaSalida
+                ?? (object)DBNull.Value);
+
+
+            cmd.ExecuteNonQuery();
+        }
+
+        // =========================================================
+        // DETALLE ESPECÍFICO DEL MEDICAMENTO
+        // =========================================================
         private void InsertarDetalleMedicamento(
             SqlConnection con,
             SqlTransaction trans,
@@ -1704,6 +2570,9 @@ namespace Proyecto_MediSys.Data
                                 : r["Imagenes"].ToString() ?? "";
                     }
                 }
+
+
+
 
 
                 // =========================================================

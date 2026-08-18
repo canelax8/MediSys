@@ -3,133 +3,363 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-
         xmlns:controls="clr-namespace:Proyecto_MediSys.Controls"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
 
         mc:Ignorable="d"
+
         Title="MediSys Dashboard"
-        Height="800"
-        Width="1400"
+
+        Width="1500"
+        Height="860"
+
+        MinWidth="1180"
+        MinHeight="700"
+
         WindowStartupLocation="CenterScreen"
-        Background="#F5F7FA">
+
+        Background="#F4F6F8">
+
+
+    <!-- =========================================================
+                         ESTRUCTURA PRINCIPAL
+    ========================================================== -->
 
     <Grid>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="60"/>
-            <RowDefinition/>
+
+            <!-- BARRA SUPERIOR -->
+            <RowDefinition Height="72"/>
+
+            <!-- CONTENIDO -->
+            <RowDefinition Height="*"/>
+
         </Grid.RowDefinitions>
 
+
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="230"/>
-            <ColumnDefinition/>
+
+            <!-- SIDEBAR -->
+            <ColumnDefinition Width="260"/>
+
+            <!-- CONTENIDO PRINCIPAL -->
+            <ColumnDefinition Width="*"/>
+
         </Grid.ColumnDefinitions>
 
-        <!-- Barra Superior -->
 
-        <Border Grid.Row="0"
-                Grid.ColumnSpan="2"
-                Background="#2563EB">
+        <!-- =========================================================
+                            BARRA SUPERIOR
+        ========================================================== -->
+
+        <Border
+            Grid.Row="0"
+            Grid.ColumnSpan="2"
+            Background="#2563EB">
 
             <Grid>
 
-                <!-- COLUMNAS DE LA BARRA SUPERIOR -->
-
                 <Grid.ColumnDefinitions>
 
-                    <!-- Logo -->
-                    <ColumnDefinition Width="320"/>
+                    <!-- LOGO -->
+                    <ColumnDefinition Width="260"/>
 
-                    <!-- Espacio libre -->
+                    <!-- INFORMACIÓN -->
                     <ColumnDefinition Width="*"/>
-
-                    <!-- Fecha -->
-                    <ColumnDefinition Width="140"/>
-
-                    <!-- Hora -->
-                    <ColumnDefinition Width="100"/>
-
-                    <!-- Usuario -->
-                    <ColumnDefinition Width="180"/>
-
-                    <!-- Tema -->
-                    <ColumnDefinition Width="60"/>
 
                 </Grid.ColumnDefinitions>
 
-                <!-- LOGO DEL SISTEMA -->
 
-                <TextBlock
+                <!-- =================================================
+                                 LOGO
+                ================================================== -->
+
+                <Border
                     Grid.Column="0"
-                    Text=" MediSys"
-                    Foreground="White"
-                    FontSize="24"
-                    FontWeight="Bold"
-                    VerticalAlignment="Center"
-                    Margin="20,0"/>
+                    Background="#2563EB">
 
-                <!-- FECHA -->
+                    <Grid Margin="22,0">
 
-                <TextBlock
-                    Grid.Column="2"
-                    x:Name="txtFecha"
-                    Text="17/06/2026"
-                    Foreground="White"
-                    FontSize="14"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Center"/>
+                        <Grid.ColumnDefinitions>
 
-                <!-- HORA -->
+                            <ColumnDefinition Width="42"/>
 
-                <TextBlock
-                    Grid.Column="3"
-                    x:Name="txtHora"
-                    Text="10:35"
-                    Foreground="White"
-                    FontSize="14"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Center"/>
+                            <ColumnDefinition Width="*"/>
 
-                <!-- USUARIO -->
+                        </Grid.ColumnDefinitions>
 
-                <TextBlock
-                    Grid.Column="4"
-                    x:Name="txtUsuario"
-                    Text="Administrador"
-                    Foreground="White"
-                    FontSize="15"
-                    FontWeight="SemiBold"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Center"/>      
 
-                <!-- BOTÓN MODO OSCURO -->
+                        <!-- ICONO -->
+
+                        <Border
+                            Width="36"
+                            Height="36"
+                            CornerRadius="9"
+                            Background="#33FFFFFF"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Left">
+
+                            <TextBlock
+                                Text="✚"
+                                FontSize="20"
+                                FontWeight="Bold"
+                                Foreground="White"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+
+                        </Border>
+
+
+                        <!-- NOMBRE -->
+
+                        <StackPanel
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            Margin="8,0,0,0">
+
+                            <TextBlock
+                                Text="MediSys"
+                                Foreground="White"
+                                FontSize="23"
+                                FontWeight="Bold"/>
+
+                            <TextBlock
+                                Text="Gestión Hospitalaria"
+                                Foreground="#BFDBFE"
+                                FontSize="9"
+                                Margin="0,1,0,0"/>
+
+                        </StackPanel>
+
+                    </Grid>
+
+                </Border>
+
+
+                <!-- =================================================
+                           INFORMACIÓN SUPERIOR
+                ================================================== -->
+
+                <Grid
+                    Grid.Column="1"
+                    Margin="28,0,26,0">
+
+                    <Grid.ColumnDefinitions>
+
+                        <!-- TEXTO IZQUIERDO -->
+                        <ColumnDefinition Width="*"/>
+
+                        <!-- FECHA -->
+                        <ColumnDefinition Width="Auto"/>
+
+                        <!-- HORA -->
+                        <ColumnDefinition Width="Auto"/>
+
+                        <!-- USUARIO -->
+                        <ColumnDefinition Width="Auto"/>
+
+                    </Grid.ColumnDefinitions>
+
+
+                    <!-- SISTEMA -->
+
+                    <StackPanel
+                        Grid.Column="0"
+                        VerticalAlignment="Center">
+
+                        <TextBlock
+                            Text="Sistema de Gestión Clínica"
+                            Foreground="White"
+                            FontSize="14"
+                            FontWeight="SemiBold"/>
+
+                        <TextBlock
+                            Text="Administración y seguimiento hospitalario"
+                            Foreground="#BFDBFE"
+                            FontSize="10"
+                            Margin="0,3,0,0"/>
+
+                    </StackPanel>
+
+
+                    <!-- =============================================
+                                 FECHA
+                    ============================================== -->
+
+                    <Border
+                        Grid.Column="1"
+                        Background="#20FFFFFF"
+                        CornerRadius="8"
+                        Margin="6,14"
+                        Padding="14,6">
+
+                        <StackPanel>
+
+                            <TextBlock
+                                Text="FECHA"
+                                FontSize="8"
+                                FontWeight="SemiBold"
+                                Foreground="#BFDBFE"
+                                HorizontalAlignment="Center"/>
+
+                            <TextBlock
+                                x:Name="txtFecha"
+                                Text="17/06/2026"
+                                FontSize="12"
+                                FontWeight="SemiBold"
+                                Foreground="White"
+                                Margin="0,2,0,0"
+                                HorizontalAlignment="Center"/>
+
+                        </StackPanel>
+
+                    </Border>
+
+
+                    <!-- =============================================
+                                  HORA
+                    ============================================== -->
+
+                    <Border
+                        Grid.Column="2"
+                        Background="#20FFFFFF"
+                        CornerRadius="8"
+                        Margin="6,14"
+                        Padding="14,6">
+
+                        <StackPanel>
+
+                            <TextBlock
+                                Text="HORA"
+                                FontSize="8"
+                                FontWeight="SemiBold"
+                                Foreground="#BFDBFE"
+                                HorizontalAlignment="Center"/>
+
+                            <TextBlock
+                                x:Name="txtHora"
+                                Text="10:35"
+                                FontSize="12"
+                                FontWeight="SemiBold"
+                                Foreground="White"
+                                Margin="0,2,0,0"
+                                HorizontalAlignment="Center"/>
+
+                        </StackPanel>
+
+                    </Border>
+
+
+                    <!-- =============================================
+                                USUARIO
+                    ============================================== -->
+
+                    <Border
+                        Grid.Column="3"
+                        Background="#20FFFFFF"
+                        CornerRadius="8"
+                        Margin="6,14,0,14"
+                        Padding="12,5">
+
+                        <Grid>
+
+                            <Grid.ColumnDefinitions>
+
+                                <ColumnDefinition Width="34"/>
+
+                                <ColumnDefinition Width="Auto"/>
+
+                            </Grid.ColumnDefinitions>
+
+
+                            <!-- AVATAR -->
+
+                            <Border
+                                Width="28"
+                                Height="28"
+                                CornerRadius="14"
+                                Background="#DBEAFE"
+                                VerticalAlignment="Center">
+
+                                <TextBlock
+                                    Text="U"
+                                    FontSize="11"
+                                    FontWeight="Bold"
+                                    Foreground="#1D4ED8"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"/>
+
+                            </Border>
+
+
+                            <!-- DATOS -->
+
+                            <StackPanel
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                Margin="6,0,5,0">
+
+                                <TextBlock
+                                    x:Name="txtUsuario"
+                                    Text="Administrador"
+                                    FontSize="12"
+                                    FontWeight="SemiBold"
+                                    Foreground="White"/>
+
+                                <TextBlock
+                                    Text="Sesión activa"
+                                    FontSize="8"
+                                    Foreground="#BFDBFE"
+                                    Margin="0,1,0,0"/>
+
+                            </StackPanel>
+
+                        </Grid>
+
+                    </Border>
+
+                </Grid>
 
             </Grid>
 
         </Border>
 
-        <!-- Aquí se carga el Sidebar -->
+
+        <!-- =========================================================
+                              SIDEBAR
+        ========================================================== -->
 
         <controls:SidebarMenu
-           x:Name="Sidebar"
-           Grid.Row="1"
-           Grid.Column="0" Loaded="Sidebar_Loaded"/>
-
-        <!-- Aquí se cargan las páginas -->
-
-        <materialDesign:DialogHost
-            x:Name="DialogHostPrincipal"
-            Identifier="DialogHostPrincipal"
+            x:Name="Sidebar"
             Grid.Row="1"
-            Grid.Column="1">
+            Grid.Column="0"
+            Loaded="Sidebar_Loaded"/>
 
-            <Frame
-            x:Name="MainFrame"
-            Margin="20"
-            NavigationUIVisibility="Hidden"/>
 
-        </materialDesign:DialogHost>
+        <!-- =========================================================
+                         CONTENIDO DE LAS PÁGINAS
+        ========================================================== -->
+
+        <Border
+            Grid.Row="1"
+            Grid.Column="1"
+            Background="#F4F6F8">
+
+            <materialDesign:DialogHost
+                x:Name="DialogHostPrincipal"
+                Identifier="DialogHostPrincipal"
+                Background="#F4F6F8">
+
+                <Frame
+                    x:Name="MainFrame"
+                    NavigationUIVisibility="Hidden"
+                    Background="#F4F6F8"
+                    BorderThickness="0"/>
+
+            </materialDesign:DialogHost>
+
+        </Border>
 
     </Grid>
 

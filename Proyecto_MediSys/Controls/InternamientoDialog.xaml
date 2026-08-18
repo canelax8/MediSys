@@ -1,0 +1,846 @@
+﻿<Window x:Class="Proyecto_MediSys.Controls.InternamientoDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Internamiento"
+        Width="960"
+        Height="820"
+        MinWidth="850"
+        MinHeight="680"
+        WindowStartupLocation="CenterOwner"
+        Background="#F4F6F8">
+
+    <Window.Resources>
+
+        <!-- ETIQUETAS -->
+
+        <Style x:Key="LabelStyle"
+               TargetType="TextBlock">
+
+            <Setter Property="FontSize"
+                    Value="11"/>
+
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+
+            <Setter Property="Foreground"
+                    Value="#475569"/>
+
+            <Setter Property="Margin"
+                    Value="0,0,0,6"/>
+
+        </Style>
+
+
+        <!-- COMBO -->
+
+        <Style x:Key="ComboStyle"
+               TargetType="ComboBox">
+
+            <Setter Property="Height"
+                    Value="40"/>
+
+            <Setter Property="Padding"
+                    Value="8,0"/>
+
+            <Setter Property="Background"
+                    Value="White"/>
+
+            <Setter Property="BorderBrush"
+                    Value="#CBD5E1"/>
+
+            <Setter Property="VerticalContentAlignment"
+                    Value="Center"/>
+
+        </Style>
+
+
+        <!-- TEXTBOX -->
+
+        <Style x:Key="TextBoxStyle"
+               TargetType="TextBox">
+
+            <Setter Property="Height"
+                    Value="40"/>
+
+            <Setter Property="Padding"
+                    Value="10,0"/>
+
+            <Setter Property="Background"
+                    Value="White"/>
+
+            <Setter Property="BorderBrush"
+                    Value="#CBD5E1"/>
+
+            <Setter Property="VerticalContentAlignment"
+                    Value="Center"/>
+
+        </Style>
+
+
+        <!-- BOTÓN PRINCIPAL -->
+
+        <Style x:Key="PrimaryButtonStyle"
+               TargetType="Button">
+
+            <Setter Property="Height"
+                    Value="42"/>
+
+            <Setter Property="MinWidth"
+                    Value="175"/>
+
+            <Setter Property="Padding"
+                    Value="18,0"/>
+
+            <Setter Property="Background"
+                    Value="#2457A6"/>
+
+            <Setter Property="Foreground"
+                    Value="White"/>
+
+            <Setter Property="BorderThickness"
+                    Value="0"/>
+
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+
+            <Setter Property="Cursor"
+                    Value="Hand"/>
+
+        </Style>
+
+
+        <!-- BOTÓN SECUNDARIO -->
+
+        <Style x:Key="SecondaryButtonStyle"
+               TargetType="Button">
+
+            <Setter Property="Height"
+                    Value="42"/>
+
+            <Setter Property="MinWidth"
+                    Value="120"/>
+
+            <Setter Property="Padding"
+                    Value="18,0"/>
+
+            <Setter Property="Background"
+                    Value="#E2E8F0"/>
+
+            <Setter Property="Foreground"
+                    Value="#334155"/>
+
+            <Setter Property="BorderThickness"
+                    Value="0"/>
+
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+
+            <Setter Property="Cursor"
+                    Value="Hand"/>
+
+        </Style>
+
+    </Window.Resources>
+
+
+    <Grid Margin="22">
+
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="Auto"/>
+
+            <RowDefinition Height="*"/>
+
+            <RowDefinition Height="Auto"/>
+
+        </Grid.RowDefinitions>
+
+
+        <!-- =====================================================
+                            ENCABEZADO
+        ====================================================== -->
+
+        <Border Grid.Row="0"
+                Background="White"
+                BorderBrush="#E2E8F0"
+                BorderThickness="1"
+                CornerRadius="10"
+                Padding="18"
+                Margin="0,0,0,14">
+
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+
+                    <ColumnDefinition/>
+
+                    <ColumnDefinition Width="Auto"/>
+
+                </Grid.ColumnDefinitions>
+
+
+                <StackPanel>
+
+                    <TextBlock
+                        x:Name="txtTitulo"
+                        Text="NUEVO INTERNAMIENTO"
+                        FontSize="22"
+                        FontWeight="Bold"
+                        Foreground="#1E3A5F"/>
+
+                    <TextBlock
+                        x:Name="txtSubtitulo"
+                        Text="Registre el ingreso hospitalario del paciente."
+                        Margin="0,4,0,0"
+                        FontSize="11"
+                        Foreground="#7A8798"/>
+
+                </StackPanel>
+
+
+                <Border
+                    Grid.Column="1"
+                    Background="#EEF4FC"
+                    CornerRadius="12"
+                    Padding="12,6"
+                    VerticalAlignment="Center">
+
+                    <TextBlock
+                        x:Name="txtCodigo"
+                        Text="Nuevo"
+                        FontSize="11"
+                        FontWeight="SemiBold"
+                        Foreground="#2457A6"/>
+
+                </Border>
+
+            </Grid>
+
+        </Border>
+
+
+        <!-- =====================================================
+                              CONTENIDO
+        ====================================================== -->
+
+        <ScrollViewer
+            Grid.Row="1"
+            VerticalScrollBarVisibility="Auto"
+            HorizontalScrollBarVisibility="Disabled">
+
+            <StackPanel>
+
+
+                <!-- =================================================
+                                 PACIENTE
+                ================================================== -->
+
+                <Border
+                    Background="White"
+                    BorderBrush="#E2E8F0"
+                    BorderThickness="1"
+                    CornerRadius="10"
+                    Padding="18"
+                    Margin="0,0,0,14">
+
+                    <StackPanel>
+
+                        <TextBlock
+                            Text="Paciente"
+                            FontSize="16"
+                            FontWeight="SemiBold"
+                            Foreground="#1E3A5F"/>
+
+                        <TextBlock
+                            Text="Busque el paciente por nombre, documento o código."
+                            Margin="0,3,0,14"
+                            FontSize="10"
+                            Foreground="#94A3B8"/>
+
+
+                        <TextBlock
+                            Text="Buscar y seleccionar paciente"
+                            Style="{StaticResource LabelStyle}"/>
+
+
+                        <ComboBox
+                            x:Name="cmbPaciente"
+                            Height="42"
+                            Padding="10,0"
+                            Background="White"
+                            BorderBrush="#CBD5E1"
+                            BorderThickness="1"
+                            IsEditable="True"
+                            IsTextSearchEnabled="False"
+                            StaysOpenOnEdit="True"
+                            SelectedValuePath="IdPaciente"
+                            SelectionChanged="cmbPaciente_SelectionChanged"
+                            KeyUp="cmbPaciente_KeyUp">
+
+                            <ComboBox.ItemTemplate>
+
+                                <DataTemplate>
+
+                                    <StackPanel Margin="5">
+
+                                        <TextBlock
+                                            Text="{Binding NombreCompleto}"
+                                            FontWeight="SemiBold"
+                                            Foreground="#243447"/>
+
+                                        <StackPanel
+                                            Orientation="Horizontal"
+                                            Margin="0,2,0,0">
+
+                                            <TextBlock
+                                                Text="{Binding DocumentoMostrar}"
+                                                FontSize="10"
+                                                Foreground="#64748B"/>
+
+                                            <TextBlock
+                                                Text="  ·  "
+                                                Foreground="#94A3B8"/>
+
+                                            <TextBlock
+                                                Text="{Binding CodigoPaciente}"
+                                                FontSize="10"
+                                                Foreground="#64748B"/>
+
+                                        </StackPanel>
+
+                                    </StackPanel>
+
+                                </DataTemplate>
+
+                            </ComboBox.ItemTemplate>
+
+                        </ComboBox>
+
+
+                        <!-- DATOS DEL PACIENTE -->
+
+                        <Border
+                            Margin="0,14,0,0"
+                            Padding="12"
+                            Background="#F8FAFC"
+                            BorderBrush="#E2E8F0"
+                            BorderThickness="1"
+                            CornerRadius="7">
+
+                            <Grid>
+
+                                <Grid.ColumnDefinitions>
+
+                                    <ColumnDefinition/>
+
+                                    <ColumnDefinition/>
+
+                                    <ColumnDefinition/>
+
+                                </Grid.ColumnDefinitions>
+
+
+                                <StackPanel Grid.Column="0">
+
+                                    <TextBlock
+                                        Text="Documento"
+                                        FontSize="10"
+                                        Foreground="#64748B"/>
+
+                                    <TextBlock
+                                        x:Name="txtDocumento"
+                                        Text="—"
+                                        Margin="0,3,0,0"
+                                        FontWeight="SemiBold"/>
+
+                                </StackPanel>
+
+
+                                <StackPanel Grid.Column="1">
+
+                                    <TextBlock
+                                        Text="Teléfono"
+                                        FontSize="10"
+                                        Foreground="#64748B"/>
+
+                                    <TextBlock
+                                        x:Name="txtTelefono"
+                                        Text="—"
+                                        Margin="0,3,0,0"
+                                        FontWeight="SemiBold"/>
+
+                                </StackPanel>
+
+
+                                <StackPanel Grid.Column="2">
+
+                                    <TextBlock
+                                        Text="Seguro"
+                                        FontSize="10"
+                                        Foreground="#64748B"/>
+
+                                    <TextBlock
+                                        x:Name="txtSeguro"
+                                        Text="—"
+                                        Margin="0,3,0,0"
+                                        FontWeight="SemiBold"/>
+
+                                </StackPanel>
+
+                            </Grid>
+
+                        </Border>
+
+                    </StackPanel>
+
+                </Border>
+
+
+                <!-- =================================================
+                                  ORIGEN
+                ================================================== -->
+
+                <Border
+                    Background="White"
+                    BorderBrush="#E2E8F0"
+                    BorderThickness="1"
+                    CornerRadius="10"
+                    Padding="18"
+                    Margin="0,0,0,14">
+
+                    <StackPanel>
+
+                        <TextBlock
+                            Text="Origen del internamiento"
+                            FontSize="16"
+                            FontWeight="SemiBold"
+                            Foreground="#1E3A5F"
+                            Margin="0,0,0,14"/>
+
+
+                        <StackPanel Orientation="Horizontal">
+
+                            <RadioButton
+                                x:Name="rbIngresoDirecto"
+                                Content="Ingreso directo"
+                                IsChecked="True"
+                                Margin="0,0,30,0"
+                                Checked="Origen_Checked"/>
+
+                            <RadioButton
+                                x:Name="rbEmergencia"
+                                Content="Procedente de emergencia"
+                                Checked="Origen_Checked"/>
+
+                        </StackPanel>
+
+
+                        <StackPanel
+                            x:Name="panelEmergencia"
+                            Margin="0,15,0,0"
+                            Visibility="Collapsed">
+
+                            <TextBlock
+                                Text="Emergencia de origen"
+                                Style="{StaticResource LabelStyle}"/>
+
+                            <ComboBox
+                                x:Name="cmbEmergencia"
+                                Style="{StaticResource ComboStyle}"
+                                DisplayMemberPath="Mostrar"
+                                SelectedValuePath="IdEmergencia"
+                                SelectionChanged="cmbEmergencia_SelectionChanged"/>
+
+                        </StackPanel>
+
+                    </StackPanel>
+
+                </Border>
+
+
+                <!-- =================================================
+                          DATOS DEL INTERNAMIENTO
+                ================================================== -->
+
+                <Border
+                    Background="White"
+                    BorderBrush="#E2E8F0"
+                    BorderThickness="1"
+                    CornerRadius="10"
+                    Padding="18"
+                    Margin="0,0,0,14">
+
+                    <StackPanel>
+
+                        <TextBlock
+                            Text="Datos del internamiento"
+                            FontSize="16"
+                            FontWeight="SemiBold"
+                            Foreground="#1E3A5F"
+                            Margin="0,0,0,15"/>
+
+
+                        <!-- FILA 1 -->
+
+                        <Grid>
+
+                            <Grid.ColumnDefinitions>
+
+                                <ColumnDefinition/>
+
+                                <ColumnDefinition Width="18"/>
+
+                                <ColumnDefinition/>
+
+                            </Grid.ColumnDefinitions>
+
+
+                            <StackPanel Grid.Column="0">
+
+                                <TextBlock
+                                    Text="Tipo de internamiento"
+                                    Style="{StaticResource LabelStyle}"/>
+
+                                <ComboBox
+                                    x:Name="cmbTipo"
+                                    Style="{StaticResource ComboStyle}"
+                                    DisplayMemberPath="Nombre"
+                                    SelectedValuePath="IdTipoInternamiento"
+                                    SelectionChanged="cmbTipo_SelectionChanged"/>
+
+                            </StackPanel>
+
+
+                            <StackPanel Grid.Column="2">
+
+                                <TextBlock
+                                    Text="Especialidad"
+                                    Style="{StaticResource LabelStyle}"/>
+
+                                <ComboBox
+                                    x:Name="cmbEspecialidad"
+                                    Style="{StaticResource ComboStyle}"
+                                    DisplayMemberPath="Nombre"
+                                    SelectedValuePath="IdEspecialidad"
+                                    SelectionChanged="cmbEspecialidad_SelectionChanged"/>
+
+                            </StackPanel>
+
+                        </Grid>
+
+
+                        <!-- FILA 2 -->
+
+                        <Grid Margin="0,16,0,0">
+
+                            <Grid.ColumnDefinitions>
+
+                                <ColumnDefinition/>
+
+                                <ColumnDefinition Width="18"/>
+
+                                <ColumnDefinition/>
+
+                            </Grid.ColumnDefinitions>
+
+
+                            <StackPanel Grid.Column="0">
+
+                                <TextBlock
+                                    Text="Médico responsable"
+                                    Style="{StaticResource LabelStyle}"/>
+
+                                <ComboBox
+                                    x:Name="cmbMedico"
+                                    Style="{StaticResource ComboStyle}"
+                                    DisplayMemberPath="NombreCompleto"
+                                    SelectedValuePath="IdMedico"/>
+
+                            </StackPanel>
+
+
+                            <Grid Grid.Column="2">
+
+                                <Grid.ColumnDefinitions>
+
+                                    <ColumnDefinition/>
+
+                                    <ColumnDefinition Width="12"/>
+
+                                    <ColumnDefinition Width="125"/>
+
+                                </Grid.ColumnDefinitions>
+
+
+                                <StackPanel Grid.Column="0">
+
+                                    <TextBlock
+                                        Text="Fecha de ingreso"
+                                        Style="{StaticResource LabelStyle}"/>
+
+                                    <DatePicker
+                                        x:Name="dpFechaIngreso"
+                                        Height="40"/>
+
+                                </StackPanel>
+
+
+                                <StackPanel Grid.Column="2">
+
+                                    <TextBlock
+                                        Text="Hora"
+                                        Style="{StaticResource LabelStyle}"/>
+
+                                    <TextBox
+                                        x:Name="txtHoraIngreso"
+                                        Style="{StaticResource TextBoxStyle}"
+                                        Text="08:00"
+                                        MaxLength="5"
+                                        ToolTip="Formato HH:mm"/>
+
+                                </StackPanel>
+
+                            </Grid>
+
+                        </Grid>
+
+                    </StackPanel>
+
+                </Border>
+
+
+                <!-- =================================================
+                              UBICACIÓN
+                ================================================== -->
+
+                <Border
+                    Background="White"
+                    BorderBrush="#E2E8F0"
+                    BorderThickness="1"
+                    CornerRadius="10"
+                    Padding="18"
+                    Margin="0,0,0,14">
+
+                    <StackPanel>
+
+                        <TextBlock
+                            Text="Ubicación hospitalaria"
+                            FontSize="16"
+                            FontWeight="SemiBold"
+                            Foreground="#1E3A5F"/>
+
+                        <TextBlock
+                            Text="Solo se mostrarán camas disponibles."
+                            Margin="0,3,0,15"
+                            FontSize="10"
+                            Foreground="#94A3B8"/>
+
+
+                        <Grid>
+
+                            <Grid.ColumnDefinitions>
+
+                                <ColumnDefinition/>
+
+                                <ColumnDefinition Width="15"/>
+
+                                <ColumnDefinition/>
+
+                                <ColumnDefinition Width="15"/>
+
+                                <ColumnDefinition/>
+
+                            </Grid.ColumnDefinitions>
+
+
+                            <!-- ÁREA -->
+
+                            <StackPanel Grid.Column="0">
+
+                                <TextBlock
+                                    Text="Área"
+                                    Style="{StaticResource LabelStyle}"/>
+
+                                <ComboBox
+                                    x:Name="cmbArea"
+                                    Style="{StaticResource ComboStyle}"
+                                    DisplayMemberPath="Nombre"
+                                    SelectedValuePath="IdArea"
+                                    SelectionChanged="cmbArea_SelectionChanged"/>
+
+                            </StackPanel>
+
+
+                            <!-- HABITACIÓN -->
+
+                            <StackPanel Grid.Column="2">
+
+                                <TextBlock
+                                    Text="Habitación"
+                                    Style="{StaticResource LabelStyle}"/>
+
+                                <ComboBox
+                                    x:Name="cmbHabitacion"
+                                    Style="{StaticResource ComboStyle}"
+                                    DisplayMemberPath="Mostrar"
+                                    SelectedValuePath="IdHabitacion"
+                                    SelectionChanged="cmbHabitacion_SelectionChanged"/>
+
+                            </StackPanel>
+
+
+                            <!-- CAMA -->
+
+                            <StackPanel Grid.Column="4">
+
+                                <TextBlock
+                                    Text="Cama disponible"
+                                    Style="{StaticResource LabelStyle}"/>
+
+                                <ComboBox
+                                    x:Name="cmbCama"
+                                    Style="{StaticResource ComboStyle}"
+                                    DisplayMemberPath="CodigoCama"
+                                    SelectedValuePath="IdCama"
+                                    SelectionChanged="cmbCama_SelectionChanged"/>
+
+                            </StackPanel>
+
+                        </Grid>
+
+
+                        <Border
+                            x:Name="panelDisponibilidad"
+                            Margin="0,14,0,0"
+                            Padding="10"
+                            Background="#F8FAFC"
+                            BorderBrush="#E2E8F0"
+                            BorderThickness="1"
+                            CornerRadius="6">
+
+                            <TextBlock
+                                x:Name="txtDisponibilidad"
+                                Text="Seleccione área, habitación y cama."
+                                FontSize="11"
+                                Foreground="#64748B"/>
+
+                        </Border>
+
+                    </StackPanel>
+
+                </Border>
+
+
+                <!-- =================================================
+                          INFORMACIÓN CLÍNICA
+                ================================================== -->
+
+                <Border
+                    Background="White"
+                    BorderBrush="#E2E8F0"
+                    BorderThickness="1"
+                    CornerRadius="10"
+                    Padding="18">
+
+                    <StackPanel>
+
+                        <TextBlock
+                            Text="Información clínica"
+                            FontSize="16"
+                            FontWeight="SemiBold"
+                            Foreground="#1E3A5F"
+                            Margin="0,0,0,15"/>
+
+
+                        <TextBlock
+                            Text="Motivo del internamiento"
+                            Style="{StaticResource LabelStyle}"/>
+
+                        <TextBox
+                            x:Name="txtMotivo"
+                            Height="70"
+                            Padding="10"
+                            AcceptsReturn="True"
+                            TextWrapping="Wrap"
+                            VerticalScrollBarVisibility="Auto"
+                            MaxLength="500"/>
+
+
+                        <TextBlock
+                            Text="Diagnóstico de ingreso"
+                            Style="{StaticResource LabelStyle}"
+                            Margin="0,15,0,6"/>
+
+                        <TextBox
+                            x:Name="txtDiagnostico"
+                            Height="70"
+                            Padding="10"
+                            AcceptsReturn="True"
+                            TextWrapping="Wrap"
+                            VerticalScrollBarVisibility="Auto"
+                            MaxLength="500"/>
+
+
+                        <TextBlock
+                            Text="Observaciones"
+                            Style="{StaticResource LabelStyle}"
+                            Margin="0,15,0,6"/>
+
+                        <TextBox
+                            x:Name="txtObservaciones"
+                            Height="70"
+                            Padding="10"
+                            AcceptsReturn="True"
+                            TextWrapping="Wrap"
+                            VerticalScrollBarVisibility="Auto"
+                            MaxLength="1000"/>
+
+                    </StackPanel>
+
+                </Border>
+
+            </StackPanel>
+
+        </ScrollViewer>
+
+
+        <!-- =====================================================
+                              BOTONES
+        ====================================================== -->
+
+        <Border
+            Grid.Row="2"
+            Margin="0,14,0,0"
+            Padding="14"
+            Background="White"
+            BorderBrush="#E2E8F0"
+            BorderThickness="1"
+            CornerRadius="10">
+
+            <StackPanel
+                Orientation="Horizontal"
+                HorizontalAlignment="Right">
+
+                <Button
+                    x:Name="btnCancelar"
+                    Width="120"
+                    Content="Cancelar"
+                    Style="{StaticResource SecondaryButtonStyle}"
+                    Click="btnCancelar_Click"/>
+
+
+                <Button
+                    x:Name="btnGuardar"
+                    Width="190"
+                    Margin="10,0,0,0"
+                    Content="Registrar internamiento"
+                    Style="{StaticResource PrimaryButtonStyle}"
+                    Click="btnGuardar_Click"/>
+
+            </StackPanel>
+
+        </Border>
+
+    </Grid>
+
+</Window>

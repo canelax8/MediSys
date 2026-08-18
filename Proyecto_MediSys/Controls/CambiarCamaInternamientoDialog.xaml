@@ -1,0 +1,349 @@
+﻿<Window x:Class="Proyecto_MediSys.Controls.CambiarCamaInternamientoDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Cambiar cama"
+        Width="650"
+        Height="560"
+        MinWidth="600"
+        MinHeight="520"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="CanResize"
+        Background="#F4F6F8">
+
+    <Window.Resources>
+
+        <Style x:Key="LabelStyle"
+               TargetType="TextBlock">
+
+            <Setter Property="FontSize"
+                    Value="11"/>
+
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+
+            <Setter Property="Foreground"
+                    Value="#475569"/>
+
+            <Setter Property="Margin"
+                    Value="0,0,0,6"/>
+
+        </Style>
+
+
+        <Style x:Key="ComboStyle"
+               TargetType="ComboBox">
+
+            <Setter Property="Height"
+                    Value="42"/>
+
+            <Setter Property="Padding"
+                    Value="9,0"/>
+
+            <Setter Property="VerticalContentAlignment"
+                    Value="Center"/>
+
+            <Setter Property="Background"
+                    Value="White"/>
+
+            <Setter Property="BorderBrush"
+                    Value="#CBD5E1"/>
+
+            <Setter Property="BorderThickness"
+                    Value="1"/>
+
+        </Style>
+
+
+        <Style x:Key="PrimaryButtonStyle"
+               TargetType="Button">
+
+            <Setter Property="Height"
+                    Value="42"/>
+
+            <Setter Property="MinWidth"
+                    Value="150"/>
+
+            <Setter Property="Padding"
+                    Value="18,0"/>
+
+            <Setter Property="Background"
+                    Value="#2457A6"/>
+
+            <Setter Property="Foreground"
+                    Value="White"/>
+
+            <Setter Property="BorderThickness"
+                    Value="0"/>
+
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+
+            <Setter Property="Cursor"
+                    Value="Hand"/>
+
+        </Style>
+
+
+        <Style x:Key="SecondaryButtonStyle"
+               TargetType="Button">
+
+            <Setter Property="Height"
+                    Value="42"/>
+
+            <Setter Property="MinWidth"
+                    Value="115"/>
+
+            <Setter Property="Padding"
+                    Value="18,0"/>
+
+            <Setter Property="Background"
+                    Value="#E2E8F0"/>
+
+            <Setter Property="Foreground"
+                    Value="#334155"/>
+
+            <Setter Property="BorderThickness"
+                    Value="0"/>
+
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+
+            <Setter Property="Cursor"
+                    Value="Hand"/>
+
+        </Style>
+
+    </Window.Resources>
+
+
+    <Grid Margin="22">
+
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="Auto"/>
+
+            <RowDefinition Height="*"/>
+
+            <RowDefinition Height="Auto"/>
+
+        </Grid.RowDefinitions>
+
+
+        <!-- ENCABEZADO -->
+
+        <Border
+            Grid.Row="0"
+            Background="White"
+            BorderBrush="#E2E8F0"
+            BorderThickness="1"
+            CornerRadius="10"
+            Padding="18"
+            Margin="0,0,0,14">
+
+            <StackPanel>
+
+                <TextBlock
+                    Text="CAMBIAR CAMA"
+                    FontSize="21"
+                    FontWeight="Bold"
+                    Foreground="#1E3A5F"/>
+
+                <TextBlock
+                    Text="Traslade al paciente a otra cama disponible."
+                    Margin="0,4,0,0"
+                    FontSize="11"
+                    Foreground="#7A8798"/>
+
+            </StackPanel>
+
+        </Border>
+
+
+        <!-- CONTENIDO -->
+
+        <ScrollViewer
+            Grid.Row="1"
+            VerticalScrollBarVisibility="Auto">
+
+            <StackPanel>
+
+
+                <!-- PACIENTE -->
+
+                <Border
+                    Background="White"
+                    BorderBrush="#E2E8F0"
+                    BorderThickness="1"
+                    CornerRadius="10"
+                    Padding="16"
+                    Margin="0,0,0,14">
+
+                    <Grid>
+
+                        <Grid.ColumnDefinitions>
+
+                            <ColumnDefinition/>
+
+                            <ColumnDefinition/>
+
+                        </Grid.ColumnDefinitions>
+
+
+                        <StackPanel Grid.Column="0">
+
+                            <TextBlock
+                                Text="Paciente"
+                                FontSize="10"
+                                Foreground="#64748B"/>
+
+                            <TextBlock
+                                x:Name="txtPaciente"
+                                Text="—"
+                                Margin="0,4,0,0"
+                                FontSize="14"
+                                FontWeight="SemiBold"
+                                Foreground="#172033"/>
+
+                        </StackPanel>
+
+
+                        <StackPanel Grid.Column="1">
+
+                            <TextBlock
+                                Text="Cama actual"
+                                FontSize="10"
+                                Foreground="#64748B"/>
+
+                            <TextBlock
+                                x:Name="txtCamaActual"
+                                Text="—"
+                                Margin="0,4,0,0"
+                                FontSize="14"
+                                FontWeight="SemiBold"
+                                Foreground="#D97706"/>
+
+                        </StackPanel>
+
+                    </Grid>
+
+                </Border>
+
+
+                <!-- NUEVA UBICACIÓN -->
+
+                <Border
+                    Background="White"
+                    BorderBrush="#E2E8F0"
+                    BorderThickness="1"
+                    CornerRadius="10"
+                    Padding="18">
+
+                    <StackPanel>
+
+                        <TextBlock
+                            Text="Nueva ubicación"
+                            FontSize="16"
+                            FontWeight="SemiBold"
+                            Foreground="#1E3A5F"
+                            Margin="0,0,0,16"/>
+
+
+                        <TextBlock
+                            Text="Área"
+                            Style="{StaticResource LabelStyle}"/>
+
+                        <ComboBox
+                            x:Name="cmbArea"
+                            Style="{StaticResource ComboStyle}"
+                            DisplayMemberPath="Nombre"
+                            SelectedValuePath="IdArea"
+                            SelectionChanged="cmbArea_SelectionChanged"/>
+
+
+                        <TextBlock
+                            Text="Habitación"
+                            Style="{StaticResource LabelStyle}"
+                            Margin="0,16,0,6"/>
+
+                        <ComboBox
+                            x:Name="cmbHabitacion"
+                            Style="{StaticResource ComboStyle}"
+                            DisplayMemberPath="Mostrar"
+                            SelectedValuePath="IdHabitacion"
+                            SelectionChanged="cmbHabitacion_SelectionChanged"/>
+
+
+                        <TextBlock
+                            Text="Cama"
+                            Style="{StaticResource LabelStyle}"
+                            Margin="0,16,0,6"/>
+
+                        <ComboBox
+                            x:Name="cmbCama"
+                            Style="{StaticResource ComboStyle}"
+                            DisplayMemberPath="CodigoCama"
+                            SelectedValuePath="IdCama"
+                            SelectionChanged="cmbCama_SelectionChanged"/>
+
+
+                        <Border
+                            x:Name="panelDisponibilidad"
+                            Margin="0,16,0,0"
+                            Padding="11"
+                            Background="#F8FAFC"
+                            BorderBrush="#E2E8F0"
+                            BorderThickness="1"
+                            CornerRadius="6">
+
+                            <TextBlock
+                                x:Name="txtDisponibilidad"
+                                Text="Seleccione una nueva cama."
+                                FontSize="11"
+                                Foreground="#64748B"/>
+
+                        </Border>
+
+                    </StackPanel>
+
+                </Border>
+
+            </StackPanel>
+
+        </ScrollViewer>
+
+
+        <!-- BOTONES -->
+
+        <Border
+            Grid.Row="2"
+            Margin="0,14,0,0"
+            Background="White"
+            BorderBrush="#E2E8F0"
+            BorderThickness="1"
+            CornerRadius="10"
+            Padding="14">
+
+            <StackPanel
+                Orientation="Horizontal"
+                HorizontalAlignment="Right">
+
+                <Button
+                    Width="120"
+                    Content="Cancelar"
+                    Style="{StaticResource SecondaryButtonStyle}"
+                    Click="btnCancelar_Click"/>
+
+                <Button
+                    Width="170"
+                    Margin="10,0,0,0"
+                    Content="Cambiar cama"
+                    Style="{StaticResource PrimaryButtonStyle}"
+                    Click="btnGuardar_Click"/>
+
+            </StackPanel>
+
+        </Border>
+
+    </Grid>
+
+</Window>

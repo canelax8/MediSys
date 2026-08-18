@@ -6,104 +6,250 @@ namespace Proyecto_MediSys.Controls
 {
     public partial class SidebarMenu : UserControl
     {
-        // Evento que notificará qué opción del menú fue seleccionada
+        // =========================================================
+        // EVENTO DEL MENÚ
+        // =========================================================
+
         public event Action<string>? MenuSeleccionado;
+
+
+        // =========================================================
+        // CONSTRUCTOR
+        // =========================================================
 
         public SidebarMenu()
         {
             InitializeComponent();
         }
 
-        private void btnDashboard_Click(object sender, RoutedEventArgs e)
+
+        // =========================================================
+        // DASHBOARD
+        // =========================================================
+
+        private void btnDashboard_Click(
+            object sender,
+            RoutedEventArgs e)
         {
-            MenuSeleccionado?.Invoke("Dashboard");
+            MenuSeleccionado?.Invoke(
+                "Dashboard");
         }
 
-        private void btnUsuarios_Click(object sender, RoutedEventArgs e)
+
+        // =========================================================
+        // USUARIOS
+        // =========================================================
+
+        private void btnUsuarios_Click(
+            object sender,
+            RoutedEventArgs e)
         {
-            MenuSeleccionado?.Invoke("Usuarios");
+            MenuSeleccionado?.Invoke(
+                "Usuarios");
         }
 
-        private void btnPacientes_Click(object sender, RoutedEventArgs e)
+
+        // =========================================================
+        // PACIENTES
+        // =========================================================
+
+        private void btnPacientes_Click(
+            object sender,
+            RoutedEventArgs e)
         {
-            MenuSeleccionado?.Invoke("Pacientes");
+            MenuSeleccionado?.Invoke(
+                "Pacientes");
         }
 
-        private void btnMedicos_Click(object sender, RoutedEventArgs e)
+
+        // =========================================================
+        // MÉDICOS
+        // =========================================================
+
+        private void btnMedicos_Click(
+            object sender,
+            RoutedEventArgs e)
         {
-            MenuSeleccionado?.Invoke("Medicos");
+            MenuSeleccionado?.Invoke(
+                "Medicos");
         }
 
-        private void btnEspecialidades_Click(object sender, RoutedEventArgs e)
+
+        // =========================================================
+        // ESPECIALIDADES
+        // =========================================================
+
+        private void btnEspecialidades_Click(
+            object sender,
+            RoutedEventArgs e)
         {
-            MenuSeleccionado?.Invoke("Especialidades");
+            MenuSeleccionado?.Invoke(
+                "Especialidades");
         }
 
-        private void btnMedicamentos_Click(object sender, RoutedEventArgs e)
+
+        // =========================================================
+        // MEDICAMENTOS
+        // =========================================================
+
+        private void btnMedicamentos_Click(
+            object sender,
+            RoutedEventArgs e)
         {
-            MenuSeleccionado?.Invoke("Medicamentos");
+            MenuSeleccionado?.Invoke(
+                "Medicamentos");
         }
 
-        private void btnEmergencias_Click(object sender, RoutedEventArgs e)
+
+        // =========================================================
+        // EMERGENCIAS
+        // =========================================================
+
+        private void btnEmergencias_Click(
+            object sender,
+            RoutedEventArgs e)
         {
-            MenuSeleccionado?.Invoke("Emergencias");
+            MenuSeleccionado?.Invoke(
+                "Emergencias");
         }
 
-        private void btnCitas_Click(object sender, RoutedEventArgs e)
+
+        // =========================================================
+        // CITAS
+        // =========================================================
+
+        private void btnCitas_Click(
+            object sender,
+            RoutedEventArgs e)
         {
-            MenuSeleccionado?.Invoke("Citas");
+            MenuSeleccionado?.Invoke(
+                "Citas");
         }
 
-        private void btnInternamientos_Click(object sender, RoutedEventArgs e)
+
+        // =========================================================
+        // INTERNAMIENTOS
+        // =========================================================
+
+        private void btnInternamientos_Click(
+            object sender,
+            RoutedEventArgs e)
         {
-            MenuSeleccionado?.Invoke("Internamientos");
+            MenuSeleccionado?.Invoke(
+                "Internamientos");
         }
 
-        private void btnFacturacion_Click(object sender, RoutedEventArgs e)
+
+        // =========================================================
+        // FACTURACIÓN
+        // =========================================================
+
+        private void btnFacturacion_Click(
+            object sender,
+            RoutedEventArgs e)
         {
-            MenuSeleccionado?.Invoke("Facturacion");
+            MenuSeleccionado?.Invoke(
+                "Facturacion");
         }
 
-        private void btnLaboratorio_Click(object sender, RoutedEventArgs e)
+
+        // =========================================================
+        // LABORATORIO
+        // =========================================================
+
+        private void btnLaboratorio_Click(
+            object sender,
+            RoutedEventArgs e)
         {
-            MenuSeleccionado?.Invoke("Laboratorio");
+            MenuSeleccionado?.Invoke(
+                "Laboratorio");
         }
 
-        private void btnReportes_Click(object sender, RoutedEventArgs e)
+
+        // =========================================================
+        // REPORTES
+        // =========================================================
+
+        private void btnReportes_Click(
+            object sender,
+            RoutedEventArgs e)
         {
-            MenuSeleccionado?.Invoke("Reportes");
+            MenuSeleccionado?.Invoke(
+                "Reportes");
         }
 
-        private void btnBuscarPaciente_Click(object sender, RoutedEventArgs e)
+
+        // =========================================================
+        // BUSCAR PACIENTE
+        // =========================================================
+
+        private void btnBuscarPaciente_Click(
+            object sender,
+            RoutedEventArgs e)
         {
-            MenuSeleccionado?.Invoke("BuscarPaciente");
+            MenuSeleccionado?.Invoke(
+                "BuscarPaciente");
         }
 
-        private void btnEstadisticas_Click(object sender, RoutedEventArgs e)
+
+        // =========================================================
+        // ESTADÍSTICAS
+        // =========================================================
+
+        private void btnEstadisticas_Click(
+            object sender,
+            RoutedEventArgs e)
         {
-            MenuSeleccionado?.Invoke("Estadisticas");
+            MenuSeleccionado?.Invoke(
+                "Estadisticas");
         }
 
-        private void btnConfiguracion_Click(object sender, RoutedEventArgs e)
+
+        // =========================================================
+        // CONFIGURACIÓN
+        // =========================================================
+
+        private void btnConfiguracion_Click(
+            object sender,
+            RoutedEventArgs e)
         {
-            MenuSeleccionado?.Invoke("Configuracion");
+            MenuSeleccionado?.Invoke(
+                "Configuracion");
         }
 
-        private void btnCerrarSesion_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBoxResult respuesta = MessageBox.Show(
-                "¿Desea cerrar la sesión?",
-                "Cerrar sesión",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Question);
 
-            if (respuesta == MessageBoxResult.Yes)
+        // =========================================================
+        // CERRAR SESIÓN
+        // =========================================================
+
+        private void btnCerrarSesion_Click(
+            object sender,
+            RoutedEventArgs e)
+        {
+            MessageBoxResult respuesta =
+                MessageBox.Show(
+                    "¿Desea cerrar la sesión?",
+                    "Cerrar sesión",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question);
+
+
+            if (respuesta !=
+                MessageBoxResult.Yes)
             {
-                LoginWindow login = new LoginWindow();
-                login.Show();
-
-                Window.GetWindow(this)?.Close();
+                return;
             }
+
+
+            LoginWindow login =
+                new LoginWindow();
+
+
+            login.Show();
+
+
+            Window.GetWindow(this)
+                ?.Close();
         }
     }
 }

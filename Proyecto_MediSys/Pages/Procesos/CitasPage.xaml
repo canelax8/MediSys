@@ -1,0 +1,1319 @@
+﻿<Page x:Class="Proyecto_MediSys.Pages.Procesos.CitasPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d"
+      Background="#F4F6F8">
+
+    <Page.Resources>
+
+        <!-- =========================================================
+                             BOTÓN PRINCIPAL
+        ========================================================== -->
+
+        <Style x:Key="PrimaryButtonStyle"
+               TargetType="Button">
+
+            <Setter Property="Height"
+                    Value="42"/>
+
+            <Setter Property="MinWidth"
+                    Value="145"/>
+
+            <Setter Property="Padding"
+                    Value="18,0"/>
+
+            <Setter Property="Background"
+                    Value="#2457A6"/>
+
+            <Setter Property="Foreground"
+                    Value="White"/>
+
+            <Setter Property="BorderThickness"
+                    Value="0"/>
+
+            <Setter Property="FontSize"
+                    Value="13"/>
+
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+
+            <Setter Property="Cursor"
+                    Value="Hand"/>
+
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="Button">
+
+                        <Border x:Name="Border"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="7">
+
+                            <ContentPresenter
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+
+                        </Border>
+
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+
+                                <Setter TargetName="Border"
+                                        Property="Opacity"
+                                        Value="0.88"/>
+
+                            </Trigger>
+
+
+                            <Trigger Property="IsPressed"
+                                     Value="True">
+
+                                <Setter TargetName="Border"
+                                        Property="Opacity"
+                                        Value="0.72"/>
+
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+
+            </Setter>
+
+        </Style>
+
+
+        <!-- =========================================================
+                         BOTONES DEL DATAGRID
+        ========================================================== -->
+
+        <Style x:Key="GridActionButtonStyle"
+               TargetType="Button">
+
+            <!--
+                IMPORTANTE:
+                Todos los botones tienen altura fija,
+                padding suficiente y un ancho establecido
+                individualmente en cada botón.
+            -->
+
+            <Setter Property="Height"
+                    Value="32"/>
+
+            <Setter Property="Padding"
+                    Value="8,0"/>
+
+            <Setter Property="Margin"
+                    Value="3,5"/>
+
+            <Setter Property="Background"
+                    Value="White"/>
+
+            <Setter Property="Foreground"
+                    Value="#334155"/>
+
+            <Setter Property="BorderBrush"
+                    Value="#D8E0E8"/>
+
+            <Setter Property="BorderThickness"
+                    Value="1"/>
+
+            <Setter Property="FontSize"
+                    Value="11"/>
+
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+
+            <Setter Property="Cursor"
+                    Value="Hand"/>
+
+            <Setter Property="VerticalAlignment"
+                    Value="Center"/>
+
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="Button">
+
+                        <Border x:Name="Border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="5">
+
+                            <ContentPresenter
+                                Margin="{TemplateBinding Padding}"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+
+                        </Border>
+
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+
+                                <Setter TargetName="Border"
+                                        Property="Opacity"
+                                        Value="0.82"/>
+
+                            </Trigger>
+
+
+                            <Trigger Property="IsPressed"
+                                     Value="True">
+
+                                <Setter TargetName="Border"
+                                        Property="Opacity"
+                                        Value="0.65"/>
+
+                            </Trigger>
+
+
+                            <Trigger Property="IsEnabled"
+                                     Value="False">
+
+                                <Setter TargetName="Border"
+                                        Property="Opacity"
+                                        Value="0.40"/>
+
+                                <Setter Property="Cursor"
+                                        Value="Arrow"/>
+
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+
+            </Setter>
+
+        </Style>
+
+
+        <!-- =========================================================
+                        TEXTBOX / COMBOBOX
+        ========================================================== -->
+
+        <Style x:Key="FilterTextBoxStyle"
+               TargetType="TextBox">
+
+            <Setter Property="Height"
+                    Value="38"/>
+
+            <Setter Property="Padding"
+                    Value="12,0"/>
+
+            <Setter Property="VerticalContentAlignment"
+                    Value="Center"/>
+
+            <Setter Property="Background"
+                    Value="White"/>
+
+            <Setter Property="BorderBrush"
+                    Value="#D8E0E8"/>
+
+            <Setter Property="BorderThickness"
+                    Value="1"/>
+
+            <Setter Property="FontSize"
+                    Value="12"/>
+
+        </Style>
+
+
+        <Style x:Key="FilterComboStyle"
+               TargetType="ComboBox">
+
+            <Setter Property="Height"
+                    Value="38"/>
+
+            <Setter Property="Padding"
+                    Value="8,0"/>
+
+            <Setter Property="VerticalContentAlignment"
+                    Value="Center"/>
+
+            <Setter Property="Background"
+                    Value="White"/>
+
+            <Setter Property="BorderBrush"
+                    Value="#D8E0E8"/>
+
+            <Setter Property="FontSize"
+                    Value="12"/>
+
+        </Style>
+
+
+        <!-- =========================================================
+                           TARJETA ESTADÍSTICA
+        ========================================================== -->
+
+        <Style x:Key="StatCardStyle"
+               TargetType="Border">
+
+            <Setter Property="Width"
+                    Value="155"/>
+
+            <Setter Property="Height"
+                    Value="82"/>
+
+            <Setter Property="Margin"
+                    Value="0,0,12,12"/>
+
+            <Setter Property="Padding"
+                    Value="14"/>
+
+            <Setter Property="Background"
+                    Value="White"/>
+
+            <Setter Property="BorderBrush"
+                    Value="#E2E8F0"/>
+
+            <Setter Property="BorderThickness"
+                    Value="1"/>
+
+            <Setter Property="CornerRadius"
+                    Value="9"/>
+
+        </Style>
+
+
+        <!-- =========================================================
+                          ESTILO DE DATAGRID
+        ========================================================== -->
+
+        <Style TargetType="DataGridColumnHeader">
+
+            <Setter Property="Height"
+                    Value="42"/>
+
+            <Setter Property="Background"
+                    Value="#F8FAFC"/>
+
+            <Setter Property="Foreground"
+                    Value="#475569"/>
+
+            <Setter Property="FontSize"
+                    Value="11"/>
+
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+
+            <Setter Property="Padding"
+                    Value="10,0"/>
+
+            <Setter Property="BorderBrush"
+                    Value="#E2E8F0"/>
+
+            <Setter Property="BorderThickness"
+                    Value="0,0,0,1"/>
+
+        </Style>
+
+
+        <Style TargetType="DataGridRow">
+
+            <!-- NO fijamos RowHeight para no cortar botones -->
+
+            <Setter Property="MinHeight"
+                    Value="52"/>
+
+            <Setter Property="Background"
+                    Value="White"/>
+
+            <Setter Property="BorderBrush"
+                    Value="#EEF2F6"/>
+
+            <Setter Property="BorderThickness"
+                    Value="0,0,0,1"/>
+
+            <Setter Property="VerticalContentAlignment"
+                    Value="Center"/>
+
+            <Style.Triggers>
+
+                <Trigger Property="IsMouseOver"
+                         Value="True">
+
+                    <Setter Property="Background"
+                            Value="#F8FAFC"/>
+
+                </Trigger>
+
+                <Trigger Property="IsSelected"
+                         Value="True">
+
+                    <Setter Property="Background"
+                            Value="#EEF5FF"/>
+
+                    <Setter Property="Foreground"
+                            Value="#172033"/>
+
+                </Trigger>
+
+            </Style.Triggers>
+
+        </Style>
+
+
+        <Style TargetType="DataGridCell">
+
+            <Setter Property="Padding"
+                    Value="10,0"/>
+
+            <Setter Property="BorderThickness"
+                    Value="0"/>
+
+            <Setter Property="VerticalContentAlignment"
+                    Value="Center"/>
+
+        </Style>
+
+
+        <!-- =========================================================
+                             ESTADO PILL
+        ========================================================== -->
+
+        <Style x:Key="EstadoPillStyle"
+               TargetType="Border">
+
+            <Setter Property="Padding"
+                    Value="10,4"/>
+
+            <Setter Property="CornerRadius"
+                    Value="12"/>
+
+            <Setter Property="HorizontalAlignment"
+                    Value="Center"/>
+
+            <Setter Property="Background"
+                    Value="#EEF2F6"/>
+
+
+            <Style.Triggers>
+
+                <!-- PENDIENTE -->
+
+                <DataTrigger Binding="{Binding Estado}"
+                             Value="Pendiente">
+
+                    <Setter Property="Background"
+                            Value="#FFF4CC"/>
+
+                </DataTrigger>
+
+
+                <!-- CONFIRMADA -->
+
+                <DataTrigger Binding="{Binding Estado}"
+                             Value="Confirmada">
+
+                    <Setter Property="Background"
+                            Value="#E8F1FC"/>
+
+                </DataTrigger>
+
+
+                <!-- ATENDIDA -->
+
+                <DataTrigger Binding="{Binding Estado}"
+                             Value="Atendida">
+
+                    <Setter Property="Background"
+                            Value="#E8F7EF"/>
+
+                </DataTrigger>
+
+
+                <!-- CANCELADA -->
+
+                <DataTrigger Binding="{Binding Estado}"
+                             Value="Cancelada">
+
+                    <Setter Property="Background"
+                            Value="#FEECEC"/>
+
+                </DataTrigger>
+
+
+                <!-- NO ASISTIÓ -->
+
+                <DataTrigger Binding="{Binding Estado}"
+                             Value="No asistió">
+
+                    <Setter Property="Background"
+                            Value="#EEF0F3"/>
+
+                </DataTrigger>
+
+            </Style.Triggers>
+
+        </Style>
+
+
+        <Style x:Key="EstadoTextoStyle"
+               TargetType="TextBlock">
+
+            <Setter Property="FontSize"
+                    Value="10"/>
+
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+
+            <Setter Property="Foreground"
+                    Value="#475569"/>
+
+
+            <Style.Triggers>
+
+                <DataTrigger Binding="{Binding Estado}"
+                             Value="Pendiente">
+
+                    <Setter Property="Foreground"
+                            Value="#9A6700"/>
+
+                </DataTrigger>
+
+
+                <DataTrigger Binding="{Binding Estado}"
+                             Value="Confirmada">
+
+                    <Setter Property="Foreground"
+                            Value="#2457A6"/>
+
+                </DataTrigger>
+
+
+                <DataTrigger Binding="{Binding Estado}"
+                             Value="Atendida">
+
+                    <Setter Property="Foreground"
+                            Value="#287A4B"/>
+
+                </DataTrigger>
+
+
+                <DataTrigger Binding="{Binding Estado}"
+                             Value="Cancelada">
+
+                    <Setter Property="Foreground"
+                            Value="#B42318"/>
+
+                </DataTrigger>
+
+
+                <DataTrigger Binding="{Binding Estado}"
+                             Value="No asistió">
+
+                    <Setter Property="Foreground"
+                            Value="#475569"/>
+
+                </DataTrigger>
+
+            </Style.Triggers>
+
+        </Style>
+
+    </Page.Resources>
+
+
+    <!-- =============================================================
+                              CONTENIDO
+    ============================================================== -->
+
+    <Grid Margin="26">
+
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="Auto"/>
+
+            <RowDefinition Height="Auto"/>
+
+            <RowDefinition Height="Auto"/>
+
+            <RowDefinition Height="*"/>
+
+        </Grid.RowDefinitions>
+
+
+        <!-- =========================================================
+                              ENCABEZADO
+        ========================================================== -->
+
+        <Grid Grid.Row="0"
+              Margin="0,0,0,18">
+
+            <Grid.ColumnDefinitions>
+
+                <ColumnDefinition/>
+
+                <ColumnDefinition Width="Auto"/>
+
+            </Grid.ColumnDefinitions>
+
+
+            <StackPanel>
+
+                <TextBlock
+                    Text="Citas"
+                    FontSize="28"
+                    FontWeight="Bold"
+                    Foreground="#172033"/>
+
+                <TextBlock
+                    Text="Gestión y seguimiento de citas médicas."
+                    Margin="0,4,0,0"
+                    FontSize="12"
+                    Foreground="#7A8798"/>
+
+            </StackPanel>
+
+
+            <Button
+                Grid.Column="1"
+                x:Name="btnNuevaCita"
+                Content="+  Nueva cita"
+                Style="{StaticResource PrimaryButtonStyle}"
+                Click="btnNuevaCita_Click"/>
+
+        </Grid>
+
+
+        <!-- =========================================================
+                        TARJETAS DE CONTADORES
+        ========================================================== -->
+
+        <WrapPanel Grid.Row="1"
+                   Margin="0,0,0,8">
+
+
+            <!-- PENDIENTES -->
+
+            <Border Style="{StaticResource StatCardStyle}">
+
+                <Grid>
+
+                    <Grid.ColumnDefinitions>
+
+                        <ColumnDefinition/>
+
+                        <ColumnDefinition Width="6"/>
+
+                    </Grid.ColumnDefinitions>
+
+
+                    <StackPanel>
+
+                        <TextBlock
+                            Text="Pendientes"
+                            FontSize="11"
+                            Foreground="#7A8798"/>
+
+                        <TextBlock
+                            x:Name="txtPendientes"
+                            Text="0"
+                            Margin="0,7,0,0"
+                            FontSize="24"
+                            FontWeight="Bold"
+                            Foreground="#172033"/>
+
+                    </StackPanel>
+
+
+                    <Border
+                        Grid.Column="1"
+                        CornerRadius="3"
+                        Background="#D9A900"/>
+
+                </Grid>
+
+            </Border>
+
+
+            <!-- CONFIRMADAS -->
+
+            <Border Style="{StaticResource StatCardStyle}">
+
+                <Grid>
+
+                    <Grid.ColumnDefinitions>
+
+                        <ColumnDefinition/>
+
+                        <ColumnDefinition Width="6"/>
+
+                    </Grid.ColumnDefinitions>
+
+
+                    <StackPanel>
+
+                        <TextBlock
+                            Text="Confirmadas"
+                            FontSize="11"
+                            Foreground="#7A8798"/>
+
+                        <TextBlock
+                            x:Name="txtConfirmadas"
+                            Text="0"
+                            Margin="0,7,0,0"
+                            FontSize="24"
+                            FontWeight="Bold"
+                            Foreground="#172033"/>
+
+                    </StackPanel>
+
+
+                    <Border
+                        Grid.Column="1"
+                        CornerRadius="3"
+                        Background="#4C83C3"/>
+
+                </Grid>
+
+            </Border>
+
+
+            <!-- ATENDIDAS -->
+
+            <Border Style="{StaticResource StatCardStyle}">
+
+                <Grid>
+
+                    <Grid.ColumnDefinitions>
+
+                        <ColumnDefinition/>
+
+                        <ColumnDefinition Width="6"/>
+
+                    </Grid.ColumnDefinitions>
+
+
+                    <StackPanel>
+
+                        <TextBlock
+                            Text="Atendidas"
+                            FontSize="11"
+                            Foreground="#7A8798"/>
+
+                        <TextBlock
+                            x:Name="txtAtendidas"
+                            Text="0"
+                            Margin="0,7,0,0"
+                            FontSize="24"
+                            FontWeight="Bold"
+                            Foreground="#172033"/>
+
+                    </StackPanel>
+
+
+                    <Border
+                        Grid.Column="1"
+                        CornerRadius="3"
+                        Background="#45A36F"/>
+
+                </Grid>
+
+            </Border>
+
+
+            <!-- CANCELADAS -->
+
+            <Border Style="{StaticResource StatCardStyle}">
+
+                <Grid>
+
+                    <Grid.ColumnDefinitions>
+
+                        <ColumnDefinition/>
+
+                        <ColumnDefinition Width="6"/>
+
+                    </Grid.ColumnDefinitions>
+
+
+                    <StackPanel>
+
+                        <TextBlock
+                            Text="Canceladas"
+                            FontSize="11"
+                            Foreground="#7A8798"/>
+
+                        <TextBlock
+                            x:Name="txtCanceladas"
+                            Text="0"
+                            Margin="0,7,0,0"
+                            FontSize="24"
+                            FontWeight="Bold"
+                            Foreground="#172033"/>
+
+                    </StackPanel>
+
+
+                    <Border
+                        Grid.Column="1"
+                        CornerRadius="3"
+                        Background="#C75A5A"/>
+
+                </Grid>
+
+            </Border>
+
+
+            <!-- HOY -->
+
+            <Border Style="{StaticResource StatCardStyle}">
+
+                <Grid>
+
+                    <Grid.ColumnDefinitions>
+
+                        <ColumnDefinition/>
+
+                        <ColumnDefinition Width="6"/>
+
+                    </Grid.ColumnDefinitions>
+
+
+                    <StackPanel>
+
+                        <TextBlock
+                            Text="Citas hoy"
+                            FontSize="11"
+                            Foreground="#7A8798"/>
+
+                        <TextBlock
+                            x:Name="txtHoy"
+                            Text="0"
+                            Margin="0,7,0,0"
+                            FontSize="24"
+                            FontWeight="Bold"
+                            Foreground="#172033"/>
+
+                    </StackPanel>
+
+
+                    <Border
+                        Grid.Column="1"
+                        CornerRadius="3"
+                        Background="#7B69B5"/>
+
+                </Grid>
+
+            </Border>
+
+
+            <!-- TOTAL -->
+
+            <Border Style="{StaticResource StatCardStyle}">
+
+                <Grid>
+
+                    <Grid.ColumnDefinitions>
+
+                        <ColumnDefinition/>
+
+                        <ColumnDefinition Width="6"/>
+
+                    </Grid.ColumnDefinitions>
+
+
+                    <StackPanel>
+
+                        <TextBlock
+                            Text="Total"
+                            FontSize="11"
+                            Foreground="#7A8798"/>
+
+                        <TextBlock
+                            x:Name="txtTotal"
+                            Text="0"
+                            Margin="0,7,0,0"
+                            FontSize="24"
+                            FontWeight="Bold"
+                            Foreground="#172033"/>
+
+                    </StackPanel>
+
+
+                    <Border
+                        Grid.Column="1"
+                        CornerRadius="3"
+                        Background="#475569"/>
+
+                </Grid>
+
+            </Border>
+
+        </WrapPanel>
+
+
+        <!-- =========================================================
+                             FILTROS
+        ========================================================== -->
+
+        <Border Grid.Row="2"
+                Margin="0,0,0,14"
+                Padding="14"
+                Background="White"
+                BorderBrush="#E2E8F0"
+                BorderThickness="1"
+                CornerRadius="9">
+
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+
+                    <ColumnDefinition Width="2*"/>
+
+                    <ColumnDefinition Width="18"/>
+
+                    <ColumnDefinition Width="220"/>
+
+                    <ColumnDefinition Width="18"/>
+
+                    <ColumnDefinition Width="240"/>
+
+                </Grid.ColumnDefinitions>
+
+
+                <!-- BUSCAR -->
+
+                <StackPanel Grid.Column="0">
+
+                    <TextBlock
+                        Text="Buscar"
+                        Margin="0,0,0,5"
+                        FontSize="10"
+                        Foreground="#64748B"/>
+
+                    <TextBox
+                        x:Name="txtBuscar"
+                        Style="{StaticResource FilterTextBoxStyle}"
+                        ToolTip="Buscar por código, paciente, médico, especialidad o motivo"
+                        TextChanged="txtBuscar_TextChanged"/>
+
+                </StackPanel>
+
+
+                <!-- ESTADO -->
+
+                <StackPanel Grid.Column="2">
+
+                    <TextBlock
+                        Text="Estado"
+                        Margin="0,0,0,5"
+                        FontSize="10"
+                        Foreground="#64748B"/>
+
+                    <ComboBox
+                        x:Name="cmbEstado"
+                        Style="{StaticResource FilterComboStyle}"
+                        SelectionChanged="cmbEstado_SelectionChanged"/>
+
+                </StackPanel>
+
+
+                <!-- ESPECIALIDAD -->
+
+                <StackPanel Grid.Column="4">
+
+                    <TextBlock
+                        Text="Especialidad"
+                        Margin="0,0,0,5"
+                        FontSize="10"
+                        Foreground="#64748B"/>
+
+                    <ComboBox
+                        x:Name="cmbEspecialidad"
+                        Style="{StaticResource FilterComboStyle}"
+                        SelectionChanged="cmbEspecialidad_SelectionChanged"/>
+
+                </StackPanel>
+
+            </Grid>
+
+        </Border>
+
+
+        <!-- =========================================================
+                           TABLA DE CITAS
+        ========================================================== -->
+
+        <Border Grid.Row="3"
+                Background="White"
+                BorderBrush="#E2E8F0"
+                BorderThickness="1"
+                CornerRadius="9">
+
+            <Grid>
+
+                <Grid.RowDefinitions>
+
+                    <RowDefinition Height="Auto"/>
+
+                    <RowDefinition Height="*"/>
+
+                </Grid.RowDefinitions>
+
+
+                <!-- TÍTULO DE TABLA -->
+
+                <Grid Margin="16,14">
+
+                    <Grid.ColumnDefinitions>
+
+                        <ColumnDefinition/>
+
+                        <ColumnDefinition Width="Auto"/>
+
+                    </Grid.ColumnDefinitions>
+
+
+                    <StackPanel>
+
+                        <TextBlock
+                            Text="Agenda de citas"
+                            FontSize="15"
+                            FontWeight="SemiBold"
+                            Foreground="#243447"/>
+
+                        <TextBlock
+                            Text="Consulta y administra las citas médicas registradas."
+                            Margin="0,3,0,0"
+                            FontSize="10"
+                            Foreground="#94A3B8"/>
+
+                    </StackPanel>
+
+
+                    <TextBlock
+                        x:Name="txtResultados"
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                        FontSize="11"
+                        Foreground="#64748B"/>
+
+                </Grid>
+
+
+                <DataGrid
+                    Grid.Row="1"
+                    x:Name="dgCitas"
+                    AutoGenerateColumns="False"
+                    CanUserAddRows="False"
+                    CanUserDeleteRows="False"
+                    CanUserResizeRows="False"
+                    IsReadOnly="True"
+                    SelectionMode="Single"
+                    SelectionUnit="FullRow"
+                    HeadersVisibility="Column"
+                    GridLinesVisibility="None"
+                    BorderThickness="0"
+                    Background="White"
+                    FontSize="11"
+                    MinRowHeight="52"
+                    ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                    ScrollViewer.VerticalScrollBarVisibility="Auto">
+
+                    <DataGrid.Columns>
+
+
+                        <!-- CÓDIGO -->
+
+                        <DataGridTextColumn
+                            Header="Código"
+                            Binding="{Binding CodigoCita}"
+                            Width="100"/>
+
+
+                        <!-- PACIENTE -->
+
+                        <DataGridTextColumn
+                            Header="Paciente"
+                            Binding="{Binding NombrePaciente}"
+                            Width="180"/>
+
+
+                        <!-- MÉDICO -->
+
+                        <DataGridTextColumn
+                            Header="Médico"
+                            Binding="{Binding NombreMedico}"
+                            Width="170"/>
+
+
+                        <!-- ESPECIALIDAD -->
+
+                        <DataGridTextColumn
+                            Header="Especialidad"
+                            Binding="{Binding Especialidad}"
+                            Width="145"/>
+
+
+                        <!-- FECHA -->
+
+                        <DataGridTextColumn
+                            Header="Fecha"
+                            Binding="{Binding FechaMostrar}"
+                            Width="95"/>
+
+
+                        <!-- HORA -->
+
+                        <DataGridTextColumn
+                            Header="Hora"
+                            Binding="{Binding HoraMostrar}"
+                            Width="90"/>
+
+
+                        <!-- ESTADO -->
+
+                        <DataGridTemplateColumn
+                            Header="Estado"
+                            Width="110">
+
+                            <DataGridTemplateColumn.CellTemplate>
+
+                                <DataTemplate>
+
+                                    <Border
+                                        Style="{StaticResource EstadoPillStyle}">
+
+                                        <TextBlock
+                                            Text="{Binding Estado}"
+                                            Style="{StaticResource EstadoTextoStyle}"/>
+
+                                    </Border>
+
+                                </DataTemplate>
+
+                            </DataGridTemplateColumn.CellTemplate>
+
+                        </DataGridTemplateColumn>
+
+
+                        <!-- MOTIVO -->
+
+                        <DataGridTextColumn
+                            Header="Motivo"
+                            Binding="{Binding Motivo}"
+                            Width="190"/>
+
+
+                        <!-- =============================================
+                                    ACCIONES
+                             ANCHO SUFICIENTE PARA NO RECORTAR
+                        ============================================== -->
+
+                        <DataGridTemplateColumn
+                            Header="Acciones"
+                            Width="410">
+
+                            <DataGridTemplateColumn.CellTemplate>
+
+                                <DataTemplate>
+
+                                    <StackPanel
+                                        Orientation="Horizontal"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center">
+
+
+                                        <!-- VER -->
+
+                                        <Button
+                                            Width="55"
+                                            Content="Ver"
+                                            Style="{StaticResource GridActionButtonStyle}"
+                                            ToolTip="Consultar detalle de la cita"
+                                            Click="btnVerCita_Click"/>
+
+
+                                        <!-- EDITAR -->
+
+                                        <Button
+                                            Width="62"
+                                            Content="Editar"
+                                            Style="{StaticResource GridActionButtonStyle}"
+                                            Background="#F2F5F8"
+                                            BorderBrush="#D8E0E8"
+                                            Foreground="#475569"
+                                            ToolTip="Modificar los datos de la cita"
+                                            Click="btnEditarCita_Click"/>
+
+
+                                        <!-- CONFIRMAR -->
+
+                                        <Button
+                                            Width="78"
+                                            Content="Confirmar"
+                                            Background="#E8F1FC"
+                                            BorderBrush="#C5D9F3"
+                                            Foreground="#2457A6"
+                                            ToolTip="Confirmar asistencia"
+                                            Click="btnConfirmarCita_Click">
+
+                                            <Button.Style>
+
+                                                <Style
+                                                    TargetType="Button"
+                                                    BasedOn="{StaticResource GridActionButtonStyle}">
+
+                                                    <Setter
+                                                        Property="IsEnabled"
+                                                        Value="False"/>     
+
+                                                    <Style.Triggers>
+
+                                                        <DataTrigger
+                                                            Binding="{Binding Estado}"
+                                                            Value="Pendiente">
+
+                                                            <Setter
+                                                                Property="IsEnabled"
+                                                                Value="True"/>
+
+                                                        </DataTrigger>
+
+                                                    </Style.Triggers>
+
+                                                </Style>
+
+                                            </Button.Style>
+
+                                        </Button>
+
+
+                                        <!-- ATENDIDA -->
+
+                                        <Button
+                                            Width="76"
+                                            Content="Atendida"
+                                            Background="#E8F7EF"
+                                            BorderBrush="#CDE8D7"
+                                            Foreground="#287A4B"
+                                            ToolTip="Marcar cita como atendida"
+                                            Click="btnAtendidaCita_Click">
+
+                                            <Button.Style>
+
+                                                <Style
+                                                    TargetType="Button"
+                                                    BasedOn="{StaticResource GridActionButtonStyle}">
+
+                                                    <Setter
+                                                        Property="IsEnabled"
+                                                        Value="False"/>
+
+                                                    <Style.Triggers>
+
+                                                        <DataTrigger
+                                                            Binding="{Binding Estado}"
+                                                            Value="Confirmada">
+
+                                                            <Setter
+                                                                Property="IsEnabled"
+                                                                Value="True"/>
+
+                                                        </DataTrigger>
+
+                                                    </Style.Triggers>
+
+                                                </Style>
+
+                                            </Button.Style>
+
+                                        </Button>
+
+                                        <Button
+                                            Width="72"
+                                            Content="Cancelar"
+                                            Background="#FEECEC"
+                                            BorderBrush="#F5CCCC"
+                                            Foreground="#B42318"
+                                            ToolTip="Cancelar cita"
+                                            Click="btnCancelarCita_Click">
+
+                                            <Button.Style>
+
+                                                <Style
+                                                    TargetType="Button"
+                                                    BasedOn="{StaticResource GridActionButtonStyle}">
+
+                                                    <Setter
+                                                        Property="IsEnabled"
+                                                        Value="True"/>
+
+                                                    <Style.Triggers>
+
+                                                        <DataTrigger
+                                                            Binding="{Binding Estado}"
+                                                            Value="Atendida">
+
+                                                            <Setter
+                                                                Property="IsEnabled"
+                                                                Value="False"/>
+
+                                                        </DataTrigger>
+
+                                                        <DataTrigger
+                                                                Binding="{Binding Estado}"
+                                                                Value="Cancelada">
+
+                                                            <Setter
+                                                                Property="IsEnabled"
+                                                                Value="False"/>
+
+                                                        </DataTrigger>
+
+                                                        <DataTrigger
+                                                            Binding="{Binding Estado}"
+                                                            Value="No asistió">
+
+                                                            <Setter
+                                                                Property="IsEnabled"
+                                                                Value="False"/>
+
+                                                        </DataTrigger>
+
+                                                    </Style.Triggers>
+
+                                                </Style>
+
+                                            </Button.Style>
+
+                                        </Button>
+
+                                    </StackPanel>
+
+                                </DataTemplate>
+
+                            </DataGridTemplateColumn.CellTemplate>
+
+                        </DataGridTemplateColumn>
+
+                    </DataGrid.Columns>
+
+                </DataGrid>
+
+            </Grid>
+
+        </Border>
+
+    </Grid>
+
+</Page>

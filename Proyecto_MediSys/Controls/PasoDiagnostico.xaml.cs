@@ -278,6 +278,120 @@ namespace Proyecto_MediSys.Controls
 
 
         // ============================================================
+        // CARGAR DIAGNÓSTICOS EXISTENTES
+        // ============================================================
+
+        public void CargarDiagnosticos(
+            DiagnosticoEmergencia diagnosticoExistente,
+            List<CIE10>? cie10Existentes,
+            CIE10? principalExistente,
+            List<string>? manualesExistentes)
+        {
+            // ========================================================
+            // LIMPIAR
+            // ========================================================
+
+            diagnosticosSeleccionados.Clear();
+
+            diagnosticosManuales.Clear();
+
+            diagnosticoPrincipal = null;
+
+
+            // ========================================================
+            // DIAGNÓSTICO GENERAL
+            // ========================================================
+
+            if (diagnosticoExistente != null)
+            {
+                diagnostico =
+                    diagnosticoExistente;
+
+
+                txtImpresionClinica.Text =
+                    diagnosticoExistente.ImpresionClinica ?? "";
+
+
+                txtObservacionesMedicas.Text =
+                    diagnosticoExistente.Observaciones ?? "";
+            }
+
+
+            // ========================================================
+            // CIE-10
+            // ========================================================
+
+            if (cie10Existentes != null)
+            {
+                foreach (CIE10 cie10 in cie10Existentes)
+                {
+                    diagnosticosSeleccionados.Add(
+                        cie10);
+                }
+            }
+
+
+            // ========================================================
+            // PRINCIPAL
+            // ========================================================
+
+            if (principalExistente != null)
+            {
+                diagnosticoPrincipal =
+                    diagnosticosSeleccionados
+                        .FirstOrDefault(
+                            x =>
+                            x.IdCIE10 ==
+                            principalExistente.IdCIE10)
+
+                    ?? principalExistente;
+            }
+
+            else if (diagnosticosSeleccionados.Count > 0)
+            {
+                diagnosticoPrincipal =
+                    diagnosticosSeleccionados[0];
+            }
+
+
+            // ========================================================
+            // MANUALES
+            // ========================================================
+
+            if (manualesExistentes != null)
+            {
+                foreach (string manual
+                         in manualesExistentes)
+                {
+                    if (!string.IsNullOrWhiteSpace(
+                        manual))
+                    {
+                        diagnosticosManuales.Add(
+                            manual);
+                    }
+                }
+            }
+
+
+            // ========================================================
+            // ACTUALIZAR PANTALLA
+            // ========================================================
+
+            dgDiagnosticosSeleccionados.Items.Refresh();
+
+
+            lstDiagnosticosManuales.ItemsSource =
+                null;
+
+
+            lstDiagnosticosManuales.ItemsSource =
+                diagnosticosManuales;
+
+
+            ActualizarDiagnosticoPrincipal();
+        }
+
+        // ============================================================
         // VALIDAR
         // ============================================================
 

@@ -1,0 +1,726 @@
+﻿<Window x:Class="Proyecto_MediSys.Controls.CitaDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Cita médica"
+        Width="900"
+        Height="730"
+        MinWidth="820"
+        MinHeight="650"
+        ResizeMode="CanResize"
+        WindowStartupLocation="CenterOwner"
+        Background="#F4F6F8">
+
+    <Window.Resources>
+
+        <!-- ==============================================
+                         ETIQUETAS
+        =============================================== -->
+
+        <Style x:Key="LabelStyle"
+               TargetType="TextBlock">
+
+            <Setter Property="FontSize"
+                    Value="11"/>
+
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+
+            <Setter Property="Foreground"
+                    Value="#475569"/>
+
+            <Setter Property="Margin"
+                    Value="0,0,0,6"/>
+
+        </Style>
+
+
+        <!-- ==============================================
+                            TEXTBOX
+        =============================================== -->
+
+        <Style x:Key="TextBoxStyle"
+               TargetType="TextBox">
+
+            <Setter Property="Height"
+                    Value="40"/>
+
+            <Setter Property="Padding"
+                    Value="10,0"/>
+
+            <Setter Property="VerticalContentAlignment"
+                    Value="Center"/>
+
+            <Setter Property="Background"
+                    Value="White"/>
+
+            <Setter Property="BorderBrush"
+                    Value="#CBD5E1"/>
+
+            <Setter Property="BorderThickness"
+                    Value="1"/>
+
+            <Setter Property="FontSize"
+                    Value="12"/>
+
+        </Style>
+
+
+        <!-- ==============================================
+                           COMBOBOX
+        =============================================== -->
+
+        <Style x:Key="ComboStyle"
+               TargetType="ComboBox">
+
+            <Setter Property="Height"
+                    Value="40"/>
+
+            <Setter Property="Padding"
+                    Value="8,0"/>
+
+            <Setter Property="VerticalContentAlignment"
+                    Value="Center"/>
+
+            <Setter Property="Background"
+                    Value="White"/>
+
+            <Setter Property="BorderBrush"
+                    Value="#CBD5E1"/>
+
+            <Setter Property="FontSize"
+                    Value="12"/>
+
+        </Style>
+
+
+        <!-- ==============================================
+                           BOTÓN PRIMARIO
+        =============================================== -->
+
+        <Style x:Key="PrimaryButtonStyle"
+               TargetType="Button">
+
+            <Setter Property="Height"
+                    Value="42"/>
+
+            <Setter Property="MinWidth"
+                    Value="140"/>
+
+            <Setter Property="Padding"
+                    Value="18,0"/>
+
+            <Setter Property="Background"
+                    Value="#2457A6"/>
+
+            <Setter Property="Foreground"
+                    Value="White"/>
+
+            <Setter Property="BorderThickness"
+                    Value="0"/>
+
+            <Setter Property="FontSize"
+                    Value="13"/>
+
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+
+            <Setter Property="Cursor"
+                    Value="Hand"/>
+
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="Button">
+
+                        <Border x:Name="Border"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="7">
+
+                            <ContentPresenter
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Margin="{TemplateBinding Padding}"/>
+
+                        </Border>
+
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+
+                                <Setter TargetName="Border"
+                                        Property="Opacity"
+                                        Value="0.88"/>
+
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+
+            </Setter>
+
+        </Style>
+
+
+        <!-- ==============================================
+                         BOTÓN SECUNDARIO
+        =============================================== -->
+
+        <Style x:Key="SecondaryButtonStyle"
+               TargetType="Button">
+
+            <Setter Property="Height"
+                    Value="42"/>
+
+            <Setter Property="MinWidth"
+                    Value="115"/>
+
+            <Setter Property="Padding"
+                    Value="18,0"/>
+
+            <Setter Property="Background"
+                    Value="#EEF2F6"/>
+
+            <Setter Property="Foreground"
+                    Value="#334155"/>
+
+            <Setter Property="BorderThickness"
+                    Value="0"/>
+
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+
+            <Setter Property="Cursor"
+                    Value="Hand"/>
+
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="Button">
+
+                        <Border x:Name="Border"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="7">
+
+                            <ContentPresenter
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Margin="{TemplateBinding Padding}"/>
+
+                        </Border>
+
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+
+                                <Setter TargetName="Border"
+                                        Property="Background"
+                                        Value="#E2E8F0"/>
+
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+
+            </Setter>
+
+        </Style>
+
+    </Window.Resources>
+
+
+    <Grid Margin="22">
+
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="Auto"/>
+
+            <RowDefinition Height="*"/>
+
+            <RowDefinition Height="Auto"/>
+
+        </Grid.RowDefinitions>
+
+
+        <!-- ==============================================
+                         ENCABEZADO
+        =============================================== -->
+
+        <Border Grid.Row="0"
+                Background="White"
+                BorderBrush="#E2E8F0"
+                BorderThickness="1"
+                CornerRadius="10"
+                Padding="18"
+                Margin="0,0,0,14">
+
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+
+                    <ColumnDefinition/>
+
+                    <ColumnDefinition Width="Auto"/>
+
+                </Grid.ColumnDefinitions>
+
+
+                <StackPanel>
+
+                    <TextBlock
+                        x:Name="txtTitulo"
+                        Text="NUEVA CITA"
+                        FontSize="22"
+                        FontWeight="Bold"
+                        Foreground="#1E3A5F"/>
+
+                    <TextBlock
+                        x:Name="txtSubtitulo"
+                        Text="Programe una atención médica para el paciente."
+                        Margin="0,4,0,0"
+                        FontSize="11"
+                        Foreground="#7A8798"/>
+
+                </StackPanel>
+
+
+                <Border
+                    Grid.Column="1"
+                    Padding="12,6"
+                    Background="#EEF4FC"
+                    CornerRadius="12"
+                    VerticalAlignment="Center">
+
+                    <TextBlock
+                        x:Name="txtCodigo"
+                        Text="Nueva"
+                        FontSize="11"
+                        FontWeight="SemiBold"
+                        Foreground="#2457A6"/>
+
+                </Border>
+
+            </Grid>
+
+        </Border>
+
+
+        <!-- ==============================================
+                          CONTENIDO
+        =============================================== -->
+
+        <ScrollViewer
+            Grid.Row="1"
+            VerticalScrollBarVisibility="Auto"
+            HorizontalScrollBarVisibility="Disabled">
+
+            <StackPanel>
+
+
+                <!-- ==========================================
+                              PACIENTE
+                =========================================== -->
+
+                <Border
+                    Background="White"
+                    BorderBrush="#E2E8F0"
+                    BorderThickness="1"
+                    CornerRadius="10"
+                    Padding="18"
+                    Margin="0,0,0,14">
+
+                    <StackPanel>
+
+                        <TextBlock
+                            Text="Paciente"
+                            FontSize="16"
+                            FontWeight="SemiBold"
+                            Foreground="#1E3A5F"/>
+
+                        <TextBlock
+                            Text="Busque y seleccione el paciente de la cita."
+                            Margin="0,3,0,15"
+                            FontSize="10"
+                            Foreground="#94A3B8"/>
+
+
+                        <StackPanel>
+
+                            <TextBlock
+        Text="Buscar y seleccionar paciente"
+        Style="{StaticResource LabelStyle}"/>
+
+                            <ComboBox
+        x:Name="cmbPaciente"
+        Height="42"
+        Padding="10,0"
+        Background="White"
+        BorderBrush="#CBD5E1"
+        BorderThickness="1"
+        FontSize="12"
+
+        IsEditable="True"
+        IsTextSearchEnabled="False"
+        StaysOpenOnEdit="True"
+        IsDropDownOpen="False"
+
+        DisplayMemberPath="NombreCompleto"
+        SelectedValuePath="IdPaciente"
+
+        ToolTip="Escriba nombre, documento o código del paciente"
+
+        SelectionChanged="cmbPaciente_SelectionChanged"
+        KeyUp="cmbPaciente_KeyUp"/>
+
+                            <TextBlock
+        Margin="0,5,0,0"
+        Text="Escriba nombre, documento o código. Los resultados aparecerán automáticamente."
+        FontSize="10"
+        Foreground="#94A3B8"/>
+
+                        </StackPanel>
+
+
+                        <!-- RESUMEN PACIENTE -->
+
+                        <Border
+                            Margin="0,15,0,0"
+                            Padding="12"
+                            Background="#F8FAFC"
+                            BorderBrush="#E2E8F0"
+                            BorderThickness="1"
+                            CornerRadius="7">
+
+                            <Grid>
+
+                                <Grid.ColumnDefinitions>
+
+                                    <ColumnDefinition/>
+
+                                    <ColumnDefinition/>
+
+                                    <ColumnDefinition/>
+
+                                </Grid.ColumnDefinitions>
+
+
+                                <StackPanel Grid.Column="0">
+
+                                    <TextBlock
+                                        Text="Documento"
+                                        FontSize="10"
+                                        Foreground="#64748B"/>
+
+                                    <TextBlock
+                                        x:Name="txtDocumento"
+                                        Text="—"
+                                        Margin="0,3,0,0"
+                                        FontWeight="SemiBold"
+                                        Foreground="#243447"/>
+
+                                </StackPanel>
+
+
+                                <StackPanel Grid.Column="1">
+
+                                    <TextBlock
+                                        Text="Teléfono"
+                                        FontSize="10"
+                                        Foreground="#64748B"/>
+
+                                    <TextBlock
+                                        x:Name="txtTelefono"
+                                        Text="—"
+                                        Margin="0,3,0,0"
+                                        FontWeight="SemiBold"
+                                        Foreground="#243447"/>
+
+                                </StackPanel>
+
+
+                                <StackPanel Grid.Column="2">
+
+                                    <TextBlock
+                                        Text="Seguro"
+                                        FontSize="10"
+                                        Foreground="#64748B"/>
+
+                                    <TextBlock
+                                        x:Name="txtSeguro"
+                                        Text="—"
+                                        Margin="0,3,0,0"
+                                        FontWeight="SemiBold"
+                                        Foreground="#243447"/>
+
+                                </StackPanel>
+
+                            </Grid>
+
+                        </Border>
+
+                    </StackPanel>
+
+                </Border>
+
+
+                <!-- ==========================================
+                        PROGRAMACIÓN DE LA CITA
+                =========================================== -->
+
+                <Border
+                    Background="White"
+                    BorderBrush="#E2E8F0"
+                    BorderThickness="1"
+                    CornerRadius="10"
+                    Padding="18"
+                    Margin="0,0,0,14">
+
+                    <StackPanel>
+
+                        <TextBlock
+                            Text="Programación"
+                            FontSize="16"
+                            FontWeight="SemiBold"
+                            Foreground="#1E3A5F"
+                            Margin="0,0,0,15"/>
+
+
+                        <!-- FILA 1 -->
+
+                        <Grid>
+
+                            <Grid.ColumnDefinitions>
+
+                                <ColumnDefinition/>
+
+                                <ColumnDefinition Width="18"/>
+
+                                <ColumnDefinition/>
+
+                            </Grid.ColumnDefinitions>
+
+
+                            <!-- ESPECIALIDAD -->
+
+                            <StackPanel Grid.Column="0">
+
+                                <TextBlock
+                                    Text="Especialidad"
+                                    Style="{StaticResource LabelStyle}"/>
+
+                                <ComboBox
+                                    x:Name="cmbEspecialidad"
+                                    Style="{StaticResource ComboStyle}"
+                                    DisplayMemberPath="Nombre"
+                                    SelectedValuePath="IdEspecialidad"
+                                    SelectionChanged="cmbEspecialidad_SelectionChanged"/>
+
+                            </StackPanel>
+
+
+                            <!-- MÉDICO -->
+
+                            <StackPanel Grid.Column="2">
+
+                                <TextBlock
+                                    Text="Médico"
+                                    Style="{StaticResource LabelStyle}"/>
+
+                                <ComboBox
+                                    x:Name="cmbMedico"
+                                    Style="{StaticResource ComboStyle}"
+                                    DisplayMemberPath="NombreCompleto"
+                                    SelectedValuePath="IdMedico"
+                                    SelectionChanged="DatosHorario_SelectionChanged"/>
+
+                            </StackPanel>
+
+                        </Grid>
+
+
+                        <!-- FILA 2 -->
+
+                        <Grid Margin="0,16,0,0">
+
+                            <Grid.ColumnDefinitions>
+
+                                <ColumnDefinition/>
+
+                                <ColumnDefinition Width="18"/>
+
+                                <ColumnDefinition/>
+
+                            </Grid.ColumnDefinitions>
+
+
+                            <!-- FECHA -->
+
+                            <StackPanel Grid.Column="0">
+
+                                <TextBlock
+                                    Text="Fecha"
+                                    Style="{StaticResource LabelStyle}"/>
+
+                                <DatePicker
+                                    x:Name="dpFecha"
+                                    Height="40"
+                                    SelectedDateChanged="DatosHorario_SelectionChanged"/>
+
+                            </StackPanel>
+
+
+                            <!-- HORA -->
+
+                            <StackPanel Grid.Column="2">
+
+                                <TextBlock
+                                    Text="Hora"
+                                    Style="{StaticResource LabelStyle}"/>
+
+                                <ComboBox
+                                    x:Name="cmbHora"
+                                    Style="{StaticResource ComboStyle}"
+                                    DisplayMemberPath="Texto"
+                                    SelectedValuePath="Valor"
+                                    SelectionChanged="DatosHorario_SelectionChanged"/>
+
+                            </StackPanel>
+
+                        </Grid>
+
+
+                        <!-- DISPONIBILIDAD -->
+
+                        <Border
+                            x:Name="panelDisponibilidad"
+                            Margin="0,14,0,0"
+                            Padding="10"
+                            Background="#F8FAFC"
+                            BorderBrush="#E2E8F0"
+                            BorderThickness="1"
+                            CornerRadius="6">
+
+                            <TextBlock
+                                x:Name="txtDisponibilidad"
+                                Text="Seleccione médico, fecha y hora para verificar disponibilidad."
+                                FontSize="11"
+                                Foreground="#64748B"/>
+
+                        </Border>
+
+                    </StackPanel>
+
+                </Border>
+
+
+                <!-- ==========================================
+                      INFORMACIÓN DE LA CONSULTA
+                =========================================== -->
+
+                <Border
+                    Background="White"
+                    BorderBrush="#E2E8F0"
+                    BorderThickness="1"
+                    CornerRadius="10"
+                    Padding="18">
+
+                    <StackPanel>
+
+                        <TextBlock
+                            Text="Información de la consulta"
+                            FontSize="16"
+                            FontWeight="SemiBold"
+                            Foreground="#1E3A5F"
+                            Margin="0,0,0,15"/>
+
+
+                        <TextBlock
+                            Text="Motivo de la cita"
+                            Style="{StaticResource LabelStyle}"/>
+
+                        <TextBox
+                            x:Name="txtMotivo"
+                            Height="80"
+                            Padding="10"
+                            AcceptsReturn="True"
+                            TextWrapping="Wrap"
+                            VerticalScrollBarVisibility="Auto"
+                            MaxLength="500"/>
+
+
+                        <TextBlock
+                            Text="Observaciones"
+                            Style="{StaticResource LabelStyle}"
+                            Margin="0,16,0,6"/>
+
+                        <TextBox
+                            x:Name="txtObservaciones"
+                            Height="80"
+                            Padding="10"
+                            AcceptsReturn="True"
+                            TextWrapping="Wrap"
+                            VerticalScrollBarVisibility="Auto"
+                            MaxLength="1000"/>
+
+                    </StackPanel>
+
+                </Border>
+
+            </StackPanel>
+
+        </ScrollViewer>
+
+
+        <!-- ==============================================
+                          BOTONES
+        =============================================== -->
+
+        <Border
+            Grid.Row="2"
+            Margin="0,14,0,0"
+            Padding="14"
+            Background="White"
+            BorderBrush="#E2E8F0"
+            BorderThickness="1"
+            CornerRadius="10">
+
+            <StackPanel
+                Orientation="Horizontal"
+                HorizontalAlignment="Right">
+
+                <!-- ancho suficiente -->
+
+                <Button
+                    x:Name="btnCancelar"
+                    Width="120"
+                    Content="Cancelar"
+                    Style="{StaticResource SecondaryButtonStyle}"
+                    Click="btnCancelar_Click"/>
+
+
+                <Button
+                    x:Name="btnGuardar"
+                    Width="155"
+                    Margin="10,0,0,0"
+                    Content="Guardar cita"
+                    Style="{StaticResource PrimaryButtonStyle}"
+                    Click="btnGuardar_Click"/>
+
+            </StackPanel>
+
+        </Border>
+
+    </Grid>
+
+</Window>
