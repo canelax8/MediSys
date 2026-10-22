@@ -1310,6 +1310,7 @@
                                             Content="PDF"
                                             ToolTip="Generar expediente en PDF"
                                             Click="btnPDFEmergencia_Click"/>
+                                        
 
 
                                         <!-- ESTADO -->

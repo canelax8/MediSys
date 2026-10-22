@@ -7,6 +7,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
+
 namespace Proyecto_MediSys.Pages.Procesos
 {
     public partial class InternamientosPage : Page
@@ -748,6 +749,80 @@ namespace Proyecto_MediSys.Pages.Procesos
             {
                 MessageBox.Show(
                     $"No fue posible procesar el alta médica.\n\n{ex.Message}",
+                    "MediSys",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+        }
+
+        // ============================================================
+        // CONSUMOS DEL INTERNAMIENTO
+        // ============================================================
+
+        private void btnConsumos_Click(
+            object sender,
+            RoutedEventArgs e)
+        {
+            if (sender is not Button boton)
+                return;
+
+
+            if (boton.DataContext
+                is not Internamiento internamiento)
+            {
+                return;
+            }
+
+
+            // ========================================================
+            // SOLO INTERNAMIENTOS ACTIVOS PUEDEN RECIBIR NUEVOS CARGOS
+            // ========================================================
+
+            if (!string.Equals(
+                    internamiento.Estado,
+                    "Activo",
+                    StringComparison.OrdinalIgnoreCase))
+            {
+                MessageBox.Show(
+                    $"El internamiento {internamiento.CodigoInternamiento} " +
+                    $"se encuentra en estado \"{internamiento.Estado}\".\n\n" +
+                    "No se pueden registrar nuevos consumos.",
+                    "MediSys",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+
+                return;
+            }
+
+
+            try
+            {
+                ConsumosInternamientoDialog dialog =
+                    new ConsumosInternamientoDialog(
+                        internamiento.IdInternamiento,
+                        Convert.ToInt32(
+                            internamiento.IdPaciente),
+                        internamiento.CodigoInternamiento,
+                        internamiento.NombrePaciente);
+
+
+                dialog.Owner =
+                    Window.GetWindow(this);
+
+
+                dialog.ShowDialog();
+
+
+                // ====================================================
+                // RECARGAR INTERNAMIENTOS AL CERRAR
+                // ====================================================
+
+                CargarInternamientos();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"No fue posible abrir los consumos del internamiento.\n\n{ex.Message}",
                     "MediSys",
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);

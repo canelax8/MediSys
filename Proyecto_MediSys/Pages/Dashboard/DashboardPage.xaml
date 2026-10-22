@@ -1,153 +1,1292 @@
 ﻿<Page x:Class="Proyecto_MediSys.Pages.Dashboard.DashboardPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d"
-      Background="#F5F7FA">
+      Background="#F4F6F8">
 
-    <Grid>
+    <!-- ============================================================
+                             RECURSOS
+    ============================================================= -->
 
-        <StackPanel>
+    <Page.Resources>
 
-            <TextBlock Text="Bienvenido a MediSys"
-                       FontSize="30"
-                       FontWeight="Bold"
-                       Foreground="#1E293B"
-                       Margin="0,0,0,5"/>
+        <!-- ========================================================
+                         TARJETA GENERAL
+        ========================================================= -->
 
-            <TextBlock Text="Panel de administración clínica"
-                       FontSize="16"
-                       Foreground="Gray"
-                       Margin="0,0,0,30"/>
+        <Style x:Key="DashboardCardStyle"
+               TargetType="Border">
 
-            <!-- TARJETAS -->
+            <Setter Property="Background"
+                    Value="White"/>
 
-            <WrapPanel>
+            <Setter Property="BorderBrush"
+                    Value="#E2E8F0"/>
 
-                <!-- PACIENTES -->
+            <Setter Property="BorderThickness"
+                    Value="1"/>
 
-                <Border Width="250"
-                        Height="140"
-                        Background="White"
-                        CornerRadius="12"
-                        Margin="10">
+            <Setter Property="CornerRadius"
+                    Value="12"/>
 
-                    <StackPanel VerticalAlignment="Center">
+            <Setter Property="Padding"
+                    Value="18"/>
 
-                        <TextBlock Text=" Pacientes"
-                                   FontSize="20"
-                                   FontWeight="Bold"
-                                   HorizontalAlignment="Center"
-                                   Margin="0,20,0,10"/>
+        </Style>
 
-                        <TextBlock Text=""
-                                   FontSize="40"
-                                   FontWeight="Bold"
-                                   HorizontalAlignment="Center"/>
 
-                    </StackPanel>
+        <!-- ========================================================
+                         TÍTULO DE TARJETA
+        ========================================================= -->
 
-                </Border>
+        <Style x:Key="CardLabelStyle"
+               TargetType="TextBlock">
 
-                <!-- MÉDICOS -->
+            <Setter Property="FontSize"
+                    Value="11"/>
 
-                <Border Width="250"
-                        Height="140"
-                        Background="White"
-                        CornerRadius="12"
-                        Margin="10">
+            <Setter Property="Foreground"
+                    Value="#64748B"/>
 
-                    <StackPanel VerticalAlignment="Center">
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
 
-                        <TextBlock Text=" Médicos"
-                                   FontSize="20"
-                                   FontWeight="Bold"
-                                   HorizontalAlignment="Center"
-                                   Margin="0,20,0,10"/>
+        </Style>
 
-                        <TextBlock Text=""
-                                   FontSize="40"
-                                   FontWeight="Bold"
-                                   HorizontalAlignment="Center"/>
 
-                    </StackPanel>
+        <!-- ========================================================
+                         VALOR DE TARJETA
+        ========================================================= -->
 
-                </Border>
+        <Style x:Key="CardValueStyle"
+               TargetType="TextBlock">
 
-                <!-- CITAS -->
+            <Setter Property="FontSize"
+                    Value="27"/>
 
-                <Border Width="250"
-                        Height="140"
-                        Background="White"
-                        CornerRadius="12"
-                        Margin="10">
+            <Setter Property="FontWeight"
+                    Value="Bold"/>
 
-                    <StackPanel VerticalAlignment="Center">
+            <Setter Property="Foreground"
+                    Value="#172033"/>
 
-                        <TextBlock Text="Citas Hoy"
-                                   FontSize="20"
-                                   FontWeight="Bold"
-                                   HorizontalAlignment="Center"
-                                   Margin="0,20,0,10"/>
+            <Setter Property="Margin"
+                    Value="0,7,0,0"/>
 
-                        <TextBlock Text=""
-                                   FontSize="40"
-                                   FontWeight="Bold"
-                                   HorizontalAlignment="Center"/>
+        </Style>
 
-                    </StackPanel>
 
-                </Border>
+        <!-- ========================================================
+                         BOTÓN ACTUALIZAR
+        ========================================================= -->
 
-                <!-- INGRESOS -->
+        <Style x:Key="RefreshButtonStyle"
+               TargetType="Button">
 
-                <Border Width="250"
-                        Height="140"
-                        Background="White"
-                        CornerRadius="12"
-                        Margin="10">
+            <Setter Property="Height"
+                    Value="38"/>
 
-                    <StackPanel VerticalAlignment="Center">
+            <Setter Property="MinWidth"
+                    Value="120"/>
 
-                        <TextBlock Text="Ingresos"
-                                   FontSize="20"
-                                   FontWeight="Bold"
-                                   HorizontalAlignment="Center"
-                                   Margin="0,20,0,10"/>
+            <Setter Property="Padding"
+                    Value="16,0"/>
 
-                        <TextBlock Text=""
-                                   FontSize="30"
-                                   FontWeight="Bold"
-                                   HorizontalAlignment="Center"/>
+            <Setter Property="Background"
+                    Value="White"/>
 
-                    </StackPanel>
+            <Setter Property="Foreground"
+                    Value="#334155"/>
 
-                </Border>
+            <Setter Property="BorderBrush"
+                    Value="#CBD5E1"/>
 
-            </WrapPanel>
+            <Setter Property="BorderThickness"
+                    Value="1"/>
 
-            <!-- ACTIVIDAD -->
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
 
-            <Border Background="White"
-                    CornerRadius="12"
-                    Margin="10,30,10,0"
-                    Padding="20">
+            <Setter Property="FontSize"
+                    Value="11"/>
+
+            <Setter Property="Cursor"
+                    Value="Hand"/>
+
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="Button">
+
+                        <Border
+                            x:Name="Border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="7"
+                            Padding="{TemplateBinding Padding}">
+
+                            <ContentPresenter
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+
+                        </Border>
+
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger
+                                Property="IsMouseOver"
+                                Value="True">
+
+                                <Setter
+                                    TargetName="Border"
+                                    Property="Background"
+                                    Value="#F8FAFC"/>
+
+                                <Setter
+                                    TargetName="Border"
+                                    Property="BorderBrush"
+                                    Value="#94A3B8"/>
+
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+
+            </Setter>
+
+        </Style>
+
+
+        <!-- ========================================================
+                         DATAGRID
+        ========================================================= -->
+
+        <Style x:Key="DashboardDataGridStyle"
+               TargetType="DataGrid">
+
+            <Setter Property="Background"
+                    Value="White"/>
+
+            <Setter Property="BorderThickness"
+                    Value="0"/>
+
+            <Setter Property="GridLinesVisibility"
+                    Value="Horizontal"/>
+
+            <Setter Property="HorizontalGridLinesBrush"
+                    Value="#E2E8F0"/>
+
+            <Setter Property="VerticalGridLinesBrush"
+                    Value="Transparent"/>
+
+            <Setter Property="AlternatingRowBackground"
+                    Value="#FAFBFC"/>
+
+            <Setter Property="HeadersVisibility"
+                    Value="Column"/>
+
+            <Setter Property="CanUserAddRows"
+                    Value="False"/>
+
+            <Setter Property="IsReadOnly"
+                    Value="True"/>
+
+            <Setter Property="AutoGenerateColumns"
+                    Value="False"/>
+
+            <Setter Property="MinRowHeight"
+                    Value="46"/>
+
+        </Style>
+
+
+        <Style x:Key="DashboardHeaderStyle"
+               TargetType="DataGridColumnHeader">
+
+            <Setter Property="Height"
+                    Value="40"/>
+
+            <Setter Property="Background"
+                    Value="#F8FAFC"/>
+
+            <Setter Property="Foreground"
+                    Value="#64748B"/>
+
+            <Setter Property="FontSize"
+                    Value="11"/>
+
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+
+            <Setter Property="BorderBrush"
+                    Value="#E2E8F0"/>
+
+            <Setter Property="BorderThickness"
+                    Value="0,0,0,1"/>
+
+            <Setter Property="Padding"
+                    Value="10,0"/>
+
+            <Setter Property="HorizontalContentAlignment"
+                    Value="Left"/>
+
+        </Style>
+
+    </Page.Resources>
+
+
+    <!-- ============================================================
+                             CONTENIDO
+    ============================================================= -->
+
+    <ScrollViewer
+        VerticalScrollBarVisibility="Auto"
+        HorizontalScrollBarVisibility="Disabled">
+
+        <Grid Margin="28,24,28,28">
+
+            <Grid.RowDefinitions>
+
+                <!-- ENCABEZADO -->
+                <RowDefinition Height="Auto"/>
+
+                <!-- TARJETAS -->
+                <RowDefinition Height="Auto"/>
+
+                <!-- CONTENIDO INFERIOR -->
+                <RowDefinition Height="*"/>
+
+            </Grid.RowDefinitions>
+
+
+            <!-- =====================================================
+                              ENCABEZADO
+            ====================================================== -->
+
+            <Grid
+                Grid.Row="0"
+                Margin="0,0,0,20">
+
+                <Grid.ColumnDefinitions>
+
+                    <ColumnDefinition/>
+
+                    <ColumnDefinition Width="Auto"/>
+
+                </Grid.ColumnDefinitions>
+
+
+                <!-- TÍTULO -->
 
                 <StackPanel>
 
-                    <TextBlock Text="Actividad Reciente"
-                               FontSize="22"
-                               FontWeight="Bold"
-                               Margin="0,0,0,20"/>
+                    <TextBlock
+                        Text="Panel General"
+                        FontSize="29"
+                        FontWeight="Bold"
+                        Foreground="#172033"/>
 
+                    <TextBlock
+                        Text="Resumen operativo y administrativo del hospital."
+                        FontSize="13"
+                        Foreground="#64748B"
+                        Margin="0,5,0,0"/>
 
                 </StackPanel>
 
-            </Border>
 
-        </StackPanel>
+                <!-- ACTUALIZAR -->
 
-    </Grid>
+                <StackPanel
+                    Grid.Column="1"
+                    Orientation="Horizontal"
+                    VerticalAlignment="Center">
+
+                    <StackPanel
+                        Margin="0,0,15,0"
+                        VerticalAlignment="Center">
+
+                        <TextBlock
+                            Text="Última actualización"
+                            FontSize="9"
+                            Foreground="#94A3B8"
+                            HorizontalAlignment="Right"/>
+
+                        <TextBlock
+                            x:Name="txtUltimaActualizacion"
+                            Text="--"
+                            FontSize="11"
+                            FontWeight="SemiBold"
+                            Foreground="#475569"
+                            Margin="0,3,0,0"
+                            HorizontalAlignment="Right"/>
+
+                    </StackPanel>
+
+
+                    <Button
+                        x:Name="btnActualizarDashboard"
+                        Width="125"
+                        Style="{StaticResource RefreshButtonStyle}"
+                        Content="↻  Actualizar"
+                        Click="btnActualizarDashboard_Click"/> 
+
+                </StackPanel>
+
+            </Grid>
+
+
+            <!-- =====================================================
+                           TARJETAS DE INDICADORES
+            ====================================================== -->
+
+            <Grid
+                Grid.Row="1"
+                Margin="-5,0,-5,20">
+
+                <Grid.RowDefinitions>
+
+                    <RowDefinition Height="105"/>
+
+                    <RowDefinition Height="105"/>
+
+                </Grid.RowDefinitions>
+
+
+                <Grid.ColumnDefinitions>
+
+                    <ColumnDefinition/>
+
+                    <ColumnDefinition/>
+
+                    <ColumnDefinition/>
+
+                </Grid.ColumnDefinitions>
+
+
+                <!-- =================================================
+                                PACIENTES
+                ================================================== -->
+
+                <Border
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Style="{StaticResource DashboardCardStyle}"
+                    Margin="5">
+
+                    <Grid>
+
+                        <Grid.ColumnDefinitions>
+
+                            <ColumnDefinition/>
+
+                            <ColumnDefinition Width="50"/>
+
+                        </Grid.ColumnDefinitions>
+
+
+                        <StackPanel
+                            VerticalAlignment="Center">
+
+                            <TextBlock
+                                Style="{StaticResource CardLabelStyle}"
+                                Text="PACIENTES REGISTRADOS"/>
+
+                            <TextBlock
+                                x:Name="txtTotalPacientes"
+                                Style="{StaticResource CardValueStyle}"
+                                Foreground="#2563EB"
+                                Text="0"/>
+
+                            <TextBlock
+                                Text="Pacientes activos en el sistema"
+                                FontSize="10"
+                                Foreground="#94A3B8"
+                                Margin="0,3,0,0"/>
+
+                        </StackPanel>
+
+
+                        <Border
+                            Grid.Column="1"
+                            Width="44"
+                            Height="44"
+                            CornerRadius="22"
+                            Background="#EFF6FF"
+                            VerticalAlignment="Center">
+
+                            <materialDesign:PackIcon
+                                Kind="AccountGroup"
+                                Width="23"
+                                Height="23"
+                                Foreground="#2563EB"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+
+                        </Border>
+
+                    </Grid>
+
+                </Border>
+
+
+                <!-- =================================================
+                             EMERGENCIAS HOY
+                ================================================== -->
+
+                <Border
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Style="{StaticResource DashboardCardStyle}"
+                    Margin="5">
+
+                    <Grid>
+
+                        <Grid.ColumnDefinitions>
+
+                            <ColumnDefinition/>
+
+                            <ColumnDefinition Width="50"/>
+
+                        </Grid.ColumnDefinitions>
+
+
+                        <StackPanel
+                            VerticalAlignment="Center">
+
+                            <TextBlock
+                                Style="{StaticResource CardLabelStyle}"
+                                Text="EMERGENCIAS HOY"/>
+
+                            <TextBlock
+                                x:Name="txtEmergenciasHoy"
+                                Style="{StaticResource CardValueStyle}"
+                                Foreground="#DC2626"
+                                Text="0"/>
+
+                            <TextBlock
+                                Text="Atenciones registradas hoy"
+                                FontSize="10"
+                                Foreground="#94A3B8"
+                                Margin="0,3,0,0"/>
+
+                        </StackPanel>
+
+
+                        <Border
+                            Grid.Column="1"
+                            Width="44"
+                            Height="44"
+                            CornerRadius="22"
+                            Background="#FEF2F2"
+                            VerticalAlignment="Center">
+
+                            <materialDesign:PackIcon
+                                Kind="Ambulance"
+                                Width="23"
+                                Height="23"
+                                Foreground="#DC2626"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+
+                        </Border>
+
+                    </Grid>
+
+                </Border>
+
+
+                <!-- =================================================
+                                CITAS HOY
+                ================================================== -->
+
+                <Border
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    Style="{StaticResource DashboardCardStyle}"
+                    Margin="5">
+
+                    <Grid>
+
+                        <Grid.ColumnDefinitions>
+
+                            <ColumnDefinition/>
+
+                            <ColumnDefinition Width="50"/>
+
+                        </Grid.ColumnDefinitions>
+
+
+                        <StackPanel
+                            VerticalAlignment="Center">
+
+                            <TextBlock
+                                Style="{StaticResource CardLabelStyle}"
+                                Text="CITAS DE HOY"/>
+
+                            <TextBlock
+                                x:Name="txtCitasHoy"
+                                Style="{StaticResource CardValueStyle}"
+                                Foreground="#7C3AED"
+                                Text="0"/>
+
+                            <TextBlock
+                                Text="Consultas programadas para hoy"
+                                FontSize="10"
+                                Foreground="#94A3B8"
+                                Margin="0,3,0,0"/>
+
+                        </StackPanel>
+
+
+                        <Border
+                            Grid.Column="1"
+                            Width="44"
+                            Height="44"
+                            CornerRadius="22"
+                            Background="#F5F3FF"
+                            VerticalAlignment="Center">
+
+                            <materialDesign:PackIcon
+                                Kind="CalendarClock"
+                                Width="23"
+                                Height="23"
+                                Foreground="#7C3AED"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+
+                        </Border>
+
+                    </Grid>
+
+                </Border>
+
+
+                <!-- =================================================
+                           INTERNADOS ACTIVOS
+                ================================================== -->
+
+                <Border
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Style="{StaticResource DashboardCardStyle}"
+                    Margin="5">
+
+                    <Grid>
+
+                        <Grid.ColumnDefinitions>
+
+                            <ColumnDefinition/>
+
+                            <ColumnDefinition Width="50"/>
+
+                        </Grid.ColumnDefinitions>
+
+
+                        <StackPanel
+                            VerticalAlignment="Center">
+
+                            <TextBlock
+                                Style="{StaticResource CardLabelStyle}"
+                                Text="INTERNADOS ACTIVOS"/>
+
+                            <TextBlock
+                                x:Name="txtInternadosActivos"
+                                Style="{StaticResource CardValueStyle}"
+                                Foreground="#059669"
+                                Text="0"/>
+
+                            <TextBlock
+                                Text="Hospitalización y UCI"
+                                FontSize="10"
+                                Foreground="#94A3B8"
+                                Margin="0,3,0,0"/>
+
+                        </StackPanel>
+
+
+                        <Border
+                            Grid.Column="1"
+                            Width="44"
+                            Height="44"
+                            CornerRadius="22"
+                            Background="#ECFDF5"
+                            VerticalAlignment="Center">
+
+                            <materialDesign:PackIcon
+                                Kind="Bed"
+                                Width="23"
+                                Height="23"
+                                Foreground="#059669"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+
+                        </Border>
+
+                    </Grid>
+
+                </Border>
+
+
+                <!-- =================================================
+                              FACTURAS HOY
+                ================================================== -->
+
+                <Border
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Style="{StaticResource DashboardCardStyle}"
+                    Margin="5">
+
+                    <Grid>
+
+                        <Grid.ColumnDefinitions>
+
+                            <ColumnDefinition/>
+
+                            <ColumnDefinition Width="50"/>
+
+                        </Grid.ColumnDefinitions>
+
+
+                        <StackPanel
+                            VerticalAlignment="Center">
+
+                            <TextBlock
+                                Style="{StaticResource CardLabelStyle}"
+                                Text="FACTURAS HOY"/>
+
+                            <TextBlock
+                                x:Name="txtFacturasHoy"
+                                Style="{StaticResource CardValueStyle}"
+                                Foreground="#2563EB"
+                                Text="0"/>
+
+                            <TextBlock
+                                Text="Facturas generadas durante el día"
+                                FontSize="10"
+                                Foreground="#94A3B8"
+                                Margin="0,3,0,0"/>
+
+                        </StackPanel>
+
+
+                        <Border
+                            Grid.Column="1"
+                            Width="44"
+                            Height="44"
+                            CornerRadius="22"
+                            Background="#EFF6FF"
+                            VerticalAlignment="Center">
+
+                            <materialDesign:PackIcon
+                                Kind="ReceiptText"
+                                Width="23"
+                                Height="23"
+                                Foreground="#2563EB"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+
+                        </Border>
+
+                    </Grid>
+
+                </Border>
+
+
+                <!-- =================================================
+                          CUENTAS PENDIENTES
+                ================================================== -->
+
+                <Border
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Style="{StaticResource DashboardCardStyle}"
+                    Margin="5">
+
+                    <Grid>
+
+                        <Grid.ColumnDefinitions>
+
+                            <ColumnDefinition/>
+
+                            <ColumnDefinition Width="50"/>
+
+                        </Grid.ColumnDefinitions>
+
+
+                        <StackPanel
+                            VerticalAlignment="Center">
+
+                            <TextBlock
+                                Style="{StaticResource CardLabelStyle}"
+                                Text="CUENTAS PENDIENTES"/>
+
+                            <TextBlock
+                                x:Name="txtCuentasPendientes"
+                                Style="{StaticResource CardValueStyle}"
+                                Foreground="#EA580C"
+                                Text="0"/>
+
+                            <TextBlock
+                                Text="Episodios pendientes de facturar"
+                                FontSize="10"
+                                Foreground="#94A3B8"
+                                Margin="0,3,0,0"/>
+
+                        </StackPanel>
+
+
+                        <Border
+                            Grid.Column="1"
+                            Width="44"
+                            Height="44"
+                            CornerRadius="22"
+                            Background="#FFF7ED"
+                            VerticalAlignment="Center">
+
+                            <materialDesign:PackIcon
+                                Kind="ClockAlertOutline"
+                                Width="23"
+                                Height="23"
+                                Foreground="#EA580C"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+
+                        </Border>
+
+                    </Grid>
+
+                </Border>
+
+            </Grid>
+
+
+            <!-- =====================================================
+                        ACTIVIDAD + ESTADO OPERATIVO
+            ====================================================== -->
+
+            <Grid
+                Grid.Row="2">
+
+                <Grid.ColumnDefinitions>
+
+                    <ColumnDefinition Width="2.1*"/>
+
+                    <ColumnDefinition Width="1*"/>
+
+                </Grid.ColumnDefinitions>
+
+
+                <!-- =================================================
+                           ACTIVIDAD RECIENTE
+                ================================================== -->
+
+                <Border
+                    Grid.Column="0"
+                    Style="{StaticResource DashboardCardStyle}"
+                    Margin="0,0,10,0"
+                    Padding="0">
+
+                    <Grid>
+
+                        <Grid.RowDefinitions>
+
+                            <RowDefinition Height="75"/>
+
+                            <RowDefinition Height="*"/>
+
+                        </Grid.RowDefinitions>
+
+
+                        <!-- ENCABEZADO -->
+
+                        <Grid
+                            Grid.Row="0"
+                            Margin="20,0">
+
+                            <Grid.ColumnDefinitions>
+
+                                <ColumnDefinition/>
+
+                                <ColumnDefinition Width="Auto"/>
+
+                            </Grid.ColumnDefinitions>
+
+
+                            <StackPanel
+                                VerticalAlignment="Center">
+
+                                <TextBlock
+                                    Text="Actividad reciente"
+                                    FontSize="17"
+                                    FontWeight="SemiBold"
+                                    Foreground="#172033"/>
+
+                                <TextBlock
+                                    Text="Últimos movimientos registrados en MediSys"
+                                    FontSize="11"
+                                    Foreground="#94A3B8"
+                                    Margin="0,4,0,0"/>
+
+                            </StackPanel>
+
+
+                            <Border
+                                Grid.Column="1"
+                                Background="#F1F5F9"
+                                CornerRadius="15"
+                                Padding="10,4"
+                                VerticalAlignment="Center">
+
+                                <TextBlock
+                                    Text="Últimos movimientos"
+                                    FontSize="9"
+                                    Foreground="#64748B"/>
+
+                            </Border>
+
+                        </Grid>
+
+
+                        <!-- GRID ACTIVIDAD -->
+
+                        <DataGrid
+                            x:Name="dgActividadReciente"
+                            Grid.Row="1"
+                            Style="{StaticResource DashboardDataGridStyle}"
+                            ColumnHeaderStyle="{StaticResource DashboardHeaderStyle}">
+
+                            <DataGrid.Columns>
+
+
+                                <DataGridTextColumn
+                                    Header="Fecha"
+                                    Binding="{Binding FechaTexto}"
+                                    Width="135"/>
+
+
+                                <DataGridTextColumn
+                                    Header="Módulo"
+                                    Binding="{Binding Modulo}"
+                                    Width="120"/>
+
+
+                                <DataGridTextColumn
+                                    Header="Referencia"
+                                    Binding="{Binding Referencia}"
+                                    Width="120"/>
+
+
+                                <DataGridTextColumn
+                                    Header="Descripción"
+                                    Binding="{Binding Descripcion}"
+                                    Width="*"/>
+
+
+                                <DataGridTextColumn
+                                    Header="Estado"
+                                    Binding="{Binding Estado}"
+                                    Width="120"/>
+
+                            </DataGrid.Columns>
+
+                        </DataGrid>
+
+                    </Grid>
+
+                </Border>
+
+
+                <!-- =================================================
+                           ESTADO OPERATIVO
+                ================================================== -->
+
+                <Border
+                    Grid.Column="1"
+                    Style="{StaticResource DashboardCardStyle}"
+                    Margin="10,0,0,0">
+
+                    <StackPanel>
+
+
+                        <!-- TÍTULO -->
+
+                        <StackPanel
+                            Margin="0,0,0,17">
+
+                            <TextBlock
+                                Text="Estado operativo"
+                                FontSize="17"
+                                FontWeight="SemiBold"
+                                Foreground="#172033"/>
+
+                            <TextBlock
+                                Text="Resumen actual del centro"
+                                FontSize="11"
+                                Foreground="#94A3B8"
+                                Margin="0,4,0,0"/>
+
+                        </StackPanel>
+
+
+                        <!-- EMERGENCIAS -->
+
+                        <Border
+                            Background="#FFF7ED"
+                            CornerRadius="8"
+                            Padding="12"
+                            Margin="0,0,0,9">
+
+                            <Grid>
+
+                                <Grid.ColumnDefinitions>
+
+                                    <ColumnDefinition Width="38"/>
+
+                                    <ColumnDefinition/>
+
+                                    <ColumnDefinition Width="Auto"/>
+
+                                </Grid.ColumnDefinitions>
+
+
+                                <Border
+                                    Width="32"
+                                    Height="32"
+                                    CornerRadius="16"
+                                    Background="#FFEDD5">
+
+                                    <materialDesign:PackIcon
+                                        Kind="Ambulance"
+                                        Width="17"
+                                        Height="17"
+                                        Foreground="#EA580C"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"/>
+
+                                </Border>
+
+
+                                <StackPanel
+                                    Grid.Column="1"
+                                    VerticalAlignment="Center">
+
+                                    <TextBlock
+                                        Text="Emergencias"
+                                        FontSize="11"
+                                        FontWeight="SemiBold"
+                                        Foreground="#334155"/>
+
+                                    <TextBlock
+                                        Text="Atenciones de hoy"
+                                        FontSize="9"
+                                        Foreground="#94A3B8"/>
+
+                                </StackPanel>
+
+
+                                <TextBlock
+                                    x:Name="txtResumenEmergencias"
+                                    Grid.Column="2"
+                                    Text="0"
+                                    FontSize="18"
+                                    FontWeight="Bold"
+                                    Foreground="#EA580C"
+                                    VerticalAlignment="Center"/>
+
+                            </Grid>
+
+                        </Border>
+
+
+                        <!-- INTERNAMIENTO -->
+
+                        <Border
+                            Background="#ECFDF5"
+                            CornerRadius="8"
+                            Padding="12"
+                            Margin="0,0,0,9">
+
+                            <Grid>
+
+                                <Grid.ColumnDefinitions>
+
+                                    <ColumnDefinition Width="38"/>
+
+                                    <ColumnDefinition/>
+
+                                    <ColumnDefinition Width="Auto"/>
+
+                                </Grid.ColumnDefinitions>
+
+
+                                <Border
+                                    Width="32"
+                                    Height="32"
+                                    CornerRadius="16"
+                                    Background="#D1FAE5">
+
+                                    <materialDesign:PackIcon
+                                        Kind="Bed"
+                                        Width="17"
+                                        Height="17"
+                                        Foreground="#059669"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"/>
+
+                                </Border>
+
+
+                                <StackPanel
+                                    Grid.Column="1"
+                                    VerticalAlignment="Center">
+
+                                    <TextBlock
+                                        Text="Hospitalización"
+                                        FontSize="11"
+                                        FontWeight="SemiBold"
+                                        Foreground="#334155"/>
+
+                                    <TextBlock
+                                        Text="Pacientes internados"
+                                        FontSize="9"
+                                        Foreground="#94A3B8"/>
+
+                                </StackPanel>
+
+
+                                <TextBlock
+                                    x:Name="txtResumenInternados"
+                                    Grid.Column="2"
+                                    Text="0"
+                                    FontSize="18"
+                                    FontWeight="Bold"
+                                    Foreground="#059669"
+                                    VerticalAlignment="Center"/>
+
+                            </Grid>
+
+                        </Border>
+
+
+                        <!-- CITAS -->
+
+                        <Border
+                            Background="#F5F3FF"
+                            CornerRadius="8"
+                            Padding="12"
+                            Margin="0,0,0,9">
+
+                            <Grid>
+
+                                <Grid.ColumnDefinitions>
+
+                                    <ColumnDefinition Width="38"/>
+
+                                    <ColumnDefinition/>
+
+                                    <ColumnDefinition Width="Auto"/>
+
+                                </Grid.ColumnDefinitions>
+
+
+                                <Border
+                                    Width="32"
+                                    Height="32"
+                                    CornerRadius="16"
+                                    Background="#EDE9FE">
+
+                                    <materialDesign:PackIcon
+                                        Kind="CalendarClock"
+                                        Width="17"
+                                        Height="17"
+                                        Foreground="#7C3AED"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"/>
+
+                                </Border>
+
+
+                                <StackPanel
+                                    Grid.Column="1"
+                                    VerticalAlignment="Center">
+
+                                    <TextBlock
+                                        Text="Agenda"
+                                        FontSize="11"
+                                        FontWeight="SemiBold"
+                                        Foreground="#334155"/>
+
+                                    <TextBlock
+                                        Text="Citas programadas hoy"
+                                        FontSize="9"
+                                        Foreground="#94A3B8"/>
+
+                                </StackPanel>
+
+
+                                <TextBlock
+                                    x:Name="txtResumenCitas"
+                                    Grid.Column="2"
+                                    Text="0"
+                                    FontSize="18"
+                                    FontWeight="Bold"
+                                    Foreground="#7C3AED"
+                                    VerticalAlignment="Center"/>
+
+                            </Grid>
+
+                        </Border>
+
+
+                        <!-- FACTURACIÓN -->
+
+                        <Border
+                            Background="#EFF6FF"
+                            CornerRadius="8"
+                            Padding="12"
+                            Margin="0,0,0,9">
+
+                            <Grid>
+
+                                <Grid.ColumnDefinitions>
+
+                                    <ColumnDefinition Width="38"/>
+
+                                    <ColumnDefinition/>
+
+                                    <ColumnDefinition Width="Auto"/>
+
+                                </Grid.ColumnDefinitions>
+
+
+                                <Border
+                                    Width="32"
+                                    Height="32"
+                                    CornerRadius="16"
+                                    Background="#DBEAFE">
+
+                                    <materialDesign:PackIcon
+                                        Kind="ReceiptText"
+                                        Width="17"
+                                        Height="17"
+                                        Foreground="#2563EB"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"/>
+
+                                </Border>
+
+
+                                <StackPanel
+                                    Grid.Column="1"
+                                    VerticalAlignment="Center">
+
+                                    <TextBlock
+                                        Text="Facturación"
+                                        FontSize="11"
+                                        FontWeight="SemiBold"
+                                        Foreground="#334155"/>
+
+                                    <TextBlock
+                                        Text="Facturas generadas hoy"
+                                        FontSize="9"
+                                        Foreground="#94A3B8"/>
+
+                                </StackPanel>
+
+
+                                <TextBlock
+                                    x:Name="txtResumenFacturas"
+                                    Grid.Column="2"
+                                    Text="0"
+                                    FontSize="18"
+                                    FontWeight="Bold"
+                                    Foreground="#2563EB"
+                                    VerticalAlignment="Center"/>
+
+                            </Grid>
+
+                        </Border>
+
+
+                        <!-- ESTADO SISTEMA -->
+
+                        <Border
+                            Background="#F8FAFC"
+                            BorderBrush="#E2E8F0"
+                            BorderThickness="1"
+                            CornerRadius="8"
+                            Padding="12"
+                            Margin="0,8,0,0">
+
+                            <Grid>
+
+                                <Grid.ColumnDefinitions>
+
+                                    <ColumnDefinition Width="Auto"/>
+
+                                    <ColumnDefinition/>
+
+                                    <ColumnDefinition Width="Auto"/>
+
+                                </Grid.ColumnDefinitions>
+
+
+                                <Ellipse
+                                    Width="9"
+                                    Height="9"
+                                    Fill="#22C55E"
+                                    VerticalAlignment="Center"
+                                    Margin="0,0,10,0"/>
+
+
+                                <StackPanel
+                                    Grid.Column="1">
+
+                                    <TextBlock
+                                        Text="Sistema operativo"
+                                        FontSize="10"
+                                        FontWeight="SemiBold"
+                                        Foreground="#334155"/>
+
+                                    <TextBlock
+                                        Text="MediSys conectado"
+                                        FontSize="9"
+                                        Foreground="#94A3B8"/>
+
+                                </StackPanel>
+
+
+                                <TextBlock
+                                    Grid.Column="2"
+                                    Text="ACTIVO"
+                                    FontSize="9"
+                                    FontWeight="Bold"
+                                    Foreground="#16A34A"
+                                    VerticalAlignment="Center"/>
+
+                            </Grid>
+
+                        </Border>
+
+                    </StackPanel>
+
+                </Border>
+
+            </Grid>
+
+        </Grid>
+
+    </ScrollViewer>
 
 </Page>

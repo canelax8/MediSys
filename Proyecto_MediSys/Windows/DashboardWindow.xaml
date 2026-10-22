@@ -355,7 +355,7 @@
                     x:Name="MainFrame"
                     NavigationUIVisibility="Hidden"
                     Background="#F4F6F8"
-                    BorderThickness="0"/>
+                    BorderThickness="0" Navigated="MainFrame_Navigated"/>
 
             </materialDesign:DialogHost>
 

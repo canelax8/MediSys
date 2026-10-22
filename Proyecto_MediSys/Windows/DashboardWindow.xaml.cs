@@ -149,11 +149,8 @@ namespace Proyecto_MediSys
 
                     case "Medicos":
 
-                        MessageBox.Show(
-                            "Módulo Médicos en construcción.",
-                            "MediSys",
-                            MessageBoxButton.OK,
-                            MessageBoxImage.Information);
+                        MainFrame.Navigate(
+                            new MedicosPage());
 
                         break;
 
@@ -230,14 +227,10 @@ namespace Proyecto_MediSys
 
                     case "Facturacion":
 
-                        MessageBox.Show(
-                            "Módulo Facturación en construcción.",
-                            "MediSys",
-                            MessageBoxButton.OK,
-                            MessageBoxImage.Information);
+                        MainFrame.Navigate(
+                            new FacturacionPage());
 
                         break;
-
 
                     // =================================================
                     // LABORATORIO
@@ -344,6 +337,11 @@ namespace Proyecto_MediSys
             object sender,
             RoutedEventArgs e)
         {
+        }
+
+        private void MainFrame_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
+        {
+
         }
     }
 }

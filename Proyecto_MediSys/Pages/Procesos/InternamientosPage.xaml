@@ -881,168 +881,70 @@
                                           ACCIONES
                         ================================================== -->
 
-                        <DataGridTemplateColumn
-    Header="Acciones"
-    Width="350">
-
+                        <DataGridTemplateColumn Header="Acciones"
+                        Width="470">
                             <DataGridTemplateColumn.CellTemplate>
-
                                 <DataTemplate>
+                                    <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Left">
 
-                                    <StackPanel
-                Orientation="Horizontal"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Center">
+                                        <!-- VER -->
+                                        <Button Content="Ver"
+                        Width="58"
+                        Height="32"
+                        Margin="2"
+                        Click="btnVerInternamiento_Click"
+                        Style="{StaticResource GridActionButtonStyle}"
+                        Background="#EFF6FF"
+                        BorderBrush="#BFDBFE"
+                        Foreground="#2563EB"/>
 
+                                        <!-- EDITAR -->
+                                        <Button Content="Editar"
+                        Width="62"
+                        Height="32"
+                        Margin="2"
+                        Click="btnEditarInternamiento_Click"
+                        Style="{StaticResource GridActionButtonStyle}"
+                        Background="#F8FAFC"
+                        BorderBrush="#CBD5E1"
+                        Foreground="#334155"/>
 
-                                        <!-- =========================================
-                                                     VER
-                                        ========================================== -->
+                                        <!-- CAMBIAR CAMA -->
+                                        <Button Content="Cambiar cama"
+                        Width="108"
+                        Height="32"
+                        Margin="2"
+                        Click="btnCambiarCama_Click"
+                        Style="{StaticResource GridActionButtonStyle}"
+                        Background="#FFF7ED"
+                        BorderBrush="#FED7AA"
+                        Foreground="#C2410C"/>
 
-                                        <Button
-                    Width="55"
-                    Content="Ver"
-                    Background="#EEF4FC"
-                    BorderBrush="#C5D9F3"
-                    Foreground="#2457A6"
-                    Style="{StaticResource GridActionButtonStyle}"
-                    Click="btnVerInternamiento_Click"/>
+                                        <!-- CONSUMOS -->
+                                        <Button Content="Consumos"
+                        Width="84"
+                        Height="32"
+                        Margin="2"
+                        Click="btnConsumos_Click"
+                        Style="{StaticResource GridActionButtonStyle}"
+                        Background="#ECFDF5"
+                        BorderBrush="#A7F3D0"
+                        Foreground="#047857"/>
 
-
-                                        <!-- =========================================
-                                                     EDITAR
-                                        ========================================== -->
-
-                                        <Button
-                    Width="62"
-                    Content="Editar"
-                    Background="#F3F4F6"
-                    BorderBrush="#DDE1E7"
-                    Foreground="#475569"
-                    Click="btnEditarInternamiento_Click">
-
-                                            <Button.Style>
-
-                                                <Style
-                            TargetType="Button"
-                            BasedOn="{StaticResource GridActionButtonStyle}">
-
-                                                    <Setter
-                                Property="IsEnabled"
-                                Value="False"/>
-
-                                                    <Style.Triggers>
-
-                                                        <DataTrigger
-                                    Binding="{Binding Estado}"
-                                    Value="Activo">
-
-                                                            <Setter
-                                        Property="IsEnabled"
-                                        Value="True"/>
-
-                                                        </DataTrigger>
-
-                                                    </Style.Triggers>
-
-                                                </Style>
-
-                                            </Button.Style>
-
-                                        </Button>
-
-
-                                        <!-- =========================================
-                                                 CAMBIAR CAMA
-                                        ========================================== -->
-
-                                        <Button
-                    Width="108"
-                    Content="Cambiar cama"
-                    Background="#FFF6E8"
-                    BorderBrush="#F3DFC0"
-                    Foreground="#A15C00"
-                    Click="btnCambiarCama_Click">
-
-                                            <Button.Style>
-
-                                                <Style
-                            TargetType="Button"
-                            BasedOn="{StaticResource GridActionButtonStyle}">
-
-                                                    <Setter
-                                Property="IsEnabled"
-                                Value="False"/>
-
-                                                    <Style.Triggers>
-
-                                                        <DataTrigger
-                                    Binding="{Binding Estado}"
-                                    Value="Activo">
-
-                                                            <Setter
-                                        Property="IsEnabled"
-                                        Value="True"/>
-
-                                                        </DataTrigger>
-
-                                                    </Style.Triggers>
-
-                                                </Style>
-
-                                            </Button.Style>
-
-                                        </Button>
-
-
-                                        <!-- =========================================
-                            DAR ALTA
-                ========================================== -->
-
-                                        <Button
-                    Width="72"
-                    Content="Dar alta"
-                    Background="#E8F7EF"
-                    BorderBrush="#CDE8D7"
-                    Foreground="#287A4B"
-                    Click="btnDarAlta_Click">
-
-                                            <Button.Style>
-
-                                                <Style
-                            TargetType="Button"
-                            BasedOn="{StaticResource GridActionButtonStyle}">
-
-                                                    <Setter
-                                Property="IsEnabled"
-                                Value="False"/>
-
-                                                    <Style.Triggers>
-
-                                                        <DataTrigger
-                                    Binding="{Binding Estado}"
-                                    Value="Activo">
-
-                                                            <Setter
-                                        Property="IsEnabled"
-                                        Value="True"/>
-
-                                                        </DataTrigger>
-
-                                                    </Style.Triggers>
-
-                                                </Style>
-
-                                            </Button.Style>
-
-                                        </Button>
-
+                                        <!-- DAR ALTA -->
+                                        <Button Content="Dar alta"
+                        Width="76"
+                        Height="32"
+                        Margin="2"
+                        Click="btnDarAlta_Click"
+                        Style="{StaticResource GridActionButtonStyle}"
+                        Background="#F0FDF4"
+                        BorderBrush="#BBF7D0"
+                        Foreground="#15803D"/>
                                     </StackPanel>
-
                                 </DataTemplate>
-
                             </DataGridTemplateColumn.CellTemplate>
-
                         </DataGridTemplateColumn>
 
                     </DataGrid.Columns>
